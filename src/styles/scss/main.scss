@@ -11,3 +11,32 @@ body {
   background-color: $bg-color;
   color:$white;
 }
+
+* {
+  -webkit-tap-highlight-color: transparent; /* Safari and Chrome */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+*::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color:$theme-color;
+    border-radius: 5px;
+  }
+  
+  // *::-webkit-scrollbar-track:hover {
+  //   background-color:$theme-color;
+  // }
