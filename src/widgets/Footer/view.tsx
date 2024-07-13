@@ -77,7 +77,7 @@ export default function FooterView() {
           </div>
         </div>
       </div>
-      <div className="w-full h-[1px] bg-gray-600"></div>
+      <div className="w-full h-[1px] bg-black-300"></div>
       <Credits />
     </div>
   );

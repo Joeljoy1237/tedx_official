@@ -86,3 +86,39 @@ a {
   .sans{
     font-family: Arial, Helvetica, sans-serif;
   }
+
+
+  .box{
+    box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
+  }
+
+  .scroll-text-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+  }
+  
+  .scroll-text {
+    position: absolute;
+    animation: scroll-left 10s linear infinite;
+  }
+  
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+
+  .blank{
+    color:transparent;
+    -webkit-text-stroke: 0.5px $white;
+  }
+
+  .blankRed{
+    color:$theme-color;
+    -webkit-text-stroke: none;
+  }

@@ -14,7 +14,7 @@ export default function HeaderView() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      if (scrollPosition > 100) {
+      if (scrollPosition > 50) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -31,7 +31,7 @@ export default function HeaderView() {
   }, []);
 
   return (
-    <div className={`fixed w-screen items-center justify-center px-[5vw] py-[1.5rem] top-0 z-50 flex ${isScrolled ? 'backdrop-blur-md' : ''}`}>
+    <div className={`fixed w-full items-center justify-center px-[5vw] py-[1.5rem] top-0 z-50 flex ${isScrolled ? 'backdrop-blur-md' : ''}`}>
       <div className="flex-1">
         <Logo />
       </div>
