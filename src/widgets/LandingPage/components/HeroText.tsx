@@ -13,7 +13,7 @@ export default function HeroText() {
           <div className="flex">
             <div className="text-start w-full">
               <span className="text-[90px] inline-block line leading-[1em] font-extrabold">
-                AN <span className="blankRed">INDEPENDENTLY</span>{" "}
+                AN <span className="blankRedScroll">INDEPENDENTLY</span>{" "}
                 <span className="blankWhite"> ORGANIZED</span> <br />
                 <span className="text-primary-700">TEDx</span> EVENT
               </span>

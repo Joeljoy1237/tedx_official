@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Welcome() {
   return (
-    <div className="px-[5vw] py-[6vh] ">
+    <div className="px-[5vw] py-[6vh] pb-[10vh]">
       <div className="flex flex-col items-center justify-center gap-4">
         <span className="text-4xl font-bold">
           HELLO <span className="text-primary-700">EXPLORER !!!</span>

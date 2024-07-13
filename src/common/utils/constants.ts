@@ -14,7 +14,7 @@ export const navLinks = [
     },
     {
         title: "theme",
-        url: "/theme"
+        url: "/our-theme"
     },
     {
         title: "speakers",

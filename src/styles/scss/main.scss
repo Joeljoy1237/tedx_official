@@ -60,7 +60,7 @@ a {
     width: 100%;
   }
 
-  .blankRed{
+  .blankRedScroll{
     color:transparent;
     -webkit-text-stroke: 2px $theme-color;
     background: url('/backR.png');
@@ -120,5 +120,5 @@ a {
 
   .blankRed{
     color:$theme-color;
-    -webkit-text-stroke: none;
+    -webkit-text-stroke: 1px $theme-color;
   }

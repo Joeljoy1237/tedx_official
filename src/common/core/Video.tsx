@@ -1,6 +1,10 @@
+import { url } from "inspector";
 import React from "react";
-
-export default function Video({ className }: { className: string }) {
+interface videoProps {
+  className: string;
+  url: string ;
+}
+export default function Video(props: videoProps) {
   return (
     <video
       width="320"
@@ -11,9 +15,9 @@ export default function Video({ className }: { className: string }) {
       muted
       loop
       playsInline
-      className={className}
+      className={props?.className}
     >
-      <source src="/home.mp4" type="video/mp4" />
+      <source src={props?.url} type="video/mp4" />
       Your browser does not support the video tag.
     </video>
   );
