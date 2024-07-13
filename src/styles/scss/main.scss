@@ -9,7 +9,7 @@ body {
   margin: 0;
   font-family: $font-family;
   background-color: $bg-color;
-  color:$white;
+  color:#dbdbdbf9;
 }
 
 * {
@@ -40,3 +40,49 @@ a {
   // *::-webkit-scrollbar-track:hover {
   //   background-color:$theme-color;
   // }
+
+  /* styles.css or any relevant CSS file */
+  .link-container {
+    position: relative;
+  }
+  
+  .link-container .underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: $theme-color; /* blue-500 */
+    width: 0;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .link-container:hover .underline {
+    width: 100%;
+  }
+
+  .blankRed{
+    color:transparent;
+    -webkit-text-stroke: 2px $theme-color;
+    background: url('/backR.png');
+    background-clip: text;
+    animation: back 20s linear infinite;
+  }
+
+  
+  .blankWhite{
+    color:transparent;
+    -webkit-text-stroke: 1px $white;
+    background: url('/backW.png');
+    background-clip: text;
+    animation: back 20s linear infinite;
+  }
+
+  @keyframes back {
+    100%{
+      background-position: 2000px 0;
+    }
+  }
+
+  .sans{
+    font-family: Arial, Helvetica, sans-serif;
+  }

@@ -7,31 +7,37 @@ import React from "react";
 import Social from "./components/Social";
 import { CiLink } from "react-icons/ci";
 import Credits from "./components/Credits";
-import Image from '@components/Image'
+import Image from "@components/Image";
 
 export default function FooterView() {
   return (
     <div className="bg-black-100 rounded-lg px-[5vw] py-[2rem] flex flex-col gap-10">
       <div className="flex flex-row gap-8">
         <div className="flex flex-col items-start justify-start flex-1">
-          <Image src={'/Logo.svg'} height={200} width={240} alt=""/>
+          <Image src={"/Logo.svg"} height={200} width={240} alt="" />
         </div>
         <div className="flex flex-col items-start justify-start flex-1 gap-4">
           <div className="">
             <h3 className="font-semibold text-gray-600">Usefull links</h3>
           </div>
-          <div className="flex flex-col">
-            {navLinks?.map((link, index) => (
-              <div
-                className="flex items-center justify-start gap-2"
-                key={`${link?.title}_${index}`}
-              >
-                <CiLink />
-                <Link className="capitalize font-medium" href={link?.url}>
-                  {link?.title}
-                </Link>
-              </div>
-            ))}
+          <div className="flex flex-col gap-2">
+          {navLinks?.map((link, index) => (
+        <div
+          className="relative flex items-center justify-start gap-2 group w-auto"
+          key={`${link?.title}_${index}`}
+        >
+          <CiLink />
+          <div className="relative link-container">
+            <Link
+              className="capitalize font-medium group-hover:text-blue-500 transition-all duration-300 inline-block"
+              href={link?.url}
+            >
+              {link?.title}
+            </Link>
+            <span className="underline"></span>
+          </div>
+        </div>
+      ))}
           </div>
         </div>
         <div className="flex flex-1.5 flex-col gap-4 items-start justify-start">
@@ -72,7 +78,7 @@ export default function FooterView() {
         </div>
       </div>
       <div className="w-full h-[1px] bg-gray-600"></div>
-      <Credits/>
+      <Credits />
     </div>
   );
 }

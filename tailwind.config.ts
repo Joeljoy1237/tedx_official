@@ -8,6 +8,19 @@ module.exports = {
     "./src/widgets/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    animation: {
+      typing: 'typing 4s steps(40, end) infinite, blink-caret .75s step-end infinite',
+    },
+    keyframes: {
+      typing: {
+        '0%': { width: '0%' },
+        '100%': { width: '100%' },
+      },
+      'blink-caret': {
+        'from, to': { borderColor: 'transparent' },
+        '50%': { borderColor: 'white' },
+      },
+    },
     colors: {
       primary: {
         50: '#fff0f3',
