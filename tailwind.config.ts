@@ -9,15 +9,18 @@ module.exports = {
   ],
   theme: {
     colors: {
-      slk: {
-        regular: "#133c25",
-        light: "#239254",
-        dark: "#d5e6dc",
-        black: {
-          100: "#161617",
-          200: "#151515",
-          300: "#0B0B0C"
-        },
+      primary: {
+        50: '#fff0f3',
+        100: '#ffdde3',
+        200: '#ffc1cc',
+        300: '#ff95a7',
+        400: '#ff5975',
+        500: '#ff264b',
+        600: '#fc0630',
+        700: '#eb0028',
+        800: '#af0522',
+        900: '#900c22',
+        950: '#50000e',
       },
       white: "#ffffff",
       black: {
