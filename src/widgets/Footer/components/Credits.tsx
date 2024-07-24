@@ -13,7 +13,7 @@ export default function Credits() {
         <span className="">
           © Copyright 2024 | Crafted by{" "}
           <span className="text-primary-700 font-semibold">
-            Ted<sup className="top-[-5px]">x</sup>CCET
+            TED<sup className="top-[-5px]">x</sup>CCET
           </span>
         </span>
       </div>
