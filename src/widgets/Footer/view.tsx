@@ -11,8 +11,8 @@ import Image from "@components/Image";
 
 export default function FooterView() {
   return (
-    <div className="bg-black-100 rounded-lg px-[5vw] py-[2rem] flex flex-col gap-10">
-      <div className="flex flex-row gap-8">
+    <div className="bg-black-100 rounded-lg px-[5vw] py-[2rem] flex flex-col gap-5 md:gap-10 lg:gap-10">
+      <div className="flex flex-col md:flex-row lg:flex-row gap-8">
         <div className="flex flex-col items-start justify-start flex-1">
           <Image src={"/Logo.svg"} height={200} width={240} alt="" />
         </div>
@@ -44,11 +44,11 @@ export default function FooterView() {
           <div className="">
             <h3 className="font-semibold text-gray-600">Contact Info</h3>
           </div>
-          <div className="flex flex-row">
-            <div className="flex flex-col items-start justify-center gap-4">
-              <div className="flex gap-3 flex-row items-center justify-center">
-                <IconPhone className="size-5" />
-                <div className="flex gap-2">
+          <div className="flex flex-row w-full">
+            <div className="flex flex-col items-start justify-center gap-4 w-full">
+              <div className="flex gap-3 flex-row items-start justify-center">
+                <IconPhone className="size-5 mt-[5px] md:mt-0 lg:mt-0" />
+                <div className="flex gap-2 flex-col md:flex-row lg:flex-row">
                   <Link
                     href={"tel:+918075512624"}
                     className="text-lg font-medium"
@@ -56,7 +56,7 @@ export default function FooterView() {
                     +91 80755 12624
                   </Link>
                   <div className="px-2 py-1 rounded-[50px] bg-primary-700 opacity-80">
-                    <h4 className="">Organizer - Justin James</h4>
+                    <h4 className="">Organizer - <span className="font-semibold">Justin James</span></h4>
                   </div>
                 </div>
               </div>
@@ -76,6 +76,11 @@ export default function FooterView() {
             <div className=""></div>
           </div>
         </div>
+      </div>
+      <div className="flex-1 flex-col flex md:hidden lg:hidden items-center justify-start gap-2 text-xs">
+        <Link href="/">Terms and Conditions</Link>
+        <Link href="/">Privacy Policy</Link>
+        <Link href="/">Refund Policy</Link>
       </div>
       <div className="w-full h-[1px] bg-black-300"></div>
       <Credits />

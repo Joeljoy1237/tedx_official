@@ -118,7 +118,21 @@ a {
     -webkit-text-stroke: 0.5px $white;
   }
 
+  @media (max-width: 768px) {
+    .blank{
+      color:transparent;
+      -webkit-text-stroke: 1px $white;
+    }
+  }
+
   .blankRed{
     color:$theme-color;
     -webkit-text-stroke: 1px $theme-color;
+  }
+
+  @media (max-width: 768px) {
+    .blankRed{
+      color:$theme-color;
+      -webkit-text-stroke: 0.6px $theme-color;
+    }
   }

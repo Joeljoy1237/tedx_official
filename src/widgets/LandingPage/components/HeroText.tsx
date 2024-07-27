@@ -20,17 +20,17 @@ export default function HeroText() {
             </div>
           </div>
           <div className="w-full flex-col flex items-start gap-6 justify-center mt-4">
-            <div className="bg-primary-700 px-3 py-2 md:rounded-[50px] lg:rounded-[50px] w-full md:w-auto lg:w-auto rounded-[10px] bg-opacity-15 flex md:flex-row lg:flex-row flex-col gap-4">
+            <div className="bg-primary-700 px-3 py-2 md:rounded-[50px] lg:rounded-[50px] w-full md:w-auto lg:w-auto rounded-[10px] bg-opacity-10 flex md:flex-row lg:flex-row flex-col gap-4">
               <div className="flex gap-2 flex-row items-center justify-start">
                 <IconDate className="size-5" />
-                <span className="">
+                <span className="text-sm  md:text-base lg:text-base">
                   <span className="sans">7</span> September 2024
                 </span>
               </div>
               <div className="hidden md:flex lg:flex">|</div>
               <div className="flex flex-row items-center justify-start gap-2">
                 <IconLocation className="size-6" />
-                <span className="text-sm  md:text-base lg:text-base">
+                <span className="text-sm md:text-base lg:text-base">
                   Carmel College of Engineering & Technology
                 </span>
               </div>

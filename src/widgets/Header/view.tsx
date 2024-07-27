@@ -8,6 +8,7 @@ import Button from "@components/Button";
 import Link from "@components/Link";
 import IconArrow from "@icons/IconArrow";
 import { HiMenuAlt2 } from "react-icons/hi";
+import TLogo from "@components/TLogo";
 
 export default function HeaderView() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,8 +34,11 @@ export default function HeaderView() {
 
   return (
     <div className={`fixed w-full items-center justify-center px-[5vw] md:py-[1.5rem] py-4 lg:py-[1.5rem] top-0 z-50 flex ${isScrolled ? 'backdrop-blur-md' : ''}`}>
-      <div className="flex-1">
+      <div className="flex-1 hidden md:flex lg:flex">
         <Logo />
+      </div>
+      <div className="flex-1 flex md:hidden lg:hidden">
+        <TLogo/>
       </div>
       <div className="flex-2 md:flex lg:flex hidden items-center justify-center gap-[3vw] w-full">
         {navLinks?.map((navLink, index) => (

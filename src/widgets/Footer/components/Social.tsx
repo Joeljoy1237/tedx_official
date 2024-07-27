@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Social() {
   return (
-    <div className="w-auto flex justify-center gap-3">
+    <div className="w-full md:w-auto lg:w-auto flex justify-center md:gap-3 lg:gap-3 gap-5">
       {socials.map((social, index) => {
         const Icon = social.icon; // Dynamically assign the component
         return (
