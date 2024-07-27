@@ -12,7 +12,7 @@ export default function Credits() {
       <div className="flex-1 flex items-center justify-end">
         <span className="">
           © Copyright 2024 | Crafted by{" "}
-          <span className="text-primary-700 font-semibold">
+          <span className="text-primary-700 font-extrabold">
             TED<sup className="top-[-5px]">x</sup>CCET
           </span>
         </span>

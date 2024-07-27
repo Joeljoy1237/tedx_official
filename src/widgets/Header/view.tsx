@@ -7,6 +7,7 @@ import { navLinks } from "@utils/constants";
 import Button from "@components/Button";
 import Link from "@components/Link";
 import IconArrow from "@icons/IconArrow";
+import { HiMenuAlt2 } from "react-icons/hi";
 
 export default function HeaderView() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -31,11 +32,11 @@ export default function HeaderView() {
   }, []);
 
   return (
-    <div className={`fixed w-full items-center justify-center px-[5vw] py-[1.5rem] top-0 z-50 flex ${isScrolled ? 'backdrop-blur-md' : ''}`}>
+    <div className={`fixed w-full items-center justify-center px-[5vw] md:py-[1.5rem] py-4 lg:py-[1.5rem] top-0 z-50 flex ${isScrolled ? 'backdrop-blur-md' : ''}`}>
       <div className="flex-1">
         <Logo />
       </div>
-      <div className="flex-2 flex items-center justify-center gap-[3vw] w-full">
+      <div className="flex-2 md:flex lg:flex hidden items-center justify-center gap-[3vw] w-full">
         {navLinks?.map((navLink, index) => (
           <div className="" key={`${navLink?.title}_${index}`}>
             <Link href={navLink?.url} className="capitalize font-semibold">{navLink?.title}</Link>
@@ -43,7 +44,8 @@ export default function HeaderView() {
         ))}
       </div>
       <div className="flex-1 flex items-center justify-end">
-        <Button className="px-4 py-2 rounded-[10px] flex items-center justify-center font-bold text-primary-700 gap-2" title="Register" icon={<IconArrow className="size-6"/>}/>
+      <HiMenuAlt2 className="flex md:hidden lg:hidden text-3xl cursor-pointer"/>
+        <Button className="px-4 py-2 rounded-[10px] md:flex lg:flex hidden items-center justify-center font-bold text-primary-700 gap-2" title="Register" icon={<IconArrow className="size-6"/>}/>
       </div>
     </div>
   );
