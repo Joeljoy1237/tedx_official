@@ -11,7 +11,7 @@ import Image from "@components/Image";
 
 export default function FooterView() {
   return (
-    <div className="bg-black-100 rounded-lg px-[5vw] py-[2rem] flex flex-col gap-5 md:gap-10 lg:gap-10">
+    <div className="rounded-lg px-[5vw] py-[2rem] flex flex-col gap-5 md:gap-10 lg:gap-10">
       <div className="flex flex-col md:flex-row lg:flex-row gap-8">
         <div className="flex flex-col items-start justify-start flex-1 w-[50vw] md:w-full lg:w-full">
           <Image src={"/Logo.svg"} height={200} width={240} alt="" />

@@ -9,10 +9,12 @@ import Link from "@components/Link";
 import IconArrow from "@icons/IconArrow";
 import { HiMenuAlt2 } from "react-icons/hi";
 import TLogo from "@components/TLogo";
+import { usePathname } from "next/navigation";
 
 export default function HeaderView() {
   const [isScrolled, setIsScrolled] = useState(false);
-
+const location = usePathname();
+console.log(location)
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -43,7 +45,7 @@ export default function HeaderView() {
       <div className="flex-2 md:flex lg:flex hidden items-center justify-center gap-[3vw] w-full">
         {navLinks?.map((navLink, index) => (
           <div className="" key={`${navLink?.title}_${index}`}>
-            <Link href={navLink?.url} className="capitalize font-semibold">{navLink?.title}</Link>
+            <Link href={navLink?.url} className={`capitalize font-semibold ${location === navLink?.url && 'text-primary-700'}`}>{navLink?.title}</Link>
           </div>
         ))}
       </div>
