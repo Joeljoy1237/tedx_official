@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <HeaderView />
-        <div className="pt-[10px] md:pt-[100px]  lg:pt-[100px]">
+        <div className="pt-[10px] md:pt-[50px]  lg:pt-[50px]">
         {children}
         <FooterView />
         </div>

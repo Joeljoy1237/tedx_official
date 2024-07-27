@@ -51,7 +51,7 @@ export default function HeroText() {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-center w-[70vw] md:w-[38vw] lg:w-[38vw] mt-[-60px] md:mt-0 lg:mt-0">
+        <div className="flex items-center justify-center w-[70vw] md:w-[38vw] lg:w-[38vw] mt-[10px] md:mt-0 lg:mt-0">
           <X className="h-full w-full" />
         </div>
       </div>
