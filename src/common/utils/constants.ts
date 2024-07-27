@@ -21,8 +21,8 @@ export const navLinks = [
         url: "/speakers"
     },
     {
-        title: "sponsors",
-        url: "/sponsors"
+        title: "Gallery",
+        url: "/gallery"
     },
     {
         title: "getting there",

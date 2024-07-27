@@ -18,8 +18,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <HeaderView />
+        <div className="pt-[10px] md:pt-[100px]  lg:pt-[100px]">
         {children}
         <FooterView />
+        </div>
       </body>
     </html>
   );

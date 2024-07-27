@@ -3,12 +3,13 @@ import X from "@components/X";
 import IconArrow from "@icons/IconArrow";
 import IconDate from "@icons/IconDate";
 import IconLocation from "@icons/IconLocation";
+import Link from "next/link";
 import React from "react";
 
 export default function HeroText() {
   return (
     <div className="relative isolate min-h-[100vh] px-[5vw] flex items-center justify-center">
-      <div className="flex items-center justify-center md:flex-row lg:flex-row flex-col-reverse md:gap-3 lg:gap-3 gap-1">
+      <div className="flex items-center justify-center md:flex-row lg:flex-row flex-col-reverse md:gap-3 lg:gap-3 gap-3">
         <div className="">
           <div className="flex">
             <div className="text-start w-full">
@@ -40,15 +41,17 @@ export default function HeroText() {
                 className="px-4 py-2 rounded-lg bg-primary-700 font-semibold w-auto md:w-auto lg:w-auto"
                 title="Get Tickets"
               />
+              <Link href={'/about'}>
               <Button
                 className="px-4 py-2 rounded-lg font-semibold flex items-center justify-center gap-2 w-auto md:w-auto lg:w-auto"
                 title="Learn more"
                 icon={<IconArrow className="size-6" />}
               />
+              </Link>
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-center w-[70vw] md:w-[38vw] lg:w-[38vw]">
+        <div className="flex items-center justify-center w-[70vw] md:w-[38vw] lg:w-[38vw] mt-[-60px] md:mt-0 lg:mt-0">
           <X className="h-full w-full" />
         </div>
       </div>
