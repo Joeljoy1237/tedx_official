@@ -1,8 +1,12 @@
 import React from 'react'
 import Image from '@components/Image'
 
-export default function X() {
+interface Xprops{
+  className:string;
+}
+
+export default function X(props:Xprops) {
   return (
-    <Image src={"/xlogo.svg"} height={380} width={380} alt='' className=''/>
+    <Image src={"/xlogo.svg"} height={380} width={380} alt='' className={props?.className}/>
   )
 }
