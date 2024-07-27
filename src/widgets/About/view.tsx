@@ -8,7 +8,7 @@ export default function AboutView() {
     <div className="px-[5vw] py-[1rem] pb-14">
       <div className="w-full flex flex-col items-center justify-center gap-8">
         <TitleBar title="About" />
-        <div className="flex flex-wrap gap-8">
+        <div className="flex flex-col md:flex-row lg:flex-row gap-8">
           {aboutDetails?.map((about, index) => (
             <AboutItemView
               title={about?.title}

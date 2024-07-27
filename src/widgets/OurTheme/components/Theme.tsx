@@ -6,7 +6,7 @@ export default function Theme() {
     <div className="relative isolate min-h-[100vh] px-[5vw] flex items-center justify-center">
       <div className="flex flex-col gap-8">
         <TitleBar titleSecond="Theme" title="OUR" />
-        <div className="flex flex-row">
+        <div className="flex flex-col md:flex-row lg:flex-row">
           <div className="flex-1 flex flex-col items-center justify-center">
             <span className="text-xl">INFIN8</span>
             <span className="">From 8 to Infinity: Embracing Limitless Growth</span>

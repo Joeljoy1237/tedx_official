@@ -48,7 +48,7 @@ export default function HeaderView() {
         ))}
       </div>
       <div className="flex-1 flex items-center justify-end">
-      <HiMenuAlt2 className="flex md:hidden lg:hidden text-3xl cursor-pointer"/>
+      <HiMenuAlt2 className="flex md:hidden lg:hidden text-2xl cursor-pointer"/>
         <Button className="px-4 py-2 rounded-[10px] md:flex lg:flex hidden items-center justify-center font-bold text-primary-700 gap-2" title="Register" icon={<IconArrow className="size-6"/>}/>
       </div>
     </div>

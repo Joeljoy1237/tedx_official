@@ -7,9 +7,9 @@ interface aboutData {
 }
 export default function AboutItemView(props: aboutData) {
   return (
-    <div className="w-full box h-full rounded-[10px] flex flex-col p-8 gap-4">
+    <div className="w-full box h-full rounded-[10px] flex flex-col p-4 md:p-8 lg:p-8 gap-4">
       <div className="w-full flex items-center justify-center">
-        <span className="text-4xl font-bold text-primary-700">
+        <span className="text-2xl md:text-4xl lg:text-4xl font-bold text-primary-700">
           {props?.title}
         </span>
       </div>

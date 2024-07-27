@@ -8,7 +8,7 @@ interface titlebarProps {
 export default function TitleBar(props: titlebarProps) {
   return (
     <div className="w-full flex items-center justify-center">
-      <span className="text-5xl font-bold uppercase">{props?.title}{" "}<span className="text-primary-700">{props?.titleSecond}</span> </span>
+      <span className="text-2xl md:text-5xl lg:text-5xl font-bold uppercase">{props?.title}{" "}<span className="text-primary-700">{props?.titleSecond}</span> </span>
     </div>
   );
 }
