@@ -7,6 +7,6 @@ interface Xprops{
 
 export default function X(props:Xprops) {
   return (
-    <Image src={"/xlogo.svg"} height={380} width={380} alt='' className={props?.className}/>
+    <Image src={"/xlogo.png"} height={380} width={380} alt='' className={props?.className}/>
   )
 }
