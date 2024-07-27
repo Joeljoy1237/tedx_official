@@ -11,7 +11,7 @@ export default function LandingPageView() {
     <>
       <div className="bg-slk-black-200 relative overflow-hidden w-full min-h-screen pt-10">
         <Video url="home.mp4" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-black-100 opacity-30" />
+        <div className="absolute inset-0 bg-black-100 opacity-70" />
         <HeroText />
       </div>
       <ScrollTextView/>
