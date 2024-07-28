@@ -13,14 +13,32 @@ const LandingPageView: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const handleLoad = () => setLoading(false);
+    const minimumLoadTime = 1000; // Minimum load time in milliseconds (1 second)
+    const loadStartTime = Date.now();
+
+    const handleLoad = () => {
+      const loadEndTime = Date.now();
+      const elapsedTime = loadEndTime - loadStartTime;
+      const remainingTime = minimumLoadTime - elapsedTime;
+
+      if (remainingTime > 0) {
+        setTimeout(() => {
+          setLoading(false);
+        }, remainingTime);
+      } else {
+        setLoading(false);
+      }
+    };
 
     const images = Array.from(document.images) as HTMLImageElement[];
-    const videos = Array.from(document.getElementsByTagName("video")) as HTMLVideoElement[];
+    const videos = Array.from(
+      document.getElementsByTagName("video")
+    ) as HTMLVideoElement[];
 
     const checkIfMediaLoaded = () => {
-      const allLoaded = images.every((img) => img.complete) &&
-                        videos.every((video) => video.readyState >= 3);
+      const allLoaded =
+        images.every((img) => img.complete) &&
+        videos.every((video) => video.readyState >= 3);
       if (allLoaded) {
         handleLoad();
       }
@@ -54,7 +72,7 @@ const LandingPageView: React.FC = () => {
     };
   }, []);
 
-  if (loading) {
+  if (!loading) {
     return <PreLoader />;
   }
 
