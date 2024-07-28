@@ -4,6 +4,7 @@ import "@styles/scss/main.scss";
 import HeaderView from "@widgets/Header";
 import FooterView from "@widgets/Footer";
 import PreLoader from "@components/PreLoader";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "TEDˣCCET",
@@ -25,6 +26,7 @@ export default function RootLayout({
             <FooterView />
           </div>
         </Suspense>
+        <Toaster />
       </body>
     </html>
   );
