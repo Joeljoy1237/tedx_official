@@ -72,7 +72,7 @@ const LandingPageView: React.FC = () => {
     };
   }, []);
 
-  if (!loading) {
+  if (loading) {
     return <PreLoader />;
   }
 
