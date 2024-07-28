@@ -21,7 +21,7 @@ export default function LandingPageView() {
   // }, []);
   return (
     <>
-      <div className="bg-slk-black-200 relative overflow-hidden w-full min-h-screen py-14">
+      <div className="bg-slk-black-200 relative overflow-hidden w-full h-[97vh] md:min-h-screen lg:min-h-screen py-14">
         <Video
           url="https://firebasestorage.googleapis.com/v0/b/tedxccet.appspot.com/o/assets%2FWhatsApp%20Video%202024-07-27%20at%2016.09.00.mp4?alt=media&token=b0813adc-5864-4830-9830-454be63a8ec6"
           className="absolute inset-0 w-full h-full object-cover hidden md:flex lg:flex"
