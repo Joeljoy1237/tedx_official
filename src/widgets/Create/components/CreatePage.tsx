@@ -5,6 +5,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { addDoc, collection } from "firebase/firestore";
 import { db, storage } from "../../../Firebase/firebaseConfig";
+import toast from "react-hot-toast";
 
 interface EventData {
   name: string;
@@ -26,14 +27,6 @@ export default function CreatePage() {
     linkedinUrl: "",
     profileImg: ""
   });
-
-  const [toast, setToast] = useState<any>(null);
-
-  useEffect(() => {
-    // Dynamically import react-hot-toast
-    import("react-hot-toast").then((module) => setToast(() => module.toast));
-  }, []);
-
   const eventsCollectionRef = collection(db, "team");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

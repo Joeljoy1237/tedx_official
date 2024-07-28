@@ -1,6 +1,9 @@
+"use client"
 import React from 'react'
-import CreatePage from './components/CreatePage'
-
+import dynamic from 'next/dynamic';
+const CreatePage = dynamic(() => import("./components/CreatePage"), {
+    ssr: false,
+  });
 export default function CreateView() {
   return (
     <CreatePage/>
