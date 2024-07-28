@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Video from "@core/Video";
 import HeroText from "@widgets/LandingPage/components/HeroText";
 import AboutView from "@widgets/About";
@@ -11,9 +11,10 @@ import PreLoader from "@components/PreLoader";
 
 const LandingPageView: React.FC = () => {
   const [loading, setLoading] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const minimumLoadTime = 1000; // Minimum load time in milliseconds (1 second)
+    const minimumLoadTime = 0; // Minimum load time in milliseconds (1 second)
     const loadStartTime = Date.now();
 
     const handleLoad = () => {
@@ -24,9 +25,11 @@ const LandingPageView: React.FC = () => {
       if (remainingTime > 0) {
         setTimeout(() => {
           setLoading(false);
+          videoRef.current?.play();
         }, remainingTime);
       } else {
         setLoading(false);
+        videoRef.current?.play();
       }
     };
 
@@ -80,6 +83,7 @@ const LandingPageView: React.FC = () => {
     <>
       <div className="bg-slk-black-200 relative overflow-hidden w-full h-[97vh] md:min-h-screen lg:min-h-screen py-14">
         <Video
+          ref={videoRef}
           url="https://firebasestorage.googleapis.com/v0/b/tedxccet.appspot.com/o/assets%2FWhatsApp%20Video%202024-07-27%20at%2016.09.00.mp4?alt=media&token=b0813adc-5864-4830-9830-454be63a8ec6"
           className="absolute inset-0 w-full h-full object-cover hidden md:flex lg:flex"
         />

@@ -7,7 +7,7 @@ export default function OurThemeView() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const minimumLoadTime = 1000; // Minimum load time in milliseconds (1 second)
+    const minimumLoadTime = 0; // Minimum load time in milliseconds (1 second)
     const loadStartTime = Date.now();
 
     const handleLoad = () => {
