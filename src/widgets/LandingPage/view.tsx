@@ -25,11 +25,11 @@ const LandingPageView: React.FC = () => {
       if (remainingTime > 0) {
         setTimeout(() => {
           setLoading(false);
-          videoRef.current?.play();
+          // videoRef.current?.play();
         }, remainingTime);
       } else {
         setLoading(false);
-        videoRef.current?.play();
+        // videoRef.current?.play();
       }
     };
 
@@ -84,7 +84,7 @@ const LandingPageView: React.FC = () => {
       <div className="bg-slk-black-200 relative overflow-hidden w-full h-[97vh] md:min-h-screen lg:min-h-screen py-14">
         <Video
           ref={videoRef}
-          url="https://firebasestorage.googleapis.com/v0/b/tedxccet.appspot.com/o/assets%2FWhatsApp%20Video%202024-07-27%20at%2016.09.00.mp4?alt=media&token=b0813adc-5864-4830-9830-454be63a8ec6"
+          url="https://firebasestorage.googleapis.com/v0/b/tedxccet.appspot.com/o/assets%2Flow_bit%20(1).mp4?alt=media&token=517c6e35-d681-4018-ba79-310d29b89c73"
           className="absolute inset-0 w-full h-full object-cover hidden md:flex lg:flex"
         />
         <Image
