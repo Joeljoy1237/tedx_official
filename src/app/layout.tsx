@@ -1,8 +1,9 @@
-import React from "react";
+import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import "@styles/scss/main.scss";
 import HeaderView from "@widgets/Header";
 import FooterView from "@widgets/Footer";
+import PreLoader from "@components/PreLoader";
 
 export const metadata: Metadata = {
   title: "TEDˣCCET",
@@ -15,13 +16,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="lenis lenis-scrolling lenis-smooth">
-      <body>
-        <HeaderView />
-        <div className="">
-        {children}
-        <FooterView />
-        </div>
+    <html lang="en">
+      <body className="">
+        <Suspense fallback={<PreLoader/>}>
+          <div className="relative">
+            <HeaderView />
+            {children}
+            <FooterView />
+          </div>
+        </Suspense>
       </body>
     </html>
   );

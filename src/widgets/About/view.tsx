@@ -3,7 +3,7 @@ import { aboutDetails } from "@utils/constants";
 import React from "react";
 import AboutItemView from "./components/AboutItemView";
 
-export default function AboutView() {
+export default async function AboutView() {
   return (
     <div className="px-[5vw] py-[1rem] pb-14">
       <div className="w-full flex flex-col items-center justify-center gap-8">
