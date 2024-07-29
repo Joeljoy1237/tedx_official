@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Video from "@core/Video";
 import HeroText from "@widgets/LandingPage/components/HeroText";
 import AboutView from "@widgets/About";
@@ -11,7 +11,6 @@ import PreLoader from "@components/PreLoader";
 
 const LandingPageView: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const minimumLoadTime = 0; // Minimum load time in milliseconds (1 second)
@@ -25,11 +24,9 @@ const LandingPageView: React.FC = () => {
       if (remainingTime > 0) {
         setTimeout(() => {
           setLoading(false);
-          // videoRef.current?.play();
         }, remainingTime);
       } else {
         setLoading(false);
-        // videoRef.current?.play();
       }
     };
 
@@ -83,8 +80,8 @@ const LandingPageView: React.FC = () => {
     <>
       <div className="bg-slk-black-200 relative overflow-hidden w-full h-[97vh] md:min-h-screen lg:min-h-screen py-14">
         <Video
-          ref={videoRef}
-          url="https://firebasestorage.googleapis.com/v0/b/tedxccet.appspot.com/o/assets%2Flow_bit%20(1).mp4?alt=media&token=517c6e35-d681-4018-ba79-310d29b89c73"
+          // url="https://firebasestorage.googleapis.com/v0/b/tedxccet.appspot.com/o/assets%2Flow_bit%20(1).mp4?alt=media&token=517c6e35-d681-4018-ba79-310d29b89c73"
+          url="/home.mp4"
           className="absolute inset-0 w-full h-full object-cover hidden md:flex lg:flex"
         />
         <Image
@@ -95,7 +92,7 @@ const LandingPageView: React.FC = () => {
           height={1000}
           className="absolute inset-0 w-full h-full object-cover flex md:hidden lg:hidden"
         />
-        <div className="absolute inset-0 bg-black-100 opacity-80 md:opacity-70 lg:opacity-70" />
+        <div className="absolute inset-0 bg-black-100 opacity-80 md:opacity-80 lg:opacity-80" />
         <HeroText />
       </div>
       <ScrollTextView />
