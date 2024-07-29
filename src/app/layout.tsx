@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="">
         <Suspense fallback={<PreLoader/>}>
-          <div className="relative">
+          <div className="relative pt-[85px] md:pt-[100px] lg:pt-[100px]">
             <HeaderView />
             {children}
             <FooterView />

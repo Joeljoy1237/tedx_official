@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import AboutItemView from "./components/AboutItemView";
 import PreLoader from "@components/PreLoader";
 
-export default async function AboutView() {
+export default function AboutView() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export default async function AboutView() {
     return <PreLoader />;
   }
   return (
-    <div className="px-[5vw] py-[1rem] pb-14">
+    <div className="px-[5vw] pb-14 pt-[1rem]">
       <div className="w-full flex flex-col items-center justify-center gap-8">
         <TitleBar title="About" />
         <div className="flex flex-col md:flex-row lg:flex-row gap-8">

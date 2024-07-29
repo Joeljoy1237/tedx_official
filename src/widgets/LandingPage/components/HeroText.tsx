@@ -8,7 +8,7 @@ import React from "react";
 
 export default function HeroText() {
   return (
-    <div className="relative isolate min-h-[100vh] px-[5vw] flex items-center justify-center">
+    <div className="relative isolate min-h-[90vh] px-[5vw] flex items-center justify-center">
       <div className="flex items-center justify-center md:flex-row lg:flex-row flex-col-reverse md:gap-3 lg:gap-3 gap-3">
         <div className="">
           <div className="flex">

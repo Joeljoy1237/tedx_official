@@ -78,7 +78,7 @@ const LandingPageView: React.FC = () => {
 
   return (
     <>
-      <div className="bg-slk-black-200 relative overflow-hidden w-full h-[97vh] md:min-h-screen lg:min-h-screen py-14">
+      <div className="bg-slk-black-200 flex flex-col relative overflow-hidden w-full h-[89vh] md:min-h-screen lg:min-h-screen">
         <Video
           // url="https://firebasestorage.googleapis.com/v0/b/tedxccet.appspot.com/o/assets%2Flow_bit%20(1).mp4?alt=media&token=517c6e35-d681-4018-ba79-310d29b89c73"
           url="/home.mp4"
@@ -97,8 +97,8 @@ const LandingPageView: React.FC = () => {
       </div>
       <ScrollTextView />
       <Welcome />
-      <AboutView />
       <OurThemeView />
+      <AboutView />
     </>
   );
 };

@@ -8,12 +8,21 @@ export default function Theme() {
       <div className="flex flex-col gap-8 w-full">
         <TitleBar titleSecond="Theme" title="OUR" />
         <div className="w-full flex items-center justify-center flex-col gap-5">
-        <span className="text-5xl font-bold">“Infin8”</span>
-        <span className="text-5xl font-bold">From 8 to Infinity: Embracing Limitless Growth</span>
+          <div className="">
+            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold theme">I</span>
+            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold themew">n</span>
+            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold theme">f</span>
+            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold themew">i</span>
+            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold theme">n</span>
+            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold themew">8</span>
+          </div>
+          <span className="text-2xl text-center md:text-5xl lg:text-5xl font-boldl tagline">
+            From 8 to Infinity: Embracing Limitless Growth
+          </span>
         </div>
         <div className="flex flex-col md:flex-row lg:flex-row">
           <div className="flex-1 flex flex-col items-center justify-center">
-            <Video url="/theme.webm" className="w-full h-full" />
+            <Video url="/theme.mp4" className="w-full h-full themevideo" />
           </div>
           <div className="flex-1 flex text-lg text-justify">
             <p className="">

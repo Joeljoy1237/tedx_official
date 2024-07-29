@@ -71,7 +71,7 @@ export default function OurThemeView() {
   }
   
   return (
-    <div className="relative overflow-hidden w-full min-h-screen pt-10">
+    <div className="relative overflow-hidden w-full min-h-screen py-[1rem]">
       <div className="absolute inset-0" />
       <Theme />
     </div>
