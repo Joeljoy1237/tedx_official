@@ -11,6 +11,7 @@ import PreLoader from "@components/PreLoader";
 
 const LandingPageView: React.FC = () => {
   const [loading, setLoading] = useState(true);
+  const videoUrl = "https://firebasestorage.googleapis.com/v0/b/tedxccet.appspot.com/o/assets%2Flow_bit%20(1).mp4?alt=media&token=517c6e35-d681-4018-ba79-310d29b89c73";
 
   useEffect(() => {
     const minimumLoadTime = 0; // Minimum load time in milliseconds (1 second)
@@ -31,14 +32,12 @@ const LandingPageView: React.FC = () => {
     };
 
     const images = Array.from(document.images) as HTMLImageElement[];
-    const videos = Array.from(
-      document.getElementsByTagName("video")
-    ) as HTMLVideoElement[];
+    const videoElement = document.querySelector(`video[src="${videoUrl}"]`) as HTMLVideoElement | null;
 
     const checkIfMediaLoaded = () => {
       const allLoaded =
         images.every((img) => img.complete) &&
-        videos.every((video) => video.readyState >= 3);
+        videoElement && videoElement?.readyState >= 3;
       if (allLoaded) {
         handleLoad();
       }
@@ -52,13 +51,13 @@ const LandingPageView: React.FC = () => {
       }
     });
 
-    videos.forEach((video) => {
-      if (video.readyState >= 3) {
+    if (videoElement) {
+      if (videoElement.readyState >= 3) {
         handleLoad();
       } else {
-        video.addEventListener("loadeddata", handleLoad);
+        videoElement.addEventListener("loadeddata", handleLoad);
       }
-    });
+    }
 
     checkIfMediaLoaded();
 
@@ -66,9 +65,9 @@ const LandingPageView: React.FC = () => {
       images.forEach((img) => {
         img.removeEventListener("load", handleLoad);
       });
-      videos.forEach((video) => {
-        video.removeEventListener("loadeddata", handleLoad);
-      });
+      if (videoElement) {
+        videoElement.removeEventListener("loadeddata", handleLoad);
+      }
     };
   }, []);
 
@@ -80,8 +79,7 @@ const LandingPageView: React.FC = () => {
     <>
       <div className="bg-slk-black-200 flex flex-col relative overflow-hidden w-full h-[89vh] md:min-h-screen lg:min-h-screen">
         <Video
-          // url="https://firebasestorage.googleapis.com/v0/b/tedxccet.appspot.com/o/assets%2Flow_bit%20(1).mp4?alt=media&token=517c6e35-d681-4018-ba79-310d29b89c73"
-          url="/home.mp4"
+          url={videoUrl}
           className="absolute inset-0 w-full h-full object-cover hidden md:flex lg:flex"
         />
         <Image
