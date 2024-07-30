@@ -31,11 +31,22 @@ export default function CreatePage() {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    let modifiedValue: string = value;
+
+    // Check if the input name is 'role' or 'team'
+    if (name === 'role' || name === 'team') {
+      // Convert to lowercase and replace all spaces in the value with underscores
+      modifiedValue = value.toLowerCase().replace(/\s+/g, '_');
+    }
+
+    // Update the state with the modified value
     setData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: modifiedValue,
     }));
   };
+  console.log(data)
+  
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
