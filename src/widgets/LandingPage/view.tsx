@@ -90,7 +90,7 @@ const LandingPageView: React.FC = () => {
           height={1000}
           className="absolute inset-0 w-full h-full object-cover flex md:hidden lg:hidden"
         />
-        <div className="absolute inset-0 bg-black-100 opacity-80 md:opacity-80 lg:opacity-80" />
+        <div className="absolute inset-0 bg-black-100 opacity-80 md:opacity-60 lg:opacity-60" />
         <HeroText />
       </div>
       <ScrollTextView />
