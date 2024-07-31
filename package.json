@@ -1,11 +1,11 @@
 {
-  "name": "informatyka",
+  "name": "tedxccet",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 2206",
+    "dev": "next dev -p 9000",
     "build": "next build ",
-    "start": "next start -p 2206",
+    "start": "next start -p 9000",
     "lint": "next lint"
   },
   "dependencies": {

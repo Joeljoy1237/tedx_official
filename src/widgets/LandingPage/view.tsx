@@ -1,17 +1,15 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Video from "@core/Video";
 import HeroText from "@widgets/LandingPage/components/HeroText";
 import AboutView from "@widgets/About";
 import Welcome from "@widgets/LandingPage/components/Welcome";
 import ScrollTextView from "@widgets/LandingPage/components/ScrollTextView";
 import OurThemeView from "@widgets/OurTheme";
-import Image from "next/image";
 import PreLoader from "@components/PreLoader";
 
 const LandingPageView: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const videoUrl = "https://firebasestorage.googleapis.com/v0/b/tedxccet.appspot.com/o/assets%2Flow_bit%20(1).mp4?alt=media&token=517c6e35-d681-4018-ba79-310d29b89c73";
 
   useEffect(() => {
     const minimumLoadTime = 0; // Minimum load time in milliseconds (1 second)
@@ -32,12 +30,14 @@ const LandingPageView: React.FC = () => {
     };
 
     const images = Array.from(document.images) as HTMLImageElement[];
-    const videoElement = document.querySelector(`video[src="${videoUrl}"]`) as HTMLVideoElement | null;
+    const videos = Array.from(
+      document.getElementsByTagName("video")
+    ) as HTMLVideoElement[];
 
     const checkIfMediaLoaded = () => {
       const allLoaded =
         images.every((img) => img.complete) &&
-        videoElement && videoElement?.readyState >= 3;
+        videos.every((video) => video.readyState >= 3);
       if (allLoaded) {
         handleLoad();
       }
@@ -51,13 +51,13 @@ const LandingPageView: React.FC = () => {
       }
     });
 
-    if (videoElement) {
-      if (videoElement.readyState >= 3) {
+    videos.forEach((video) => {
+      if (video.readyState >= 3) {
         handleLoad();
       } else {
-        videoElement.addEventListener("loadeddata", handleLoad);
+        video.addEventListener("loadeddata", handleLoad);
       }
-    }
+    });
 
     checkIfMediaLoaded();
 
@@ -65,9 +65,9 @@ const LandingPageView: React.FC = () => {
       images.forEach((img) => {
         img.removeEventListener("load", handleLoad);
       });
-      if (videoElement) {
-        videoElement.removeEventListener("loadeddata", handleLoad);
-      }
+      videos.forEach((video) => {
+        video.removeEventListener("loadeddata", handleLoad);
+      });
     };
   }, []);
 
@@ -79,16 +79,8 @@ const LandingPageView: React.FC = () => {
     <>
       <div className="bg-slk-black-200 flex flex-col relative overflow-hidden w-full h-[89vh] md:min-h-screen lg:min-h-screen">
         <Video
-          url={videoUrl}
-          className="absolute inset-0 w-full h-full object-cover hidden md:flex lg:flex"
-        />
-        <Image
-          loading="lazy"
-          src="https://firebasestorage.googleapis.com/v0/b/tedxccet.appspot.com/o/assets%2FScreenshot%202024-07-28%20120618.png?alt=media&token=cf069e18-85d2-4938-9a5a-b045cec4e028"
-          alt="TEDxCCET Event"
-          width={1000}
-          height={1000}
-          className="absolute inset-0 w-full h-full object-cover flex md:hidden lg:hidden"
+          url={"/home.mp4"}
+          className="absolute inset-0 w-full h-full object-cover flex md:flex lg:flex"
         />
         <div className="absolute inset-0 bg-black-100 opacity-80 md:opacity-60 lg:opacity-60" />
         <HeroText />
