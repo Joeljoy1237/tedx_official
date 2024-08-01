@@ -1,90 +1,30 @@
-"use client"
+"use client";
 import TitleBar from "@components/TitleBar";
 import { aboutDetails } from "@utils/constants";
 import React, { useEffect, useState } from "react";
 import AboutItemView from "./components/AboutItemView";
 import PreLoader from "@components/PreLoader";
+import About from "./components/About";
+import HeaderView from "@widgets/Header";
+import FooterView from "@widgets/Footer";
 
 export default function AboutView() {
-  const [loading, setLoading] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const minimumLoadTime = 0; // Minimum load time in milliseconds (1 second)
-    const loadStartTime = Date.now();
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 2000);
 
-    const handleLoad = () => {
-      const loadEndTime = Date.now();
-      const elapsedTime = loadEndTime - loadStartTime;
-      const remainingTime = minimumLoadTime - elapsedTime;
-
-      if (remainingTime > 0) {
-        setTimeout(() => {
-          setLoading(false);
-        }, remainingTime);
-      } else {
-        setLoading(false);
-      }
-    };
-
-    const images = Array.from(document.images) as HTMLImageElement[];
-    const videos = Array.from(
-      document.getElementsByTagName("video")
-    ) as HTMLVideoElement[];
-
-    const checkIfMediaLoaded = () => {
-      const allLoaded =
-        images.every((img) => img.complete) &&
-        videos.every((video) => video.readyState >= 3);
-      if (allLoaded) {
-        handleLoad();
-      }
-    };
-
-    images.forEach((img) => {
-      if (img.complete) {
-        handleLoad();
-      } else {
-        img.addEventListener("load", handleLoad);
-      }
-    });
-
-    videos.forEach((video) => {
-      if (video.readyState >= 3) {
-        handleLoad();
-      } else {
-        video.addEventListener("loadeddata", handleLoad);
-      }
-    });
-
-    checkIfMediaLoaded();
-
-    return () => {
-      images.forEach((img) => {
-        img.removeEventListener("load", handleLoad);
-      });
-      videos.forEach((video) => {
-        video.removeEventListener("loadeddata", handleLoad);
-      });
-    };
+    return () => clearTimeout(timer);
   }, []);
 
-  if (loading) {
-    return <PreLoader />;
-  }
   return (
-    <div className="px-[5vw] pb-14 pt-[1rem]">
-      <div className="w-full flex flex-col items-center justify-center gap-8">
-        <TitleBar title="About" />
-        <div className="flex flex-col md:flex-row lg:flex-row gap-8">
-          {aboutDetails?.map((about, index) => (
-            <AboutItemView
-              title={about?.title}
-              desc={about?.desc}
-              key={`${about?.title}_${index}`}
-            />
-          ))}
-        </div>
-      </div>
+    <div className="pt-[100px] flex flex-col gap-[10vh]">
+      {!isLoaded && <PreLoader />}
+      <HeaderView/>
+      <About />
+      <FooterView/>
     </div>
   );
 }

@@ -69,6 +69,10 @@ a {
     background: linear-gradient(to bottom,#000,#000,#000,#000);
   }
 
+  .navbar{
+    background: transparent;
+  }
+
   .theme{
     color:transparent;
     -webkit-text-stroke: 2px $theme-color;

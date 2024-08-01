@@ -1,95 +1,45 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import Video from "@core/Video";
-import HeroText from "@widgets/LandingPage/components/HeroText";
+import React, { useState, useEffect } from "react";
 import AboutView from "@widgets/About";
 import Welcome from "@widgets/LandingPage/components/Welcome";
-import ScrollTextView from "@widgets/LandingPage/components/ScrollTextView";
 import OurThemeView from "@widgets/OurTheme";
 import PreLoader from "@components/PreLoader";
+import HeaderView from "@widgets/Header";
+import BannerView from "./components/BannerView";
+import dynamic from "next/dynamic";
+import FooterView from "@widgets/Footer";
+import AboutSection from "./components/AboutSection";
+import ThemeSection from "./components/Theme";
 
 const LandingPageView: React.FC = () => {
-  const [loading, setLoading] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const minimumLoadTime = 0; // Minimum load time in milliseconds (1 second)
-    const loadStartTime = Date.now();
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 2000);
 
-    const handleLoad = () => {
-      const loadEndTime = Date.now();
-      const elapsedTime = loadEndTime - loadStartTime;
-      const remainingTime = minimumLoadTime - elapsedTime;
-
-      if (remainingTime > 0) {
-        setTimeout(() => {
-          setLoading(false);
-        }, remainingTime);
-      } else {
-        setLoading(false);
-      }
-    };
-
-    const images = Array.from(document.images) as HTMLImageElement[];
-    const videos = Array.from(
-      document.getElementsByTagName("video")
-    ) as HTMLVideoElement[];
-
-    const checkIfMediaLoaded = () => {
-      const allLoaded =
-        images.every((img) => img.complete) &&
-        videos.every((video) => video.readyState >= 3);
-      if (allLoaded) {
-        handleLoad();
-      }
-    };
-
-    images.forEach((img) => {
-      if (img.complete) {
-        handleLoad();
-      } else {
-        img.addEventListener("load", handleLoad);
-      }
-    });
-
-    videos.forEach((video) => {
-      if (video.readyState >= 3) {
-        handleLoad();
-      } else {
-        video.addEventListener("loadeddata", handleLoad);
-      }
-    });
-
-    checkIfMediaLoaded();
-
-    return () => {
-      images.forEach((img) => {
-        img.removeEventListener("load", handleLoad);
-      });
-      videos.forEach((video) => {
-        video.removeEventListener("loadeddata", handleLoad);
-      });
-    };
+    return () => clearTimeout(timer);
   }, []);
 
-  if (loading) {
-    return <PreLoader />;
-  }
+  const ScrollTextView = dynamic(
+    () => import("@widgets/LandingPage/components/ScrollTextView"),
+    {
+      ssr: false,
+    }
+  );
 
   return (
-    <>
-      <div className="bg-slk-black-200 flex flex-col relative overflow-hidden w-full h-[89vh] md:min-h-screen lg:min-h-screen">
-        <Video
-          url={"/home.mp4"}
-          className="absolute inset-0 w-full h-full object-cover flex md:flex lg:flex"
-        />
-        <div className="absolute inset-0 bg-black-100 opacity-80 md:opacity-60 lg:opacity-60" />
-        <HeroText />
-      </div>
+    <div className="w-full flex flex-col gap-2">
+      {!isLoaded && <PreLoader />}
+      <HeaderView />
+      <BannerView />
       <ScrollTextView />
       <Welcome />
-      <OurThemeView />
-      <AboutView />
-    </>
+      <ThemeSection />
+      <AboutSection/>
+      <FooterView />
+    </div>
   );
 };
 
