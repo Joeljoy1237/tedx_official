@@ -10,6 +10,7 @@ import dynamic from "next/dynamic";
 import FooterView from "@widgets/Footer";
 import AboutSection from "./components/AboutSection";
 import ThemeSection from "./components/Theme";
+import Lenis from "lenis";
 
 const LandingPageView: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -28,6 +29,12 @@ const LandingPageView: React.FC = () => {
       ssr: false,
     }
   );
+  const SmoothScrollCustom = dynamic(
+    () => import("@components/ScrollSmoother"),
+    {
+      ssr: false,
+    }
+  );
 
   return (
     <div className="w-full flex flex-col gap-2">
@@ -37,8 +44,9 @@ const LandingPageView: React.FC = () => {
       <ScrollTextView />
       <Welcome />
       <ThemeSection />
-      <AboutSection/>
+      <AboutSection />
       <FooterView />
+      <SmoothScrollCustom />
     </div>
   );
 };

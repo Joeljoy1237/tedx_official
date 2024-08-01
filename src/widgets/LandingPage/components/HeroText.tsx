@@ -16,7 +16,7 @@ export default function HeroText() {
               <span className="text-[10vw] md:text-[90px] lg:text-[90px] inline-block line leading-[1em] font-extrabold">
                 AN <span className="blankRedScroll">INDEPENDENTLY</span>{" "}
                 <span className="blankWhite"> ORGANIZED</span> <br />
-                <span className="text-primary-700">TEDx</span> EVENT
+                <span className="text-primary-700">TED</span> EVENT
               </span>
             </div>
           </div>
