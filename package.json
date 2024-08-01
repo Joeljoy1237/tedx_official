@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "deploy":"npm run build && rsync --exclude=.git -azP . ubuntu@65.2.141.21:/home/ubuntu/apps/tedx",
+    "deploy": "npm run build && rsync --exclude=.git -azP . ubuntu@65.2.141.21:/home/ubuntu/apps/tedx",
     "dev": "next dev",
     "build": "next build ",
     "start": "next start -p 3000",
@@ -20,7 +20,8 @@
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.2.1",
-    "sass": "^1.77.8"
+    "sass": "^1.77.8",
+    "sharp": "^0.33.4"
   },
   "devDependencies": {
     "@types/locomotive-scroll": "^4.1.3",
