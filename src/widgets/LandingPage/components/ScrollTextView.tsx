@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ScrollTextView() {
   return (
-    <div className="relative flex overflow-x-hidden">
+    <div className="relative hidden md:flex lg:flex overflow-x-hidden">
       <div className="md:py-[12vh] lg:py-[12vh] py-[5vh] animate-marquee whitespace-nowrap gap-4 md:gap-8 lg:gap-8 flex items-center justify-center">
         <span className="text-3xl md:text-6xl lg:text-6xl font-bold ml-6 text-primary-700">
           {" "}

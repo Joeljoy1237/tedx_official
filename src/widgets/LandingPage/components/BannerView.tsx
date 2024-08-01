@@ -1,6 +1,7 @@
 "use client"
 import React, { Suspense, useEffect, useRef } from "react";
 import HeroText from "./HeroText";
+import Image from "next/image";
 
 type VideoProps = {
   url: string;
@@ -48,8 +49,9 @@ export default function BannerView() {
       <Suspense fallback={<>Loading...</>}>
         <Video
           url="https://firebasestorage.googleapis.com/v0/b/tedxccet.appspot.com/o/assets%2Flow_bit%20(1).mp4?alt=media&token=517c6e35-d681-4018-ba79-310d29b89c73"
-          className="absolute inset-0 w-full h-full object-cover flex md:flex lg:flex"
+          className="absolute inset-0 w-full h-full object-cover hidden md:flex lg:flex"
         />
+        {/* <Image alt="" src={'/bg1.png'} height={1000} width={1000} className="absolute inset-0 w-full h-full object-cover flex md:hidden lg:hidden"/> */}
       </Suspense>
       <div className="absolute inset-0 bg-black-100 opacity-70 md:opacity-70 lg:opacity-70" />
       <HeroText />
