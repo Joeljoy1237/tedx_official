@@ -1,7 +1,6 @@
-"use client"
+"use client";
 import React, { Suspense, useEffect, useRef } from "react";
 import HeroText from "./HeroText";
-import Image from "next/image";
 
 type VideoProps = {
   url: string;
@@ -48,10 +47,9 @@ export default function BannerView() {
     <div className="bg-slk-black-200 flex flex-col relative overflow-hidden w-full h-[100vh] md:min-h-screen lg:min-h-screen">
       <Suspense fallback={<>Loading...</>}>
         <Video
-          url="https://firebasestorage.googleapis.com/v0/b/tedxccet.appspot.com/o/assets%2Flow_bit%20(1).mp4?alt=media&token=517c6e35-d681-4018-ba79-310d29b89c73"
-          className="absolute inset-0 w-full h-full object-cover hidden md:flex lg:flex"
+          url="https://res.cloudinary.com/dk5dtphvj/video/upload/v1722613612/WhatsApp_Video_2024-07-27_at_20_sfgihd.mp4"
+          className="absolute inset-0 w-full h-full object-cover flex md:flex lg:flex"
         />
-        {/* <Image alt="" src={'/bg1.png'} height={1000} width={1000} className="absolute inset-0 w-full h-full object-cover flex md:hidden lg:hidden"/> */}
       </Suspense>
       <div className="absolute inset-0 bg-black-100 opacity-70 md:opacity-70 lg:opacity-70" />
       <HeroText />
