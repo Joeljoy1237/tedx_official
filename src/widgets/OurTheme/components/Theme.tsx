@@ -9,12 +9,24 @@ export default function Theme() {
         <TitleBar titleSecond="Theme" title="OUR" />
         <div className="w-full flex items-center justify-center flex-col gap-5">
           <div className="">
-            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold theme">I</span>
-            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold themew">n</span>
-            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold theme">f</span>
-            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold themew">i</span>
-            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold theme">n</span>
-            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold themew">8</span>
+            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold theme">
+              I
+            </span>
+            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold themew">
+              n
+            </span>
+            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold theme">
+              f
+            </span>
+            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold themew">
+              i
+            </span>
+            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold theme">
+              n
+            </span>
+            <span className="text-7xl md:text-[100px] lg:text-[100px] font-bold themew">
+              8
+            </span>
           </div>
           <span className="text-2xl text-center md:text-5xl lg:text-5xl font-boldl tagline">
             From 8 to Infinity: Embracing Limitless Growth
@@ -22,7 +34,10 @@ export default function Theme() {
         </div>
         <div className="flex flex-col md:flex-row lg:flex-row">
           <div className="flex-1 flex flex-col items-center justify-center">
-            <Video url="/theme.mp4" className="w-full h-full themevideo" />
+            <Video
+              url="https://res.cloudinary.com/dk5dtphvj/video/upload/v1722618041/OOO_mj6zto.mp4"
+              className="w-full h-full themevideo"
+            />
           </div>
           <div className="flex-1 flex text-lg text-justify">
             <p className="">

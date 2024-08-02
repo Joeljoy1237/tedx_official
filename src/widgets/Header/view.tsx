@@ -11,12 +11,13 @@ import { HiMenuAlt2 } from "react-icons/hi";
 import TLogo from "@components/TLogo";
 import { usePathname } from "next/navigation";
 import { MdClose } from "react-icons/md";
-import { IoIosArrowForward } from "react-icons/io";
+import Drawer from "./components/Drawer";
 
 export default function HeaderView() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const location = usePathname();
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -25,6 +26,10 @@ export default function HeaderView() {
       } else {
         setIsScrolled(false);
       }
+    };
+
+    const handleClose = () => {
+      setDrawerOpen(false);
     };
 
     // Add scroll event listener
@@ -36,6 +41,10 @@ export default function HeaderView() {
     };
   }, []);
 
+  const handleClose = () => {
+    setDrawerOpen(false);
+  };
+
   return (
     <div
       className={`${
@@ -45,7 +54,7 @@ export default function HeaderView() {
       }`}
     >
       <div className="flex w-full">
-        <Link href='/'>
+        <Link href="/">
           <div className="flex-1 hidden md:flex lg:flex">
             <Logo />
           </div>
@@ -78,9 +87,7 @@ export default function HeaderView() {
           ) : (
             <MdClose
               className="flex md:hidden lg:hidden text-2xl cursor-pointer"
-              onClick={() => {
-                setDrawerOpen(false);
-              }}
+              onClick={handleClose}
             />
           )}
 
@@ -91,52 +98,7 @@ export default function HeaderView() {
           />
         </div>
       </div>
-      {drawerOpen && (
-        <div className="h-[92vh] items-center justify-start mt-[3vh] bg-black-100 w-[100vw] px-[5vw] flex flex-col pt-[10vh] gap-8 relative">
-          <div className="flex-2 md:hidden lg:hidden flex flex-col items-center justify-center gap-[5vw] w-full">
-            {navLinks?.map((navLink, index) => (
-              <div
-                className="w-full flex items-center justify-between"
-                key={`${navLink?.title}_${index}`}
-                onClick={() => {
-                  setDrawerOpen(false);
-                }}
-              >
-                <Link
-                  href={navLink?.url}
-                  className={`capitalize font-semibold ${
-                    location === navLink?.url && "text-primary-700"
-                  }`}
-                >
-                  {navLink?.title}
-                </Link>
-                <IoIosArrowForward
-                  className={`capitalize font-semibold ${
-                    location === navLink?.url && "text-primary-700"
-                  }`}
-                />
-              </div>
-            ))}
-          </div>
-          <div className="w-full flex">
-            <Button
-              className="px-4 py-2 rounded-[10px] md:flex lg:flex w-full bg-primary-700 flex items-center justify-center font-bold gap-2"
-              title="Register"
-              icon={<IconArrow className="size-6" />}
-            />
-          </div>
-          <div className="flex items-center justify-center w-full absolute bottom-8">
-            <span className="text-xs">
-              © Copyright 2024 | Crafted by{" "}
-              <span className="text-primary-700 font-extrabold">
-                TED
-                <sup className="md:top-[-10px] lg:top-[-3px] top-[-3px]">x</sup>
-                CCET
-              </span>
-            </span>
-          </div>
-        </div>
-      )}
+      {drawerOpen && <Drawer handleClose={handleClose} />}
     </div>
   );
 }
