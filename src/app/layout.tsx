@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import "@styles/scss/main.scss";
 import { Toaster } from "react-hot-toast";
+import Provider from "@components/Provider";
 
 export const metadata: Metadata = {
   title: "TEDˣCCET",
@@ -43,8 +44,10 @@ export default function RootLayout({
         <link rel="canonical" href="https://tedxccet.in" />
       </head>
       <body>
-        {children}
-        <Toaster />
+        <Provider>
+          {children}
+          <Toaster />
+        </Provider>
       </body>
     </html>
   );
