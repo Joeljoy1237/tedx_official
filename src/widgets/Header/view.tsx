@@ -21,7 +21,7 @@ export default function HeaderView() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      if (scrollPosition > 50) {
+      if (scrollPosition > 10) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -50,7 +50,7 @@ export default function HeaderView() {
       className={`${
         drawerOpen && "bg-black-100"
       } fixed w-full flex-col items-center justify-center px-[5vw] md:py-[1.5rem] py-7 lg:py-[1.5rem] top-0 z-50 flex ${
-        isScrolled ? "backdrop-blur-md" : ""
+        isScrolled ? "backdrop-blur-lg" : ""
       }`}
     >
       <div className="flex w-full">

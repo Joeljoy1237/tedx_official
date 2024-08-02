@@ -16,14 +16,14 @@ export const navLinks = [
         title: "theme",
         url: "/our-theme"
     },
-    {
-        title: "speakers",
-        url: "/speakers"
-    },
-    {
-        title: "Gallery",
-        url: "/gallery"
-    },
+    // {
+    //     title: "speakers",
+    //     url: "/speakers"
+    // },
+    // {
+    //     title: "Gallery",
+    //     url: "/gallery"
+    // },
     {
         title: "getting there",
         url: "/getting-there"

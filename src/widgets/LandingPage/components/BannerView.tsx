@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense, useEffect, useRef } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import HeroText from "./HeroText";
 
 type VideoProps = {
@@ -9,7 +9,6 @@ type VideoProps = {
 
 function Video({ url, className }: VideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-
   useEffect(() => {
     const videoElement = videoRef.current;
 
@@ -43,13 +42,38 @@ function Video({ url, className }: VideoProps) {
 }
 
 export default function BannerView() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  // Check if the window object is available and set the isDesktop state
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    // Set initial state
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <div className="bg-slk-black-200 flex flex-col relative overflow-hidden w-full h-[100vh] md:min-h-screen lg:min-h-screen">
       <Suspense fallback={<>Loading...</>}>
-        <Video
-          url="https://res.cloudinary.com/dk5dtphvj/video/upload/v1722613612/WhatsApp_Video_2024-07-27_at_20_sfgihd.mp4"
-          className="absolute inset-0 w-full h-full object-cover flex md:flex lg:flex"
-        />
+        {isDesktop ? (
+          <Video
+            url="https://res.cloudinary.com/dk5dtphvj/video/upload/v1722621762/low_bit_1_vkvyqk.mp4"
+            className="absolute inset-0 w-full h-full object-cover flex md:flex lg:flex"
+          />
+        ) : (
+          <Video
+            url="https://res.cloudinary.com/dk5dtphvj/video/upload/v1722621977/WhatsApp_Video_2024-07-27_at_20.46.45_zf9xdt.webm"
+            className="absolute inset-0 w-full h-full object-cover flex md:flex lg:flex"
+          />
+        )}
       </Suspense>
       <div className="absolute inset-0 bg-black-100 opacity-70 md:opacity-70 lg:opacity-70" />
       <HeroText />

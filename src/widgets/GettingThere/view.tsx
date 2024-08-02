@@ -1,12 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Theme from "./components/Theme";
-import PreLoader from "@components/PreLoader";
-import HeaderView from "@widgets/Header";
-import FooterView from "@widgets/Footer";
-import dynamic from "next/dynamic";
 
-export default function OurThemeView() {
+import FooterView from "@widgets/Footer";
+import HeaderView from "@widgets/Header";
+import dynamic from "next/dynamic";
+import React, { useEffect, useState } from "react";
+import GettingThereSection from "./components/GettingThereSection";
+import PreLoader from "@components/PreLoader";
+
+export default function GettingThereView() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -26,7 +27,7 @@ export default function OurThemeView() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  
+
   const SmoothScrollCustom = dynamic(
     () => import("@components/ScrollSmoother"),
     {
@@ -40,14 +41,11 @@ export default function OurThemeView() {
 
     return () => clearTimeout(timer);
   }, []);
-
   return (
     <main>
       {!isLoaded && <PreLoader />}
       <HeaderView />
-      <div className="pt-[100px] pb-[5vh]">
-        <Theme />
-      </div>
+      <GettingThereSection />
       <FooterView />
       {isDesktop && <SmoothScrollCustom />}
     </main>
