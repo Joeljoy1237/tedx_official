@@ -63,7 +63,7 @@ export default function BannerView() {
   return (
     <div className="bg-slk-black-200 flex flex-col relative overflow-hidden w-full h-[100vh] md:min-h-screen lg:min-h-screen">
       <Suspense fallback={<>Loading...</>}>
-        {isDesktop ? (
+        {!isDesktop ? (
           <Video
             url="https://res.cloudinary.com/dk5dtphvj/video/upload/v1722621762/low_bit_1_vkvyqk.mp4"
             className="absolute inset-0 w-full h-full object-cover flex md:flex lg:flex"
