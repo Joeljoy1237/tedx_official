@@ -91,11 +91,13 @@ export default function HeaderView() {
             />
           )}
 
-          <Button
-            className="px-4 py-2 rounded-[10px] md:flex lg:flex hidden items-center justify-center font-bold text-primary-700 gap-2"
-            title="Register"
-            icon={<IconArrow className="size-6" />}
-          />
+          <Link href={'/register'}>
+            <Button
+              className="px-4 py-2 rounded-[10px] md:flex lg:flex hidden items-center justify-center font-bold text-primary-700 gap-2"
+              title="Register"
+              icon={<IconArrow className="size-6" />}
+            />
+          </Link>
         </div>
       </div>
       {drawerOpen && <Drawer handleClose={handleClose} />}

@@ -15,10 +15,6 @@ export const POST = async (request: any) => {
             await newUser.save();
             return new Response(JSON.stringify(newUser), { status: 201 })
         }
-
-
-
-
     } catch (err) {
         console.error(err);
     }

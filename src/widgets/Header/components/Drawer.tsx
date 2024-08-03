@@ -8,10 +8,10 @@ import { IoIosArrowForward } from "react-icons/io";
 import IconArrow from "@icons/IconArrow";
 
 interface DrawerProps {
-    handleClose: () => void;
-  }
-  
-  const Drawer: React.FC<DrawerProps> = ({ handleClose }) => {
+  handleClose: () => void;
+}
+
+const Drawer: React.FC<DrawerProps> = ({ handleClose }) => {
   const location = usePathname();
   return (
     <div className="h-[92vh] items-center justify-start mt-[3vh] bg-black-100 w-[100vw] px-[5vw] flex flex-col pt-[10vh] gap-8 relative">
@@ -39,11 +39,13 @@ interface DrawerProps {
         ))}
       </div>
       <div className="w-full flex">
-        <Button
-          className="px-4 py-2 rounded-[10px] md:flex lg:flex w-full bg-primary-700 flex items-center justify-center font-bold gap-2"
-          title="Register"
-          icon={<IconArrow className="size-6" />}
-        />
+        <Link href={'/register'}>
+          <Button
+            className="px-4 py-2 rounded-[10px] md:flex lg:flex w-full bg-primary-700 flex items-center justify-center font-bold gap-2"
+            title="Register"
+            icon={<IconArrow className="size-6" />}
+          />
+        </Link>
       </div>
       <div className="flex items-center justify-center w-full absolute bottom-8">
         <span className="text-xs">
@@ -57,7 +59,6 @@ interface DrawerProps {
       </div>
     </div>
   );
-}
+};
 
-
-export default Drawer
+export default Drawer;

@@ -70,6 +70,15 @@ a {
   .link-container {
     position: relative;
   }
+
+  .fontNormal{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+  input::placeholder {
+    font-style: italic;
+    color: rgb(94, 94, 94); /* Adjust the color as needed */
+  }
   
   .link-container .underline {
     position: absolute;

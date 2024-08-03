@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 import Provider from "@components/Provider";
 
 export const metadata: Metadata = {
-  title: "TEDˣCCET",
+  title: "TEDx CCET",
   description:
     "Join us at Carmel College of Engineering & Technology for TEDxCCET, showcasing Kerala's innovators and inspiring speakers.",
 };
