@@ -39,7 +39,7 @@ const Drawer: React.FC<DrawerProps> = ({ handleClose }) => {
         ))}
       </div>
       <div className="w-full flex">
-        <Link href={'/register'}>
+        <Link href={'/register'} className="w-full">
           <Button
             className="px-4 py-2 rounded-[10px] md:flex lg:flex w-full bg-primary-700 flex items-center justify-center font-bold gap-2"
             title="Register"

@@ -6,7 +6,7 @@ import React from "react";
 
 export default function RegisterForm() {
   return (
-    <div className="w-[40vw] flex flex-col items-center justify-center relative h-screen">
+    <div className="md:w-[40vw] lg:w-[40vw] w-[90vw] flex flex-col items-center justify-center relative h-screen">
       <Image
         src={"/bg2.svg"}
         alt=""
@@ -14,7 +14,7 @@ export default function RegisterForm() {
         width={1000}
         height={1000}
       />
-      <div className="w-[70%] flex flex-col gap-8 absolute">
+      <div className="md:w-[70%] lg:w-[70%] w-[100%] flex flex-col gap-8 absolute">
         <div className="w-full flex items-center justify-center">
           <Logo />
         </div>
