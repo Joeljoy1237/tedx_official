@@ -65,7 +65,7 @@ export default function BannerView() {
       <Suspense fallback={<>Loading...</>}>
         {!isDesktop ? (
           <Video
-            url="https://res.cloudinary.com/dk5dtphvj/video/upload/v1722621762/low_bit_1_vkvyqk.mp4"
+            url="/bg.mp4"
             className="absolute inset-0 w-full h-full object-cover flex md:flex lg:flex"
           />
         ) : (

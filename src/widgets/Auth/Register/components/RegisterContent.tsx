@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function RegisterContent() {
   return (
-    <div className='w-[50vw] relative rounded-lg h-screen'>
+    <div className='hidden md:flex lg:flex w-[60vw] relative rounded-lg h-screen'>
       <Image src={'/keralabg.jpg'} height={1000} width={1000} alt='' className='w-full h-full'/>
     </div>
   )

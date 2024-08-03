@@ -4,7 +4,7 @@ import RegisterContent from "./RegisterContent";
 
 export default function Content() {
   return (
-    <div className="w-screen h-screen bg-black-100 flex items-center justify-center overflow-y-hidden">
+    <div className="w-screen h-screen bg-black-100 flex items-center justify-center overflow-x-hidden">
         <RegisterForm />
         <RegisterContent />
     </div>

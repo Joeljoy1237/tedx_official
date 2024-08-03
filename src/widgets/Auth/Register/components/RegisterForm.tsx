@@ -6,7 +6,7 @@ import React from "react";
 
 export default function RegisterForm() {
   return (
-    <div className="w-[50vw] flex flex-col items-center justify-center relative h-screen">
+    <div className="w-[100vw] md:w-[40vw] lg:w-[40vw] flex flex-col items-center lg:justify-center relative min-h-[100vh] pt-96 md:pt-0 lg:pt-0 py-[30vh] md:py-[10vh] lg:py-0  shadow-xl">
       <Image
         src={"/bg2.svg"}
         alt=""
@@ -14,7 +14,7 @@ export default function RegisterForm() {
         width={1000}
         height={1000}
       />
-      <div className="w-[70%] flex flex-col gap-8 absolute">
+      <div className="md:w-[85%] lg:w-[85%] w-[90vw] flex flex-col gap-8 absolute">
         <div className="w-full flex items-center justify-center">
           <Logo />
         </div>
@@ -23,7 +23,7 @@ export default function RegisterForm() {
         </div>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
-            <div className="flex gap-4">
+            <div className="flex gap-4 flex-col md:flex-row lg:flex-row">
               <div className="flex-1">
                 <span className="font-light text-sm italic">First Name </span>
                 <span className="text-primary-700 text-2xl mt-[15px] font-semibold">
@@ -47,7 +47,7 @@ export default function RegisterForm() {
                 />
               </div>
             </div>
-            <div className="flex gap-4">
+            <div className="flex gap-4 flex-col md:flex-row lg:flex-row">
               <div className="flex-1">
                 <span className="font-light text-sm italic">Email</span>
                 <span className="text-primary-700 text-2xl mt-[15px] font-semibold">
@@ -71,7 +71,7 @@ export default function RegisterForm() {
                 />
               </div>
             </div>
-            <div className="flex gap-4 items-end justify-end">
+            <div className="flex gap-4 flex-col md:flex-row lg:flex-row">
               <div className="flex-1">
                 <span className="font-light text-sm italic">
                   Organisation/College
@@ -102,9 +102,9 @@ export default function RegisterForm() {
             title="Signup"
             className="w-full py-3 font-semibold bg-primary-700 rounded-md outline-none border-none "
           ></Button>
-          <div className="flex gap-4 items-end justify-end">
-            <div className="flex-1">
-              <span className="text-sm">
+          <div className="flex gap-4 items-center justify-between">
+            <div className="flex items-center justify-start">
+              <span className="text-xs md:text-sm lg:text-sm">
                 Already have an account?{" "}
                 <Link
                   className="font-semibold text-primary-700"
@@ -114,8 +114,10 @@ export default function RegisterForm() {
                 </Link>
               </span>
             </div>
-            <div className="flex-1 flex items-center justify-end">
-              <span className="text-sm">Forgot password</span>
+            <div className="flex items-center justify-end">
+              <span className="text-xs md:text-sm lg:text-sm">
+                Forgot password
+              </span>
             </div>
           </div>
         </div>
