@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build ",
     "start": "next start -p 3000",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@studio-freight/react-lenis": "^0.0.47",

@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.tedxccet.in
+
+# Sitemaps
+Sitemap: https://www.tedxccet.in/sitemap.xml
