@@ -63,17 +63,17 @@ export default function BannerView() {
   return (
     <div className="bg-slk-black-200 flex flex-col relative overflow-hidden w-full h-[100vh] md:min-h-screen lg:min-h-screen">
       <Suspense fallback={<>Loading...</>}>
-        {/* {!isDesktop ? (
+        {!isDesktop ? (
           <Video
-            url="/bg.mp4"
+            url="https://res.cloudinary.com/dk5dtphvj/video/upload/v1722621762/low_bit_1_vkvyqk.mp4"
             className="absolute inset-0 w-full h-full object-cover flex md:flex lg:flex"
           />
-        ) : ( */}
+        ) : (
           <Video
             url="https://res.cloudinary.com/dk5dtphvj/video/upload/v1722621977/WhatsApp_Video_2024-07-27_at_20.46.45_zf9xdt.webm"
             className="absolute inset-0 w-full h-full object-cover flex md:flex lg:flex"
           />
-        
+        )}
       </Suspense>
       <div className="absolute inset-0 bg-black-100 opacity-70 md:opacity-70 lg:opacity-70" />
       <HeroText />
