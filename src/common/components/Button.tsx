@@ -1,14 +1,22 @@
-import React from 'react';
+import React from "react";
 
 interface ButtonProps {
+  disabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   className?: string;
   title: string;
-  icon?:any
+  icon?: any;
 }
 
-export default function Button({ className, title,icon }: ButtonProps) {
+export default function Button({
+  disabled,
+  className,
+  onClick,
+  title,
+  icon,
+}: ButtonProps) {
   return (
-    <button className={className}>
+    <button disabled={disabled} className={className} onClick={onClick}>
       {title}
       {icon}
     </button>

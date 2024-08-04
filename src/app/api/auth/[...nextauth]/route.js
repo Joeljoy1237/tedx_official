@@ -27,26 +27,24 @@ const handler = NextAuth({
             const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
             const isMatch = decryptedData === credentials?.password;
             if (isMatch) {
-              console.log(userExist);
-
               return userExist;
             } else {
               throw new Error("Email or Password is not correct");
             }
           } else {
-            throw new Error("User not found");
+            throw new Error("User does not exist");
           }
         } catch (error) {
-          console.log(error);
+          throw new Error("Internal server error");
         }
       },
     }),
   ],
   callbacks: {
     async session({ session }) {
-      // store the user id from MongoDB to session
-      const sessionUser = await User.findOne({ email: session?.user?.email });
-      session.user.id = sessionUser._id.toString();
+      // // store the user id from MongoDB to session
+      // const sessionUser = await User.findOne({ email: session?.user?.email });
+      // session.user.id = sessionUser._id.toString();
 
       return session;
     },
