@@ -62,7 +62,7 @@ export default function TicketItem() {
         <div className="border-2 h-[20px] border-white"></div>
       </div>
       <div className="w-[300px] h-[300px] rounded-[30px] bg-primary-700 p-4 items-center flex-col  justify-center gap-[2rem] relative">
-        <div className="flex flex-row w-full items-center justify-center absolute top-5 left-[50%] translate-x-[-50%] translate-y-[-50%]">
+        <div className="flex flex-row w-full items-center justify-center absolute top-[2rem] left-[50%] translate-x-[-50%] translate-y-[-50%]">
           <span className="text-white text-xl font-semibold">
             Grab Your Tickets Now!
           </span>
