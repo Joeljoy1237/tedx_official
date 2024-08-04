@@ -50,7 +50,10 @@ export default function RegisterForm() {
       />
       <div className="md:w-[70%] lg:w-[70%] w-[100%] flex flex-col gap-8 absolute">
         <div className="w-full flex items-center justify-center">
-          <Logo />
+          <Link href={"/"}>
+            {" "}
+            <Logo />
+          </Link>
         </div>
         <div className="w-full flex items-center justify-center">
           <span className="text-xl">LOGIN</span>

@@ -11,6 +11,7 @@ import FooterView from "@widgets/Footer";
 import AboutSection from "./components/AboutSection";
 import ThemeSection from "./components/Theme";
 import Lenis from "lenis";
+import TicketView from "@widgets/Ticket";
 
 // Dynamically import the SmoothScrollCustom component without SSR
 const SmoothScrollCustom = dynamic(
@@ -66,6 +67,7 @@ const LandingPageView: React.FC = () => {
       <ScrollTextView />
       <Welcome />
       <ThemeSection />
+      <TicketView/>
       <AboutSection />
       <FooterView />
       {isDesktop && <SmoothScrollCustom />}

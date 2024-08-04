@@ -4,12 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
-html{
+html {
   scroll-snap-type: mandatory;
   scroll-behavior: smooth;
 }
 
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
@@ -34,7 +35,7 @@ body {
   margin: 0;
   font-family: $font-family;
   background-color: $bg-color;
-  color:#dbdbdbf9;
+  color: #dbdbdbf9;
 }
 
 * {
@@ -42,217 +43,224 @@ body {
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
-
 *::-webkit-scrollbar {
-    width: 5px;
-  }
-  
-  *::-webkit-scrollbar-thumb {
-    background-color:$theme-color;
-    border-radius: 5px;
-  }
-  
-  // *::-webkit-scrollbar-track:hover {
-  //   background-color:$theme-color;
-  // }
+  width: 5px;
+}
 
-  /* styles.css or any relevant CSS file */
-  .link-container {
-    position: relative;
-  }
+*::-webkit-scrollbar-thumb {
+  background-color: $theme-color;
+  border-radius: 5px;
+}
 
-  .fontNormal{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-  }
+// *::-webkit-scrollbar-track:hover {
+//   background-color:$theme-color;
+// }
 
-  input::placeholder {
-    font-style: italic;
-    color: rgb(94, 94, 94); /* Adjust the color as needed */
-  }
-  
-  .link-container .underline {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 2px;
-    background-color: $theme-color; /* blue-500 */
-    width: 0;
-    transition: width 0.3s ease-in-out;
-  }
-  
-  .link-container:hover .underline {
-    width: 100%;
-  }
+/* styles.css or any relevant CSS file */
+.link-container {
+  position: relative;
+}
 
-  .themevideo{
-    background: linear-gradient(to bottom,#000,#000,#000,#000);
-  }
+.fontNormal {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
-  .navbar{
-    background: transparent;
-  }
+input::placeholder {
+  font-style: italic;
+  color: rgb(94, 94, 94); /* Adjust the color as needed */
+}
 
-  .theme{
-    color:transparent;
-    -webkit-text-stroke: 2px $theme-color;
-    text-transform: uppercase;
-    background: url('/bgr.png');
+.link-container .underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background-color: $theme-color; /* blue-500 */
+  width: 0;
+  transition: width 0.3s ease-in-out;
+}
+
+.link-container:hover .underline {
+  width: 100%;
+}
+
+.themevideo {
+  background: linear-gradient(to bottom, #000, #000, #000, #000);
+}
+
+.navbar {
+  background: transparent;
+}
+
+.theme {
+  color: transparent;
+  -webkit-text-stroke: 2px $theme-color;
+  text-transform: uppercase;
+  background: url("/bgr.png");
+  background-clip: text;
+  animation: back 20s linear infinite;
+}
+
+.themew {
+  color: transparent;
+  -webkit-text-stroke: 2px #fff;
+  text-transform: uppercase;
+  background: url("/bg.png");
+  background-clip: text;
+  animation: back 20s linear infinite;
+}
+
+.tagline {
+  background: -webkit-linear-gradient(
+      45deg,
+      #111,
+      $theme-color,
+      $theme-color,
+      #111
+    )
+    text;
+  -webkit-text-fill-color: transparent;
+}
+
+.blankRedScroll {
+  color: transparent;
+  -webkit-text-stroke: 2px $theme-color;
+  background: url("/bgRed.png");
+  background-clip: text;
+  animation: back 20s linear infinite;
+}
+
+@media (max-width: 768px) {
+  .blankRedScroll {
+    color: transparent;
+    -webkit-text-stroke: 1.2px $theme-color;
+    background: url("/bgRed.png");
     background-clip: text;
     animation: back 20s linear infinite;
   }
+}
 
-  .themew{
-    color:transparent;
-    -webkit-text-stroke: 2px #fff;
-    text-transform: uppercase;
-    background: url('/bg.png');
+.blankWhite {
+  color: transparent;
+  -webkit-text-stroke: 2px $white;
+  background: url("/bgWhite.png");
+  background-clip: text;
+  animation: back 20s linear infinite;
+}
+
+@media (max-width: 768px) {
+  .blankWhite {
+    color: transparent;
+    -webkit-text-stroke: 0.4px $white;
+    background: url("/bgWhite.png");
     background-clip: text;
     animation: back 20s linear infinite;
   }
+}
 
-  .tagline{
-    background: -webkit-linear-gradient(45deg, #111, $theme-color, $theme-color, #111) text;
-    -webkit-text-fill-color: transparent;
+@keyframes back {
+  100% {
+    background-position: 2000px 0;
   }
+}
 
-  .blankRedScroll{
-    color:transparent;
-    -webkit-text-stroke: 2px $theme-color;
-    background: url('/bgRed.png');
-    background-clip: text;
-    animation: back 20s linear infinite;
-  }
+.sans {
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-  @media (max-width: 768px) {
-    .blankRedScroll{
-      color:transparent;
-      -webkit-text-stroke: 1.2px $theme-color;
-      background: url('/bgRed.png');
-      background-clip: text;
-      animation: back 20s linear infinite;
-    }
-  }
+.box {
+  box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
+}
 
-  
-  .blankWhite{
-    color:transparent;
-    -webkit-text-stroke: 2px $white;
-    background: url('/bgWhite.png');
-    background-clip: text;
-    animation: back 20s linear infinite;
-  }
+.scroll-text-container {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
 
-  
-  @media (max-width: 768px) {
-    .blankWhite{
-      color:transparent;
-      -webkit-text-stroke: 0.4px $white;
-      background: url('/bgWhite.png');
-      background-clip: text;
-      animation: back 20s linear infinite;
-    }
-  }
+.scroll-text {
+  position: absolute;
+  animation: scroll-left 10s linear infinite;
+}
 
-  @keyframes back {
-    100%{
-      background-position: 2000px 0;
-    }
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
   }
+  100% {
+    transform: translateX(-100%);
+  }
+}
 
-  .sans{
-    font-family: Arial, Helvetica, sans-serif;
-  }
+.blank {
+  color: transparent;
+  -webkit-text-stroke: 0.5px $white;
+}
 
+@media (max-width: 768px) {
+  .blank {
+    color: transparent;
+    -webkit-text-stroke: 0.4px $white;
+  }
+}
 
-  .box{
-    box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
-  }
+.blankRed {
+  color: $theme-color;
+  -webkit-text-stroke: 1px $theme-color;
+}
 
-  .scroll-text-container {
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-  }
-  
-  .scroll-text {
-    position: absolute;
-    animation: scroll-left 10s linear infinite;
-  }
-  
-  @keyframes scroll-left {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-  
-
-  .blank{
-    color:transparent;
-    -webkit-text-stroke: 0.5px $white;
-  }
-
-  @media (max-width: 768px) {
-    .blank{
-      color:transparent;
-      -webkit-text-stroke: 0.4px $white;
-    }
-  }
-
-  .blankRed{
-    color:$theme-color;
-    -webkit-text-stroke: 1px $theme-color;
-  }
-
-  @media (max-width: 768px) {
-    .blankRed{
-      color:$theme-color;
-      -webkit-text-stroke: 0.4px $theme-color;
-    }
-  }
-
-  .loader {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    display: block;
-    margin: 15px auto;
-    position: relative;
+@media (max-width: 768px) {
+  .blankRed {
     color: $theme-color;
-    box-sizing: border-box;
-    animation: animloader 2s linear infinite;
+    -webkit-text-stroke: 0.4px $theme-color;
+  }
+}
+
+.loader {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: block;
+  margin: 15px auto;
+  position: relative;
+  color: $theme-color;
+  box-sizing: border-box;
+  animation: animloader 2s linear infinite;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow: 14px 0 0 -2px, 38px 0 0 -2px, -14px 0 0 -2px, -38px 0 0 -2px;
   }
 
-  @keyframes animloader {
-    0% {
-      box-shadow: 14px 0 0 -2px, 38px 0 0 -2px, -14px 0 0 -2px, -38px 0 0 -2px;
-    }
-
-    25% {
-      box-shadow: 14px 0 0 -2px, 38px 0 0 -2px, -14px 0 0 -2px, -38px 0 0 2px;
-    }
-
-    50% {
-      box-shadow: 14px 0 0 -2px, 38px 0 0 -2px, -14px 0 0 2px, -38px 0 0 -2px;
-    }
-
-    75% {
-      box-shadow: 14px 0 0 2px, 38px 0 0 -2px, -14px 0 0 -2px, -38px 0 0 -2px;
-    }
-
-    100% {
-      box-shadow: 14px 0 0 -2px, 38px 0 0 2px, -14px 0 0 -2px, -38px 0 0 -2px;
-    }
+  25% {
+    box-shadow: 14px 0 0 -2px, 38px 0 0 -2px, -14px 0 0 -2px, -38px 0 0 2px;
   }
+
+  50% {
+    box-shadow: 14px 0 0 -2px, 38px 0 0 -2px, -14px 0 0 2px, -38px 0 0 -2px;
+  }
+
+  75% {
+    box-shadow: 14px 0 0 2px, 38px 0 0 -2px, -14px 0 0 -2px, -38px 0 0 -2px;
+  }
+
+  100% {
+    box-shadow: 14px 0 0 -2px, 38px 0 0 2px, -14px 0 0 -2px, -38px 0 0 -2px;
+  }
+}
+
+.ticketImage{
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
