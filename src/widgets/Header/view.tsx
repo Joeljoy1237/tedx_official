@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import Image from "@components/Image";
 import Logo from "@components/Logo";
 import { navLinks } from "@utils/constants";
@@ -14,6 +15,8 @@ import { MdClose } from "react-icons/md";
 import Drawer from "./components/Drawer";
 
 export default function HeaderView() {
+  const { data: session } = useSession();
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const location = usePathname();
@@ -91,10 +94,10 @@ export default function HeaderView() {
             />
           )}
 
-          <Link href={'/register'}>
+          <Link href={session?.user ? "/profile" : "/register"}>
             <Button
               className="px-4 py-2 rounded-[10px] md:flex lg:flex hidden items-center justify-center font-bold text-primary-700 gap-2"
-              title="Register"
+              title={session?.user ? "Profile" : "Register"}
               icon={<IconArrow className="size-6" />}
             />
           </Link>

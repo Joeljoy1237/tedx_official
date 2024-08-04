@@ -1,10 +1,44 @@
+"use client";
 import Button from "@components/Button";
 import Logo from "@components/Logo";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSignIn = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    setIsSubmitting(true);
+    try {
+      const response = await signIn("credentials", {
+        email: email,
+        password: password,
+        redirect: false,
+      });
+      console.log(response);
+
+      if (response?.ok) {
+        router.push("/");
+      } else {
+        throw new Error("User Not found");
+      }
+    } catch (err) {
+      alert(err);
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="md:w-[40vw] lg:w-[40vw] w-[90vw] flex flex-col items-center justify-center relative h-screen">
       <Image
@@ -28,19 +62,6 @@ export default function RegisterForm() {
           <div className="flex flex-col gap-2">
             <div className="flex gap-4">
               <div className="flex-1">
-                <span className="font-light text-sm italic">First Name </span>
-                <span className="text-primary-700 text-2xl mt-[15px] font-semibold">
-                  *
-                </span>
-                <input
-                  type="text"
-                  className=" w-full p-3 rounded-md bg-black-300 outline-none border-none"
-                  placeholder="John"
-                />
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="flex-1">
                 <span className="font-light text-sm italic">Email</span>
                 <span className="text-primary-700 text-2xl mt-[15px] font-semibold">
                   *
@@ -49,12 +70,35 @@ export default function RegisterForm() {
                   type="text"
                   className=" w-full p-3 rounded-md bg-black-300 outline-none border-none"
                   placeholder="johndoe@gmail.com"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <div className="flex-1">
+                <span className="font-light text-sm italic">Password</span>
+                <span className="text-primary-700 text-2xl mt-[15px] font-semibold">
+                  *
+                </span>
+                <input
+                  type="password"
+                  className=" w-full p-3 rounded-md bg-black-300 outline-none border-none"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                 />
               </div>
             </div>
           </div>
           <Button
-            title="Login"
+            title={isSubmitting ? "Please wait ..." : "Login"}
+            disabled={isSubmitting}
+            onClick={handleSignIn}
             className="w-full py-3 font-semibold bg-primary-700 rounded-md outline-none border-none "
           ></Button>
           <div className="flex gap-4 items-end justify-end">
