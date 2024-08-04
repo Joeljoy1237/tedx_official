@@ -41,6 +41,7 @@ export default function RootLayout({
           content="Join us at Carmel College of Engineering & Technology for TEDxCCET, showcasing Kerala's innovators and inspiring speakers."
         />
         <meta name="twitter:image" content="/favicon.png" />
+        <link rel="icon" type="image/png" href="favicon.ico" />
         <link rel="canonical" href="https://tedxccet.in" />
       </head>
       <body>

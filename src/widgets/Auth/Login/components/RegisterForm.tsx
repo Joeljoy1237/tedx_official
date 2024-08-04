@@ -16,7 +16,10 @@ export default function RegisterForm() {
       />
       <div className="md:w-[70%] lg:w-[70%] w-[100%] flex flex-col gap-8 absolute">
         <div className="w-full flex items-center justify-center">
-          <Logo />
+          <Link href={"/"}>
+            {" "}
+            <Logo />
+          </Link>
         </div>
         <div className="w-full flex items-center justify-center">
           <span className="text-xl">LOGIN</span>
@@ -57,7 +60,7 @@ export default function RegisterForm() {
           <div className="flex gap-4 items-end justify-end">
             <div className="flex-1">
               <span className="text-sm">
-               New to TEDx CCET?{" "}
+                New to TEDx CCET?{" "}
                 <Link
                   className="font-semibold text-primary-700"
                   href={"/register"}
