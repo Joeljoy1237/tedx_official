@@ -5,7 +5,7 @@ let isConnected = false;
 export const connectToDB = async () => {
   mongoose.set("strictQuery", true);
   if (isConnected) {
-    console.log("Already connected");
+    console.log("==> Mongo Already connected");
     return;
   }
 
@@ -14,7 +14,7 @@ export const connectToDB = async () => {
       dbName: "tedxccet",
     });
     isConnected = true;
-    console.log("Sucessfully connected");
+    console.log("==> Mongo Sucessfully connected");
   } catch (error) {
     console.log(error);
   }
