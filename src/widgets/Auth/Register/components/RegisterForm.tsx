@@ -1,10 +1,58 @@
+"use client";
 import Button from "@components/Button";
 import Logo from "@components/Logo";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function RegisterForm() {
+  const router = useRouter();
+
+  const [firstName, setFirstname] = useState("");
+  const [lastName, setLastname] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("");
+  const [organisation, setOrganisation] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSignUp = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          mobile: mobile,
+          organisation: organisation,
+          password: password,
+        }),
+      });
+      console.log(response);
+
+      if (response.ok) {
+        await signIn("credentials", {
+          email: email,
+          password: password,
+          redirect: false,
+        });
+        router.push("/");
+      } else {
+        throw new Error("User exist please login");
+      }
+    } catch (error) {
+      alert(error);
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="w-[100vw] md:w-[40vw] lg:w-[40vw] flex flex-col items-center lg:justify-center relative min-h-[100vh] pt-96 md:pt-0 lg:pt-0 py-[30vh] md:py-[10vh] lg:py-0  shadow-xl">
       <Image
@@ -33,6 +81,10 @@ export default function RegisterForm() {
                   type="text"
                   className=" w-full p-3 rounded-md bg-black-300 outline-none border-none"
                   placeholder="John"
+                  value={firstName}
+                  onChange={(e) => {
+                    setFirstname(e.target.value);
+                  }}
                 />
               </div>
               <div className="flex-1">
@@ -44,6 +96,10 @@ export default function RegisterForm() {
                   type="text"
                   className=" w-full p-3 rounded-md bg-black-300 outline-none border-none"
                   placeholder="Doe"
+                  value={lastName}
+                  onChange={(e) => {
+                    setLastname(e.target.value);
+                  }}
                 />
               </div>
             </div>
@@ -57,6 +113,10 @@ export default function RegisterForm() {
                   type="text"
                   className=" w-full p-3 rounded-md bg-black-300 outline-none border-none"
                   placeholder="johndoe@gmail.com"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                 />
               </div>
               <div className="flex-1">
@@ -68,6 +128,10 @@ export default function RegisterForm() {
                   type="text"
                   className=" w-full p-3 rounded-md bg-black-300 outline-none border-none fontNormal"
                   placeholder="9876543210"
+                  value={mobile}
+                  onChange={(e) => {
+                    setMobile(e.target.value);
+                  }}
                 />
               </div>
             </div>
@@ -83,6 +147,10 @@ export default function RegisterForm() {
                   type="text"
                   className=" w-full p-3 rounded-md bg-black-300 outline-none border-none"
                   placeholder="Google LLC"
+                  value={organisation}
+                  onChange={(e) => {
+                    setOrganisation(e.target.value);
+                  }}
                 />
               </div>
               <div className="flex-1">
@@ -91,15 +159,21 @@ export default function RegisterForm() {
                   *
                 </span>
                 <input
-                  type="text"
+                  type="password"
                   className=" w-full p-3 rounded-md bg-black-300 outline-none border-none"
                   placeholder="!password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                 />
               </div>
             </div>
           </div>
           <Button
-            title="Signup"
+            disabled={isSubmitting}
+            onClick={handleSignUp}
+            title={isSubmitting ? "Please wait ..." : "SignUp"}
             className="w-full py-3 font-semibold bg-primary-700 rounded-md outline-none border-none "
           ></Button>
           <div className="flex gap-4 items-center justify-between">
