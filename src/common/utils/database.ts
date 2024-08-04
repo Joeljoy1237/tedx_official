@@ -12,10 +12,11 @@ export const connectToDB = async () => {
   try {
     await mongoose.connect(process.env.MANGODB_URL!, {
       dbName: "tedxccet",
+      writeConcern: { w: 'majority' },
     });
     isConnected = true;
-    console.log("==> Mongo Sucessfully connected");
+    console.log("==> Mongo Successfully connected");
   } catch (error) {
-    console.log(error);
+    console.log('Connection error:', error);
   }
 };

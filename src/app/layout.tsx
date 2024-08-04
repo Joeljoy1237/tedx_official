@@ -47,7 +47,13 @@ export default function RootLayout({
       <body>
         <Provider>
           {children}
-          <Toaster />
+          <Toaster
+            position="bottom-center"
+            reverseOrder={false}
+            toastOptions={{
+              duration: 3000,
+            }}
+          />
         </Provider>
       </body>
     </html>

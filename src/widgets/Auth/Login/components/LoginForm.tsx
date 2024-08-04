@@ -1,43 +1,94 @@
 "use client";
 import Button from "@components/Button";
 import Logo from "@components/Logo";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import showTedxToast from "@components/showTedxToast";
 
 export default function RegisterForm() {
   const router = useRouter();
+  const { data: session, status } = useSession();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      // Redirect to home page
+      router.push("/");
+    }
+  }, [status, session, router]);
 
   const handleSignIn = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
+    event.preventDefault(); // Prevent default form submission behavior
     setIsSubmitting(true);
+  
     try {
+      // Validate input fields
+      if (!email && !password) {
+        throw new Error(JSON.stringify({
+          message: "Please fill the required fields",
+          desc: "Email and password are required"
+        }));
+      }
+  
+      if (!email) {
+        throw new Error(JSON.stringify({
+          message: "Email is required"
+        }));
+      } else if (!password) {
+        throw new Error(JSON.stringify({
+          message: "Password is required"
+        }));
+      }
+  
+      // Perform sign-in
       const response = await signIn("credentials", {
         email: email,
         password: password,
         redirect: false,
       });
-      console.log(response);
-
+  
+      // Check response and handle success
       if (response?.ok) {
-        router.push("/");
+        const data = response?.error ? JSON.parse(response.error) : { message: "Login Successfully", desc: "Redirecting to home page" };
+        
+        showTedxToast({
+          type: "success",
+          message: data.message, // Show the success message from the response
+          desc: data.desc, // Optionally, show the description from the response
+        });
+  
+        setTimeout(() => {
+          router.push("/");
+        }, 1000);
       } else {
-        throw new Error("User Not found");
+        throw new Error(JSON.stringify({
+          message: "User not found",
+          desc: "Please check your email and password"
+        }));
       }
-    } catch (err) {
-      alert(err);
-      setIsSubmitting(false);
+    } catch (err: any) {
+      // Handle errors
+      const error = JSON.parse(err.message || "{}");
+  
+      showTedxToast({
+        type: "error",
+        message: error.message, // Show the error message
+        desc: error.desc , // Optionally, show the error description
+      });
+  
+      setIsSubmitting(false); // Ensure to stop submitting state regardless of outcome
     }
   };
+  
 
   return (
     <div className="md:w-[40vw] lg:w-[40vw] w-[90vw] flex flex-col items-center justify-center relative h-screen">
@@ -101,9 +152,9 @@ export default function RegisterForm() {
             onClick={handleSignIn}
             className="w-full py-3 font-semibold bg-primary-700 rounded-md outline-none border-none "
           ></Button>
-          <div className="flex gap-4 items-end justify-end">
-            <div className="flex-1">
-              <span className="text-sm">
+          <div className="flex gap-4 items-end justify-between">
+            <div className="flex items-center justify-start">
+              <span className="text-xs md:text-sm lg:text-sm">
                 New to TEDx CCET?{" "}
                 <Link
                   className="font-semibold text-primary-700"
@@ -113,8 +164,10 @@ export default function RegisterForm() {
                 </Link>
               </span>
             </div>
-            <div className="flex-1 flex items-center justify-end">
-              <span className="text-sm">Forgot password</span>
+            <div className="flex items-center justify-end">
+              <span className="text-xs md:text-sm lg:text-sm">
+                Forgot password
+              </span>
             </div>
           </div>
         </div>

@@ -3,9 +3,10 @@ import Button from "@components/Button";
 import Logo from "@components/Logo";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import showTedxToast from "@components/showTedxToast";
+import { useSession } from "next-auth/react";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -18,37 +19,56 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const handleSignUp = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
+    event.preventDefault(); // Prevent the default form submission behavior
     setIsSubmitting(true);
+
     try {
       const response = await fetch("/api/register", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          mobile: mobile,
-          organisation: organisation,
-          password: password,
+          firstName,
+          lastName,
+          email,
+          mobile,
+          organisation,
+          password,
         }),
       });
-      console.log(response);
 
       if (response.ok) {
-        await signIn("credentials", {
-          email: email,
-          password: password,
-          redirect: false,
+        const data = await response.json(); // Parse the response data
+        // await signIn("credentials", {
+        //   email,
+        //   password,
+        //   redirect: false,
+        // });
+        showTedxToast({
+          type: "success",
+          message: data.message, // Show the success message from the response
+          desc: data.desc, // Optionally, show the description from the response
         });
-        router.push("/");
+        setTimeout(() => {
+          router.push("/login");
+        }, 1000);
       } else {
-        throw new Error("User exist please login");
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Registration failed", {
+          cause: errorData.desc,
+        });
       }
-    } catch (error) {
-      alert(error);
+    } catch (error: any) {
+      showTedxToast({
+        type: "error",
+        message: error.message,
+        desc: error?.cause,
+      });
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -64,7 +84,7 @@ export default function RegisterForm() {
       />
       <div className="md:w-[85%] lg:w-[85%] w-[90vw] flex flex-col gap-8 absolute">
         <div className="w-full flex items-center justify-center">
-          <Link href={'/'}>
+          <Link href={"/"}>
             {" "}
             <Logo />
           </Link>

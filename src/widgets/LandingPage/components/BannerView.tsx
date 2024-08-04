@@ -15,7 +15,6 @@ function Video({ url, className }: VideoProps) {
     if (videoElement) {
       const handleCanPlay = () => {
         videoElement.play().catch((error) => {
-          console.error("Video play error:", error);
         });
       };
 

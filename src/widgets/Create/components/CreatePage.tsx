@@ -45,8 +45,6 @@ export default function CreatePage() {
       [name]: modifiedValue,
     }));
   };
-  console.log(data)
-  
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];

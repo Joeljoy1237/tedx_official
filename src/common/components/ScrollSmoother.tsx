@@ -16,7 +16,6 @@ export default function SmoothScroller() {
 
     // Event listener for Lenis scroll
     lenis.on('scroll', (e: any) => {
-      console.log(e);
     });
 
     // Sync Lenis with ScrollTrigger
