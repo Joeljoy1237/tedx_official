@@ -15,6 +15,7 @@ import { MdClose } from "react-icons/md";
 import Drawer from "./components/Drawer";
 import PreLoader from "@components/PreLoader";
 import showTedxToast from "@components/showTedxToast";
+import { BsGrid3X3Gap } from "react-icons/bs";
 
 export default function HeaderView() {
   const { data: session, status } = useSession();
@@ -111,15 +112,15 @@ export default function HeaderView() {
           </div>
           <div className="flex-1 flex items-center justify-end">
             {!drawerOpen ? (
-              <HiMenuAlt2
-                className="flex md:hidden lg:hidden text-2xl cursor-pointer"
+              <BsGrid3X3Gap
+                className="flex md:hidden lg:hidden text-2xl cursor-pointer text-primary-700"
                 onClick={() => {
                   setDrawerOpen(true);
                 }}
               />
             ) : (
               <MdClose
-                className="flex md:hidden lg:hidden text-2xl cursor-pointer"
+                className="flex md:hidden lg:hidden text-2xl cursor-pointer text-primary-700"
                 onClick={handleClose}
               />
             )}

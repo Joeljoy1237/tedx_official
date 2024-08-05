@@ -52,7 +52,7 @@ export default function TicketMobile() {
         <div className="border-[1px] w-[6vw] border-white"></div>
         <div className="border-[1px] w-[6vw] border-white"></div>
       </div>
-      <div className="bg-primary-700 w-full h-[160px]  rounded-[20px] relative flex items-center justify-center">
+      <div className="bg-primary-700 w-full h-[160px] p-[5vw]  rounded-[20px] relative flex items-center justify-center">
         <div className="flex gap-4">
           <Image
             src={"/qr.webp"}

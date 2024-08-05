@@ -338,15 +338,12 @@ input::placeholder {
 
 h2{
   -webkit-box-reflect: below 2px linear-gradient(#0000, #0005);
-  display: flex;flex-direction: row;
-  gap: 1rem;
 }
 
 .flicker-text {
   animation: flicker 1.5s linear 5s;
   animation-iteration-count: 2;
   text-shadow: 0 0 10px #fff;
-  font-size: 4rem;
   letter-spacing: 5px;
   animation-delay: 1.1s;
   line-height: 0.7em;
