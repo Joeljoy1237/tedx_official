@@ -260,7 +260,124 @@ input::placeholder {
   }
 }
 
-.ticketImage{
+.ticketImage {
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
+}
+
+/* styles.css */
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.bgImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: fade 10s infinite;
+}
+
+/* styles.css */
+@keyframes flicker {
+  0%,
+  4.76% {
+    opacity: 0;
+  }
+
+  4.77%,
+  9.52% {
+    opacity: 1;
+  }
+  14.28%,
+  9.53% {
+    opacity: 0;
+  }
+  14.29%,
+  19.04% {
+    opacity: 1;
+  }
+  19.05%,
+  23.8% {
+    opacity: 0;
+  }
+  23.81%,
+  28.56% {
+    opacity: 1;
+  }
+  28.57%,
+  33.32% {
+    opacity: 0;
+  }
+  33.33%,
+  38.08% {
+    opacity: 1;
+  }
+  38.09%,
+  42.84% {
+    opacity: 0;
+  }
+  42.85%,
+  47.6% {
+    opacity: 1;
+  }
+  47.61%,
+  100% {
+    opacity: 0;
+  }
+}
+
+h2{
+  -webkit-box-reflect: below 2px linear-gradient(#0000, #0005);
+  display: flex;flex-direction: row;
+  gap: 1rem;
+}
+
+.flicker-text {
+  animation: flicker 1.5s linear 5s;
+  animation-iteration-count: 2;
+  text-shadow: 0 0 10px #fff;
+  font-size: 4rem;
+  letter-spacing: 5px;
+  animation-delay: 1.1s;
+  line-height: 0.7em;
+}
+
+.redText {
+  text-shadow: 0 0 10px $theme-color;
+  animation: flicker 1.5s linear 5s;
+  animation-iteration-count: 2;
+}
+
+.e{
+  animation-delay: 2.4s;
+}
+
+
+.x{
+  animation-delay: 2.9s;
+}
+
+.ccet1{
+  animation-delay: 1.3s;
+}
+
+
+.ccet3{
+  animation-delay: 1.6s;
+}
+
+.blur-overlay {
+  backdrop-filter: blur(10px);
+  // -webkit-backdrop-filter: blur(10px); /* For Safari */
+  background-color: rgba(0, 0, 0, 0.7); 
 }

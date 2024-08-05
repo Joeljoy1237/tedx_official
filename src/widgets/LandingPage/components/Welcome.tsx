@@ -2,11 +2,11 @@ import React from "react";
 
 export default function Welcome() {
   return (
-    <div className="px-[5vw] py-[6vh] md:pb-[10vh] lg:pb-[10vh] pb-[6vh]">
+    <div className="px-[5vw] py-[3vh] md:pb-[10vh] lg:pb-[10vh] pb-[6vh]">
       <div className="flex flex-col items-center justify-center gap-4">
-        <span className="text-2xl md:text-4xl lg:text-4xl font-bold">
+        {/* <span className="text-2xl md:text-4xl lg:text-4xl font-bold">
           HELLO <span className="text-primary-700">EXPLORER !!!</span>
-        </span>
+        </span> */}
         <p className="text-lg md:text-center lg:text-center text-justify">
           Welcome to{" "}
           <span className="font-bold text-primary-700">

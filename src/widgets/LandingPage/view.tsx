@@ -10,7 +10,6 @@ import BannerView from "./components/BannerView";
 import FooterView from "@widgets/Footer";
 import AboutSection from "./components/AboutSection";
 import ThemeSection from "./components/Theme";
-import Lenis from "lenis";
 import TicketView from "@widgets/Ticket";
 
 // Dynamically import the SmoothScrollCustom component without SSR
@@ -22,8 +21,8 @@ const SmoothScrollCustom = dynamic(
 );
 
 // Dynamically import the ScrollTextView component without SSR
-const ScrollTextView = dynamic(
-  () => import("@widgets/LandingPage/components/ScrollTextView"),
+const Flicker = dynamic(
+  () => import("@widgets/LandingPage/components/Flicker"),
   {
     ssr: false,
   }
@@ -64,7 +63,8 @@ const LandingPageView: React.FC = () => {
       {!isLoaded && <PreLoader />}
       <HeaderView />
       <BannerView />
-      <ScrollTextView />
+      {/* <ScrollTextView /> */}
+      <Flicker/>
       <Welcome />
       <ThemeSection />
       <TicketView/>

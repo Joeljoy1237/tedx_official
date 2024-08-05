@@ -1,49 +1,27 @@
 "use client";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import HeroText from "./HeroText";
-
-type VideoProps = {
-  url: string;
-  className?: string;
-};
-
-function Video({ url, className }: VideoProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
-    const videoElement = videoRef.current;
-
-    if (videoElement) {
-      const handleCanPlay = () => {
-        videoElement.play().catch((error) => {
-        });
-      };
-
-      videoElement.addEventListener("canplay", handleCanPlay);
-
-      return () => {
-        videoElement.removeEventListener("canplay", handleCanPlay);
-      };
-    }
-  }, []);
-
-  return (
-    <video
-      ref={videoRef}
-      className={className}
-      src={url}
-      playsInline
-      muted
-      autoPlay
-      loop
-      preload="auto"
-    />
-  );
-}
+import Image from "next/image";
 
 export default function BannerView() {
   const [isDesktop, setIsDesktop] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Check if the window object is available and set the isDesktop state
+  const imgUrls = [
+    "/images/bg1.gif",
+    "/images/bg2.jpg",
+    "/images/bg3.jpg",
+    "/images/bg4.jpg",
+    "/images/bg5.jpg",
+    "/images/bg6.jpg",
+    "/images/bg7.jpg",
+    "/images/bg8.jpg",
+    "/images/bg.jpeg",
+    "/images/bg.png",
+    "/images/bg.webp",
+    "/images/bg1.webp",
+  ];
+
   useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= 768);
@@ -59,22 +37,33 @@ export default function BannerView() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imgUrls.length);
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(intervalId);
+  }, [imgUrls.length]);
+
   return (
     <div className="bg-slk-black-200 flex flex-col relative overflow-hidden w-full h-[100vh] md:min-h-screen lg:min-h-screen">
       <Suspense fallback={<>Loading...</>}>
-        {!isDesktop ? (
-          <Video
-            url="https://res.cloudinary.com/dk5dtphvj/video/upload/v1722621762/low_bit_1_vkvyqk.mp4"
-            className="absolute inset-0 w-full h-full object-cover flex md:flex lg:flex"
+        {imgUrls.map((url, index) => (
+          <Image
+            key={index}
+            className={`absolute inset-0 w-full h-full object-cover ${
+              index === currentImageIndex ? "opacity-100" : "opacity-0"
+            } transition-opacity duration-1000 ease-in-out`}
+            src={url}
+            height={1000}
+            width={1000}
+            alt=""
+            priority
           />
-        ) : (
-          <Video
-            url="https://res.cloudinary.com/dk5dtphvj/video/upload/v1722621977/WhatsApp_Video_2024-07-27_at_20.46.45_zf9xdt.webm"
-            className="absolute inset-0 w-full h-full object-cover flex md:flex lg:flex"
-          />
-        )}
+        ))}
       </Suspense>
-      <div className="absolute inset-0 bg-black-100 opacity-70 md:opacity-70 lg:opacity-70" />
+      <div className="absolute inset-0 blur-overlay" />
       <HeroText />
     </div>
   );
