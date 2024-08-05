@@ -29,66 +29,75 @@ export default function RegisterForm() {
   ) => {
     event.preventDefault(); // Prevent default form submission behavior
     setIsSubmitting(true);
-  
+
     try {
       // Validate input fields
       if (!email && !password) {
-        throw new Error(JSON.stringify({
-          message: "Please fill the required fields",
-          desc: "Email and password are required"
-        }));
+        throw new Error(
+          JSON.stringify({
+            message: "Please fill the required fields",
+            desc: "Email and password are required",
+          })
+        );
       }
-  
+
       if (!email) {
-        throw new Error(JSON.stringify({
-          message: "Email is required"
-        }));
+        throw new Error(
+          JSON.stringify({
+            message: "Email is required",
+          })
+        );
       } else if (!password) {
-        throw new Error(JSON.stringify({
-          message: "Password is required"
-        }));
+        throw new Error(
+          JSON.stringify({
+            message: "Password is required",
+          })
+        );
       }
-  
+
       // Perform sign-in
       const response = await signIn("credentials", {
         email: email,
         password: password,
         redirect: false,
       });
-  
+
       // Check response and handle success
       if (response?.ok) {
-        const data = response?.error ? JSON.parse(response.error) : { message: "Login Successfully", desc: "Redirecting to home page" };
-        
+        const data = response?.error
+          ? JSON.parse(response.error)
+          : { message: "Login Successfully", desc: "Redirecting to home page" };
+
         showTedxToast({
           type: "success",
           message: data.message, // Show the success message from the response
           desc: data.desc, // Optionally, show the description from the response
         });
-  
+
         setTimeout(() => {
           router.push("/");
         }, 1000);
       } else {
-        throw new Error(JSON.stringify({
-          message: "User not found",
-          desc: "Please check your email and password"
-        }));
+        throw new Error(
+          JSON.stringify({
+            message: "Login Failed",
+            desc: "Please check your email and password",
+          })
+        );
       }
     } catch (err: any) {
       // Handle errors
       const error = JSON.parse(err.message || "{}");
-  
+
       showTedxToast({
         type: "error",
         message: error.message, // Show the error message
-        desc: error.desc , // Optionally, show the error description
+        desc: error.desc, // Optionally, show the error description
       });
-  
+
       setIsSubmitting(false); // Ensure to stop submitting state regardless of outcome
     }
   };
-  
 
   return (
     <div className="md:w-[40vw] lg:w-[40vw] w-[90vw] flex flex-col items-center justify-center relative h-screen">
@@ -166,7 +175,13 @@ export default function RegisterForm() {
             </div>
             <div className="flex items-center justify-end">
               <span className="text-xs md:text-sm lg:text-sm">
-                Forgot password
+                <Link
+                  className="font-semibold text-primary-700"
+                  href={"/forgot"}
+                >
+                  Forgot password
+                </Link>{" "}
+                ?
               </span>
             </div>
           </div>

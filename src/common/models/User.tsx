@@ -26,6 +26,12 @@ const UserSchema = new Schema({
     type: String,
     require: [true, "Password is required"],
   },
+  resetTokenUsed: {
+    type: Boolean,
+  },
+  resetCount: {
+    type: Number,
+  },
 });
 
 const User = models.User || model("User", UserSchema);
