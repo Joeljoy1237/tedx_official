@@ -148,7 +148,7 @@ export default function HeaderView() {
             )}
           </div>
         </div>
-        {drawerOpen && <Drawer handleClose={handleClose} />}
+        {drawerOpen && <Drawer handleClose={handleClose} handlesignout={handleSignout}/>}
       </div>
       {!isLoaded && <PreLoader />}
     </>

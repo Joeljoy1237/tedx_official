@@ -10,10 +10,12 @@ import { useSession } from "next-auth/react";
 
 interface DrawerProps {
   handleClose: () => void;
+  handlesignout: () => void;
 }
 
-const Drawer: React.FC<DrawerProps> = ({ handleClose }) => {
+const Drawer: React.FC<DrawerProps> = ({ handleClose, handlesignout }) => {
   const { data: session } = useSession();
+  console.log(session?.user);
   const location = usePathname();
   return (
     <div className="h-[92vh] items-center justify-start mt-[3vh] bg-black-100 w-[100vw] px-[5vw] flex flex-col pt-[10vh] gap-8 relative">
@@ -41,13 +43,32 @@ const Drawer: React.FC<DrawerProps> = ({ handleClose }) => {
         ))}
       </div>
       <div className="w-full flex">
-        <Link href={'/register'} className="w-full">
-          <Button
-            className="px-4 py-2 rounded-[10px] md:flex lg:flex w-full bg-primary-700 flex items-center justify-center font-bold gap-2"
-            title={session?.user ? "Profile" :"Register"}
-            icon={<IconArrow className="size-6" />}
-          />
-        </Link>
+        {location === "/profile" ? (
+          <Link
+            className="w-full"
+            href={""}
+            onClick={() => {
+              handlesignout();
+            }}
+          >
+            <Button
+              className="px-4 py-2 rounded-[10px] md:hidden flex lg:hidden items-center justify-center font-bold bg-primary-700 text-white w-full gap-2"
+              title={"Logout"}
+              icon={<IconArrow className="size-6" />}
+            />
+          </Link>
+        ) : (
+          <Link
+            href={session?.user ? "/profile" : "/register"}
+            className="w-full"
+          >
+            <Button
+              className="px-4 py-2 rounded-[10px] md:hidden flex lg:hidden items-center justify-center font-bold w-full bg-primary-700 text-white gap-2"
+              title={session?.user ? "Profile" : "Register"}
+              icon={<IconArrow className="size-6" />}
+            />
+          </Link>
+        )}
       </div>
       <div className="flex items-center justify-center w-full absolute bottom-8">
         <span className="text-xs">
