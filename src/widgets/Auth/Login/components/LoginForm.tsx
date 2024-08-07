@@ -176,12 +176,12 @@ export default function RegisterForm() {
             <div className="flex items-center justify-end">
               <span className="text-xs md:text-sm lg:text-sm">
                 <Link
-                  className="font-semibold text-primary-700"
-                  href={"/forgot"}
+                  className="font-semibold text-primary-700 cursor-pointer"
+                  href={"/forgot-password"}
                 >
                   Forgot password
-                </Link>{" "}
                 ?
+                </Link>{" "}
               </span>
             </div>
           </div>

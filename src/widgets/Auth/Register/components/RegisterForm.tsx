@@ -211,11 +211,11 @@ export default function RegisterForm() {
                 </Link>
               </span>
             </div>
-            <div className="flex items-center justify-end">
+            {/* <div className="flex items-center justify-end">
               <span className="text-xs md:text-sm lg:text-sm">
                 Forgot password
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
