@@ -41,7 +41,7 @@ const resetRequest = async (request) => {
       expiresIn: "1h",
     });
 
-    const resetPassUrl = `http://localhost:3000/reset-password/${token}`;
+    const resetPassUrl = `https://tedxccet.in/reset-password/${token}`;
 
     const mailOptions = {
       from: process.env.EMAIL,
