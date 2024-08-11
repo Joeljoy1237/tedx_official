@@ -6,10 +6,14 @@ import React, { useEffect, useState } from 'react'
 import Forgot from './components/Forgot'
 import dynamic from 'next/dynamic';
 import PreLoader from '@components/PreLoader'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 export default function ForgotPasswordView() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [isDesktop, setIsDesktop] = useState(false);
+    const { data: session, status } = useSession();
+    const router = useRouter();
   
     // Check if the window object is available and set the isDesktop state
     useEffect(() => {
@@ -35,12 +39,16 @@ export default function ForgotPasswordView() {
       }
     );
     useEffect(() => {
+      if (status === "authenticated") {
+        // Redirect to home page
+        router.push("/");
+      }
       const timer = setTimeout(() => {
         setIsLoaded(true);
-      }, 2000);
+      }, 1300);
   
       return () => clearTimeout(timer);
-    }, []);
+    }, [status, session, router]);
   return (
     <main>
         {!isLoaded && <PreLoader />}

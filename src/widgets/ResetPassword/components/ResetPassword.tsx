@@ -5,52 +5,58 @@ import Logo from "@components/Logo";
 import showTedxToast from "@components/showTedxToast";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
-export default function Forgot() {
-  const [mail, setMail] = useState("");
+export default function ResetPassword() {
   const router = useRouter();
-  const handleReset = async () => {
+  const [password, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const params = useParams<{ token: string }>();
+
+  const handleNewPassword = async () => {
     try {
-      const response = await fetch("/api/forgot", {
+      const response = await fetch("/api/reset/new", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: mail,
+          token: params.token,
+          password,
+          confirmPassword,
         }),
       });
-      if (response.ok) {
-        const data = await response.json(); // Parse the response data
-        // await signIn("credentials", {
-        //   email,
-        //   password,
-        //   redirect: false,
-        // });
-        showTedxToast({
-          type: "success",
-          message: data.message, // Show the success message from the response
-          desc: data.desc, // Optionally, show the description from the response
-        });
-        setTimeout(() => {
-          router.push("/login");
-        }, 1000);
-      } else {
+  
+      // Check if the response is OK (status code 200)
+      if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Registration failed", {
+        throw new Error(errorData.message || "Password reset failed", {
           cause: errorData.desc,
         });
       }
-    } catch (error: any) {
+  
+      // If successful, show success toast and redirect to the login page
+      const successData = await response.json();
+      showTedxToast({
+        type: "success",
+        message: successData.message,
+        desc: successData.desc,
+      });
+      router.push("/login");
+    } catch (e: any) {
+      console.error("Password reset error:", e);
       showTedxToast({
         type: "error",
-        message: error.message,
-        desc: error?.cause,
+        message: e.message,
+        desc: e.cause,
       });
+      router.push("/"); // Redirect to home or a relevant page on error
     }
   };
+  
+  // Added `params.token` as a dependency to run the effect when the token changes
+  
   return (
     <div className="flex w-full flex-col items-center justify-center gap-8 relative">
       <Image
@@ -73,24 +79,28 @@ export default function Forgot() {
           </Link>
         </div>
         <div className="shadow-lg md:w-[30vw] lg:w-[30vw] w-[90vw] flex flex-col items-start justify-center gap-4">
-          <span className="text-xl font-bold">Forgot your Password ?</span>
-          <span className="">
-            Please enter the email address which you'd like your password reset
-            information sent to
-          </span>
+          <span className="text-xl font-bold">Reset password</span>
           <input
             type="text"
             className="w-full py-4 rounded-lg px-2 bg-black-300 outline-none border-none0"
-            placeholder="Email address"
+            placeholder="New password"
             onChange={(e) => {
-              setMail(e.target.value);
+              setNewPassword(e.target.value);
+            }}
+          />
+          <input
+            type="text"
+            className="w-full py-4 rounded-lg px-2 bg-black-300 outline-none border-none0"
+            placeholder="Confirm password"
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
             }}
           />
           <Button
-            title="Request reset link"
+            title="Reset Password"
             className="w-full bg-primary-700 p-3 rounded-lg font-semibold"
             onClick={() => {
-              handleReset();
+              handleNewPassword();
             }}
           />
           <Link href={"/login"} className="w-full">

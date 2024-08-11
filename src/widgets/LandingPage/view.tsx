@@ -53,7 +53,7 @@ const LandingPageView: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
-    }, 2000);
+    },1300);
 
     return () => clearTimeout(timer);
   }, []);

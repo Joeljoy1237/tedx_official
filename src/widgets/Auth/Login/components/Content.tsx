@@ -17,7 +17,7 @@ export default function Content() {
     }
     const timer = setTimeout(() => {
       setIsLoaded(true);
-    }, 2000);
+    }, 1300);
 
     return () => clearTimeout(timer);
   }, [status, session, router]);

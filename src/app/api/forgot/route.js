@@ -19,14 +19,20 @@ const resetRequest = async (request) => {
 
     if (!user) {
       return new Response(
-        JSON.stringify({ message: "Email not found" }),
+        JSON.stringify({
+          message: "Email not found",
+          desc: "Please check the email address you provided and try again.",
+        }),
         { status: 404 }
       );
     }
 
     if (user.resetCount >= 3) {
       return new Response(
-        JSON.stringify({ message: "Reset request limit reached. Please contact support." }),
+        JSON.stringify({
+          message: "Reset request limit reached",
+          desc: "You have reached the maximum number of reset requests. Please contact support for further assistance.",
+        }),
         { status: 403 }
       );
     }
@@ -35,7 +41,7 @@ const resetRequest = async (request) => {
       expiresIn: "1h",
     });
 
-    const resetPassUrl = `http://localhost:3000/reset/${token}`;
+    const resetPassUrl = `http://localhost:3000/reset-password/${token}`;
 
     const mailOptions = {
       from: process.env.EMAIL,
@@ -46,7 +52,7 @@ const resetRequest = async (request) => {
         <div style="background-image: url('https://img.freepik.com/free-vector/cartoon-galaxy-background_23-2148984167.jpg?size=626&ext=jpg&ga=GA1.1.1475327329.1698553788&semt=ais'); background-size: cover; background-position: center; padding: 20px; font-family: 'Arial', sans-serif;">
           <div style="max-width: 600px; margin: auto; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); overflow: hidden;">
             <div style="padding: 20px; text-align: center;">
-              <p style="font-size: 18px; color: #333; margin-bottom: 20px;">Hello <strong>${user?.FirstName + " " + user?.lastName}</strong>,</p>
+              <p style="font-size: 18px; color: #333; margin-bottom: 20px;">Hello <strong>${user?.firstName + " " + user?.lastName}</strong>,</p>
               <p style="font-size: 16px; color: #333; margin-bottom: 20px;">You've requested to reset your password for TEDxCCET.</p>
               <p style="font-size: 16px; color: #333; margin-bottom: 20px;">Click the following link to reset your password:</p>
               <p style="margin-bottom: 30px;">
@@ -76,7 +82,6 @@ const resetRequest = async (request) => {
         </div>
       `,
     };
-    
 
     user.resetTokenUsed = false;
     user.resetCount = (user.resetCount || 0) + 1;
@@ -86,7 +91,10 @@ const resetRequest = async (request) => {
       if (error) {
         console.error("Error sending email:", error);
         return new Response(
-          JSON.stringify({ message: "Failed to send reset email" }),
+          JSON.stringify({
+            message: "Failed to send reset email",
+            desc: "There was an error sending the reset email. Please try again later or contact support.",
+          }),
           { status: 500 }
         );
       } else {
@@ -96,15 +104,18 @@ const resetRequest = async (request) => {
 
     return new Response(
       JSON.stringify({
-        message: "Reset password email sent successfully.",
-        desc: "Please check your inbox including spam",
+        message: "Reset password email sent successfully",
+        desc: "Please check your inbox (including spam/junk folders) for the reset email.",
       }),
       { status: 200 }
     );
   } catch (err) {
     console.error("Error handling reset request:", err);
     return new Response(
-      JSON.stringify({ message: "Internal Server Error" }),
+      JSON.stringify({
+        message: "Internal Server Error",
+        desc: "An unexpected error occurred. Please try again later.",
+      }),
       { status: 500 }
     );
   }

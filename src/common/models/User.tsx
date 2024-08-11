@@ -28,9 +28,15 @@ const UserSchema = new Schema({
   },
   resetTokenUsed: {
     type: Boolean,
+    default: false,
   },
   resetCount: {
     type: Number,
+    default: 0,
+  },
+  tokenUsed: {
+    type: Boolean,
+    default: false, // Set this to false initially
   },
 });
 
