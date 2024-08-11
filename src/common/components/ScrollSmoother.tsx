@@ -1,42 +1,37 @@
-"use client"
-import React, { useEffect } from 'react';
-import Lenis from '@studio-freight/lenis';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+"use client";
+import React, { useEffect } from "react";
+import Lenis from "@studio-freight/lenis";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function SmoothScroller() {
+export default function SmoothScroller(): JSX.Element {
   useEffect(() => {
+    // Initialize Lenis with type safety
     const lenis = new Lenis({
-      duration: 1.2, // Controls the duration of the scroll in seconds
-      easing: (t) => 1 - Math.pow(1 - t, 3), // Custom easing function for smooth scrolling
-      touchMultiplier: 2, // Multiplier for touch scroll speed
+      duration: 1.2, // Adjust duration for smoother scroll
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Performance-friendly easing
+      // smooth: true,
+      // smoothTouch: false, // Disable smooth scrolling for touch devices
     });
 
-    // Event listener for Lenis scroll
-    lenis.on('scroll', (e: any) => {
-    });
+    // Sync Lenis with GSAP's ScrollTrigger
+    lenis.on("scroll", () => ScrollTrigger.update());
 
-    // Sync Lenis with ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
+    // RAF loop using GSAP's ticker
+    const rafCallback = (time: number) => {
+      lenis.raf(time);
+    };
 
-    // GSAP ticker to update Lenis
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
+    gsap.ticker.add(rafCallback);
 
-    // Disable GSAP lag smoothing
-    gsap.ticker.lagSmoothing(0);
-
-    // Cleanup function
+    // Clean up on component unmount
     return () => {
       lenis.destroy();
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
+      gsap.ticker.remove(rafCallback);
     };
   }, []);
 
-  return null;
+  return <></>;
 }

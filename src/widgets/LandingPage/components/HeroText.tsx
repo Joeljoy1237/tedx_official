@@ -5,8 +5,17 @@ import IconDate from "@icons/IconDate";
 import IconLocation from "@icons/IconLocation";
 import Link from "next/link";
 import React from "react";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import gsap from "gsap";
 
 export default function HeroText() {
+
+// Register the ScrollToPlugin
+gsap.registerPlugin(ScrollToPlugin);
+
+const scrollToSection = (sectionId:any) => {
+  gsap.to(window, { duration: 1, scrollTo: sectionId });
+};
   return (
     <div className="relative isolate min-h-[100vh] px-[5vw] flex items-center justify-center mt-2 md:mt-[5vh] lg:mt-[5vh]">
       <div className="flex items-center justify-center md:flex-row lg:flex-row flex-col-reverse md:gap-3 lg:gap-3 gap-3">
@@ -38,8 +47,11 @@ export default function HeroText() {
             </div>
             <div className="flex flex-row w-full items-center justify-start md:justify-start lg:justify-start gap-2">
               <Button
-                className="px-4 py-2 rounded-lg bg-primary-700 font-semibold w-auto md:w-auto lg:w-auto"
+                className="px-4 py-2 rounded-lg bg-primary-700 font-semibold w-auto md:w-auto lg:w-auto outline-none border-none"
                 title="Get Tickets"
+                onClick={()=>{
+                  scrollToSection('#get-tickets')
+                }}
               />
               <Link href={'/about'}>
               <Button

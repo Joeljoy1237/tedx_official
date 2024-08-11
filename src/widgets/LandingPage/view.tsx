@@ -11,6 +11,7 @@ import FooterView from "@widgets/Footer";
 import AboutSection from "./components/AboutSection";
 import ThemeSection from "./components/Theme";
 import TicketView from "@widgets/Ticket";
+import { animateScroll } from 'react-scroll';
 
 // Dynamically import the SmoothScrollCustom component without SSR
 const SmoothScrollCustom = dynamic(
@@ -58,6 +59,10 @@ const LandingPageView: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    animateScroll.scrollToTop();
+  }, [])
+
   return (
     <div className="w-full flex flex-col gap-2">
       {!isLoaded && <PreLoader />}
@@ -70,7 +75,7 @@ const LandingPageView: React.FC = () => {
       <TicketView/>
       <AboutSection />
       <FooterView />
-      {isDesktop && <SmoothScrollCustom />}
+      {/* {isDesktop && <SmoothScrollCustom />} */}
     </div>
   );
 };

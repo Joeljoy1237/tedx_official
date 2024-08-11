@@ -37,7 +37,7 @@ const UserSchema = new Schema({
   tokenUsed: {
     type: Boolean,
     default: false, // Set this to false initially
-  },
+  }
 });
 
 const User = models.User || model("User", UserSchema);
