@@ -8,7 +8,9 @@ export const POST = async (request) => {
   });
 
   if (lastPrice !== 1200 * count - 1200 * count * (offer / 100)) {
-    throw new Error("Error in price confirm");
+    return new Response(JSON.stringify({ message: "Security Compromise" }), {
+      status: 403,
+    });
   }
 
   const options = {
@@ -24,6 +26,8 @@ export const POST = async (request) => {
   } catch (err) {
     console.log(err);
 
-    return new Response("error", { status: 500 });
+    return new Response(JSON.stringify({ message: "Internal Server Error" }), {
+      status: 500,
+    });
   }
 };
