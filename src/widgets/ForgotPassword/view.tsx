@@ -53,7 +53,7 @@ export default function ForgotPasswordView() {
     <main>
         {!isLoaded && <PreLoader />}
         <Forgot/>
-        {isDesktop && <SmoothScrollCustom />}
+        {/* {isDesktop && <SmoothScrollCustom />} */}
     </main>
   )
 }

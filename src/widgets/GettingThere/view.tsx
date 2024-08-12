@@ -47,7 +47,7 @@ export default function GettingThereView() {
       <HeaderView />
       <GettingThereSection />
       <FooterView />
-      {isDesktop && <SmoothScrollCustom />}
+      {/* {isDesktop && <SmoothScrollCustom />} */}
     </main>
   );
 }

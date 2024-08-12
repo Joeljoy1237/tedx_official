@@ -18,6 +18,7 @@ export const POST = async (request) => {
     key_secret: process.env.RAZOR_KEY_SECRET,
   });
   try {
+    console.log(orderId)
     const paymentData = await razorpay.orders.fetch(orderId);
 
     if (
@@ -70,6 +71,7 @@ export const POST = async (request) => {
       }
     );
   } catch (err) {
+    console.log(err)
     return new Response(JSON.stringify({ message: "Internal Server Error" }), {
       status: 500,
     });

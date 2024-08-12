@@ -51,7 +51,7 @@ export default function AboutView() {
       <HeaderView />
       <About />
       <FooterView />
-      {isDesktop && <SmoothScrollCustom />}
+      {/* {isDesktop && <SmoothScrollCustom />} */}
     </div>
   );
 }

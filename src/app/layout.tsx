@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "@styles/scss/main.scss";
 import { Toaster } from "react-hot-toast";
 import Provider from "@components/Provider";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "TEDx CCET",
@@ -55,6 +56,10 @@ export default function RootLayout({
             }}
           />
         </Provider>
+      <Script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        strategy="beforeInteractive"
+      />
       </body>
     </html>
   );

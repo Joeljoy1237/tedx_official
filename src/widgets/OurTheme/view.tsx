@@ -49,7 +49,7 @@ export default function OurThemeView() {
         <Theme />
       </div>
       <FooterView />
-      {isDesktop && <SmoothScrollCustom />}
+      {/* {isDesktop && <SmoothScrollCustom />} */}
     </main>
   );
 }

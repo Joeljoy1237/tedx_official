@@ -7,6 +7,7 @@ interface RightSideProps {
   total: number;
   isChecked: boolean;
   setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
+  onBuy: () => Promise<void>; // Add the onBuy prop
 }
 
 const RightSide: React.FC<RightSideProps> = ({
@@ -16,9 +17,10 @@ const RightSide: React.FC<RightSideProps> = ({
   total,
   isChecked,
   setIsChecked,
+  onBuy,
 }) => {
   return (
-    <div className=" flex-1 p-6 rounded-lg shadow-lg">
+    <div className="flex-1 p-6 rounded-lg shadow-lg">
       <h3 className="text-lg font-semibold mb-4">
         {activeTab === "individual" ? "Individual Ticket" : "Group Ticket"}
       </h3>
@@ -46,9 +48,10 @@ const RightSide: React.FC<RightSideProps> = ({
             onChange={(e) => setIsChecked(e.target.checked)}
             className="form-checkbox"
           />
-          <label>I agree to the terms and conditions</label>
+          <label htmlFor="terms">I agree to the terms and conditions</label>
         </div>
         <button
+          onClick={onBuy} // Use the onBuy function here
           disabled={!isChecked}
           className={`py-2 px-4 rounded-md font-semibold ${
             isChecked

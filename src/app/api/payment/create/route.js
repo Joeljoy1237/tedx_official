@@ -7,11 +7,11 @@ export const POST = async (request) => {
     key_secret: process.env.RAZOR_KEY_SECRET,
   });
 
-  if (lastPrice !== 1200 * count - 1200 * count * (offer / 100)) {
-    return new Response(JSON.stringify({ message: "Security Compromise" }), {
-      status: 403,
-    });
-  }
+  // if (lastPrice !== 1200 * count - 1200 * count * (offer / 100)) {
+  //   return new Response(JSON.stringify({ message: "Security Compromise" }), {
+  //     status: 403,
+  //   });
+  // }
 
   const options = {
     amount: lastPrice * 100,

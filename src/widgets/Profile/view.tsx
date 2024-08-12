@@ -38,12 +38,6 @@ export default function ProfileView() {
     };
   }, []);
 
-  const SmoothScrollCustom = dynamic(
-    () => import("@components/ScrollSmoother"),
-    {
-      ssr: false,
-    }
-  );
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
@@ -58,7 +52,7 @@ export default function ProfileView() {
       <HeaderView />
       <ProfilePage />;
       <FooterView />
-      <SmoothScrollCustom />
+      {/* <SmoothScrollCustom /> */}
     </main>
   );
 }
