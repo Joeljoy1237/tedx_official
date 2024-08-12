@@ -3,7 +3,7 @@ export const POST = async (request) => {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
       await request.json();
-      console.log(await request.json())
+    // console.log(await request.json());
     console.log(razorpay_order_id, razorpay_payment_id, razorpay_signature);
 
     const generateKey = CryptoJS.HmacSHA256(
