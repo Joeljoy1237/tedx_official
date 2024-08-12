@@ -3,7 +3,7 @@ import { connectToDB } from "@utils/database";
 import Razorpay from "razorpay";
 
 export const POST = async (request) => {
-  const { userId, count, orderId } = await request.json();
+  const { userId, count, orderId, group } = await request.json();
   const razorpay = new Razorpay({
     key_id: process.env.RAZOR_KEY_ID,
     key_secret: process.env.RAZOR_KEY_SECRET,
@@ -16,7 +16,7 @@ export const POST = async (request) => {
       paymentData.status === "paid"
     ) {
       await connectToDB();
-      const newTicket = new Ticket({ userId, count, orderId });
+      const newTicket = new Ticket({ userId, count, orderId, group });
       newTicket.save();
       return new Response(JSON.stringify({ message: "Save sucessful" }), {
         status: 200,
