@@ -16,7 +16,14 @@ export const POST = async (request) => {
       paymentData.status === "paid"
     ) {
       await connectToDB();
-      const newTicket = new Ticket({ userId, count, orderId, group });
+      const payAmount = paymentData.amount_paid;
+      const newTicket = new Ticket({
+        userId,
+        orderId,
+        count,
+        payAmount,
+        group,
+      });
       newTicket.save();
       return new Response(JSON.stringify({ message: "Save sucessful" }), {
         status: 200,

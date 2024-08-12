@@ -13,6 +13,10 @@ const TicketSchema = new Schema({
     type: Number,
     required: true,
   },
+  amount: {
+    type: Number,
+    require: true,
+  },
   group: [
     {
       firstName: {
