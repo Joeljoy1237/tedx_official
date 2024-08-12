@@ -1,4 +1,4 @@
-// "use client"
+"use client"
 // import Script from 'next/script'
 // import { useEffect, useState } from "react"
 // import { useSession } from 'next-auth/react'
@@ -137,10 +137,41 @@
 // }
 
 import GetTickets from '@widgets/GetTickets'
+import { useSession } from 'next-auth/react';
 import React from 'react'
 
 export default function page() {
+
+  const { data: session, status } = useSession();
+
+  const checkPayStatus = async() => {
+    const response = await fetch("/api/payment/check", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+      body: JSON.stringify({
+        userId: session?.user._id, count: 2, orderId: "order_Ojg40JKkdBdwm3", group: [{
+          firstName: "joel",
+          lastName: "Joy",
+          email: "joeljoy1237@gmail.com",
+          organisation:"ccet"
+        }, {
+          firstName: "abhi",
+          lastName: "man",
+          email: "abhisheksanthoshofficial19@gmail.com",
+          organisation:"ccet123"
+        }]
+                          
+                      }),
+                  });
+  }
+
+
   return (
-    <GetTickets/>
+    <>
+      <button onClick={checkPayStatus}>Click here</button>
+      <GetTickets />
+      </>
   )
 }
