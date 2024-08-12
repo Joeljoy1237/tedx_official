@@ -9,7 +9,8 @@ declare module "next-auth" {
   interface Session {
     user: {
       _id?: string;
-      name?: string | null;
+      firstName?: string | null;
+      lastName?: string | null;
       email?: string | null;
       organisation?: string | null;
       mobile?: string | null;
@@ -59,8 +60,12 @@ const handler = NextAuth({
         const sessionUser = await User.findOne({ email: session.user.email });
 
         if (sessionUser) {
-          session.user.name = `${sessionUser.firstName} ${sessionUser.lastName}`;
+          session.user.firstName = sessionUser?.firstName;
+          session.user.lastName = sessionUser?.lastName;
+          session.user.email = sessionUser?.email;
+          session.user.organisation = sessionUser?.organisation;
           session.user._id = sessionUser._id.toString();
+          
         }
       }
       return session;

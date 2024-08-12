@@ -1,36 +1,66 @@
-import Image from "next/image";
 import React from "react";
 
-export default function RightSide() {
+interface RightSideProps {
+  activeTab: "individual" | "group";
+  subtotal: number;
+  discount: number;
+  total: number;
+  isChecked: boolean;
+  setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const RightSide: React.FC<RightSideProps> = ({
+  activeTab,
+  subtotal,
+  discount,
+  total,
+  isChecked,
+  setIsChecked,
+}) => {
   return (
-    <div className="md:min-h-[95vh] lg:min-h-[95vh] h-auto py-5 flex flex-col gap-5">
-      <div className="flex flex-col">
-        <div className="w-full flex items-center justify-between py-2">
-          <span className="">Sub Total</span>
-          <span className="font-sans">1300.00 INR</span>
+    <div className=" flex-1 p-6 rounded-lg shadow-lg">
+      <h3 className="text-lg font-semibold mb-4">
+        {activeTab === "individual" ? "Individual Ticket" : "Group Ticket"}
+      </h3>
+      <div className="space-y-4">
+        <div className="flex justify-between text-sm">
+          <span>Subtotal:</span>
+          <span className="font-semibold">₹{subtotal.toFixed(2)}</span>
         </div>
-        <div className="w-full flex items-center justify-between py-2">
-          <span className="">Discount</span>
-          <span className="font-sans">Nill</span>
+        {discount > 0 && (
+          <div className="flex justify-between text-sm text-green-500">
+            <span>Discount:</span>
+            <span className="font-semibold">-₹{discount.toFixed(2)}</span>
+          </div>
+        )}
+        <div className="flex justify-between text-lg font-bold">
+          <span>Total:</span>
+          <span>₹{total.toFixed(2)}</span>
         </div>
       </div>
-      <div className="w-full h-[1px] bg-black-300"></div>
-      <div className="w-full flex items-center justify-between py-2">
-        <span className="text-2xl font-semibold">Total:</span>
-        <span className="font-sans text-2xl font-semibold">1300.00 INR</span>
-      </div>
-      <div className="flex-grow items-center justify-center hidden md:flex lg:flex">
-        <div className="max-h-[70vh] w-full flex items-center justify-center overflow-hidden">
-          <Image
-            src={"/ticket.gif"}
-            alt="Ticket Image"
-            height={0}
-            width={0}
-            className="h-[20rem] w-auto"
-            style={{ maxHeight: "100%", maxWidth: "100%" }}
+      <div className="flex flex-col mt-6 gap-4">
+        <div className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={(e) => setIsChecked(e.target.checked)}
+            className="form-checkbox"
           />
+          <label>I agree to the terms and conditions</label>
         </div>
+        <button
+          disabled={!isChecked}
+          className={`py-2 px-4 rounded-md font-semibold ${
+            isChecked
+              ? "bg-primary-700 text-white hover:bg-primary-800"
+              : "bg-gray-400 cursor-not-allowed text-gray-700"
+          } transition-colors`}
+        >
+          Checkout
+        </button>
       </div>
     </div>
   );
-}
+};
+
+export default RightSide;
