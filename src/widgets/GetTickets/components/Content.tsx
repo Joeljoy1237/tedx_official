@@ -124,12 +124,11 @@ export default function Content() {
         description: "Payment for TEDxCCET",
         order_id: data.id,
         handler: async function (response: any) {
-          console.log("Response=> ",response);
+          console.log("Response=> ", response);
           showTedxToast({
             type: "success",
             message: "Payment Succesffull",
           });
-          setPaymentId(response.razorpay_payment_id);
 
           await fetch("/api/payment/validate", {
             method: "POST",
@@ -137,7 +136,9 @@ export default function Content() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              response,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
             }),
           })
             .then(async (res) => {
