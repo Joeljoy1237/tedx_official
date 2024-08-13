@@ -1,19 +1,23 @@
 "use client";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { useSearchParams } from "next/navigation";
 
-export default function SuccessPage() {
+const PaymentDetails: React.FC = () => {
   const searchParams = useSearchParams();
-  const [paymentId, setPaymentId] = useState<string>("");
-  const [orderId, setOrderId] = useState<string>("");
+  const paymentId = searchParams.get("paymentId") || "";
+  const orderId = searchParams.get("orderId") || "";
 
-  useEffect(() => {
-    setPaymentId(searchParams.get("paymentId")!);
-    setOrderId(searchParams.get("orderId")!);
-  }, [paymentId, orderId]);
+  return (
+    <>
+      <p className="text-lg text-gray-600 mb-3">Payment ID: {paymentId}</p>
+      <p className="text-lg text-gray-600 mb-8">Order ID: {orderId}</p>
+    </>
+  );
+};
 
+export default function SuccessPage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
       <Image
@@ -32,8 +36,9 @@ export default function SuccessPage() {
         <h3 className="text-4xl font-semibold text-green-600 mb-5">
           Payment Successful
         </h3>
-        <p className="text-lg text-gray-600 mb-3">paymentId : {paymentId}</p>
-        <p className="text-lg text-gray-600 mb-8">orderId : {orderId}</p>
+        <Suspense>
+          <PaymentDetails />
+        </Suspense>
         <p className="text-lg text-gray-600 mb-8">
           Thank you for your purchase. Your transaction was successful, and your
           order is being processed.
