@@ -2,6 +2,21 @@ import Ticket from "@models/Ticket";
 import { connectToDB } from "@utils/database";
 import Razorpay from "razorpay";
 import nodemailer from "nodemailer";
+import { NextRequest, NextResponse } from "next/server"; // Assuming you're using Next.js
+
+interface GroupMember {
+  firstName: string;
+  lastName: string;
+  organisation: string;
+  email: string;
+}
+
+interface RequestBody {
+  userId: string;
+  count: number;
+  orderId: string;
+  group: GroupMember[];
+}
 
 const transporter = nodemailer.createTransport({
   service: "Gmail",
@@ -11,14 +26,16 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export const POST = async (request) => {
-  const { userId, count, orderId, group } = await request.json();
-  const razorpay = new Razorpay({
-    key_id: process.env.RAZOR_KEY_ID,
-    key_secret: process.env.RAZOR_KEY_SECRET,
-  });
+export const POST = async (request: NextRequest): Promise<NextResponse> => {
   try {
-    console.log(orderId)
+    const { userId, count, orderId, group }: RequestBody = await request.json();
+
+    const razorpay = new Razorpay({
+      key_id: process.env.RAZOR_KEY_ID as string,
+      key_secret: process.env.RAZOR_KEY_SECRET as string,
+    });
+
+    console.log(orderId);
     const paymentData = await razorpay.orders.fetch(orderId);
 
     if (
@@ -26,6 +43,7 @@ export const POST = async (request) => {
       paymentData.status === "paid"
     ) {
       await connectToDB();
+
       const payAmount = paymentData.amount_paid;
       const newTicket = new Ticket({
         userId,
@@ -34,9 +52,9 @@ export const POST = async (request) => {
         payAmount,
         group,
       });
-      newTicket.save();
+      await newTicket.save();
 
-      group.map((data) => {
+      group.forEach(async (data) => {
         const mailOptions = {
           from: process.env.EMAIL,
           to: data.email,
@@ -44,12 +62,13 @@ export const POST = async (request) => {
           text: `${data.firstName} ${data.lastName} ${data.organisation}`,
         };
 
-        transporter.sendMail(mailOptions, function (error, info) {
+        transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
             console.error("Error sending email:", error);
-            return new Response(
+            // Respond with an error if sending the email fails
+            return new NextResponse(
               JSON.stringify({
-                message: "Failed to send reset email",
+                message: "Failed to send ticket email",
                 desc: "There was an error sending the ticket email. Please try again later or contact support.",
               }),
               { status: 500 }
@@ -60,20 +79,20 @@ export const POST = async (request) => {
         });
       });
 
-      return new Response(JSON.stringify({ message: "Save sucessful" }), {
+      return new NextResponse(JSON.stringify({ message: "Save successful" }), {
         status: 200,
       });
     }
-    return new Response(
-      JSON.stringify({ message: "Payment Save Unsucessful" }),
-      {
-        status: 400,
-      }
+
+    return new NextResponse(
+      JSON.stringify({ message: "Payment Save Unsuccessful" }),
+      { status: 400 }
     );
-  } catch (err) {
-    console.log(err)
-    return new Response(JSON.stringify({ message: "Internal Server Error" }), {
-      status: 500,
-    });
+  } catch (err: any) {
+    console.error("Internal Server Error:", err);
+    return new NextResponse(
+      JSON.stringify({ message: "Internal Server Error" }),
+      { status: 500 }
+    );
   }
 };
