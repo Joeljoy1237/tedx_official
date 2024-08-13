@@ -7,6 +7,7 @@ import { IoIosAddCircleOutline, IoMdRemoveCircle } from "react-icons/io";
 import { useSession, SessionContextValue } from "next-auth/react";
 import Script from "next/script";
 import showTedxToast from "@components/showTedxToast";
+import { useRouter } from "next/navigation";
 
 interface Member {
   firstName: string;
@@ -16,6 +17,7 @@ interface Member {
 }
 
 export default function Content() {
+  const router = useRouter();
   const { data: session, status } = useSession() as SessionContextValue;
   const [activeTab, setActiveTab] = useState<"individual" | "group">(
     "individual"
@@ -113,8 +115,6 @@ export default function Content() {
         }),
       });
       const data = await response.json();
-      console.log(data); // return the order id and the details of the payment
-      var order_id;
       const options = {
         key: "rzp_test_PqOK3SguDXSVk6",
         amount: total * 100,
@@ -156,6 +156,7 @@ export default function Content() {
               })
                 .then((res) => {
                   console.log(res);
+                  router.replace("/success");
                 })
                 .catch((err) => {
                   console.log(err);

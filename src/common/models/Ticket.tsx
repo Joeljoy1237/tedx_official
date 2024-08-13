@@ -35,6 +35,10 @@ const TicketSchema = new Schema({
         type: String,
         require: true,
       },
+        ticketId: {
+    type: String,
+    require: true,
+  },
     },
   ],
 });
