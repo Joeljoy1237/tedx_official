@@ -1,9 +1,10 @@
-import nodemailer from "nodemailer";
+import nodemailer, { Transporter } from "nodemailer";
 import jwt from "jsonwebtoken";
 import User from "@models/User";
 import { connectToDB } from "@utils/database";
+import { NextRequest, NextResponse } from "next/server";
 
-const transporter = nodemailer.createTransport({
+const transporter: Transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
     user: process.env.EMAIL,
@@ -11,14 +12,19 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const resetRequest = async (request) => {
+interface ResetRequestBody {
+  email: string;
+}
+
+export const POST = async (request: NextRequest): Promise<NextResponse> => {
   try {
     await connectToDB();
-    const { email } = await request.json();
+
+    const { email }: ResetRequestBody = await request.json();
     const user = await User.findOne({ email });
 
     if (!user) {
-      return new Response(
+      return new NextResponse(
         JSON.stringify({
           message: "Email not found",
           desc: "Please check the email address you provided and try again.",
@@ -28,7 +34,7 @@ const resetRequest = async (request) => {
     }
 
     if (user.resetCount >= 3) {
-      return new Response(
+      return new NextResponse(
         JSON.stringify({
           message: "Reset request limit reached",
           desc: "You have reached the maximum number of reset requests. Please contact support for further assistance.",
@@ -37,7 +43,7 @@ const resetRequest = async (request) => {
       );
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string, {
       expiresIn: "1h",
     });
 
@@ -47,7 +53,7 @@ const resetRequest = async (request) => {
       from: process.env.EMAIL,
       to: email,
       subject: "Reset Your TEDxCCET Password",
-      text: `Hello ${user?.FirstName + " " + user?.lastName},\n\nYou've requested to reset your password for TEDxCCET. Click the following link to reset your password:\n${resetPassUrl}\n\nIf you didn't request a password reset, you can ignore this email.\n\nBest regards,\nThe TEDxCCET Team`,
+      text: `Hello ${user?.firstName + " " + user?.lastName},\n\nYou've requested to reset your password for TEDxCCET. Click the following link to reset your password:\n${resetPassUrl}\n\nIf you didn't request a password reset, you can ignore this email.\n\nBest regards,\nThe TEDxCCET Team`,
       html: `
         <div style="background-image: url('https://img.freepik.com/free-vector/cartoon-galaxy-background_23-2148984167.jpg?size=626&ext=jpg&ga=GA1.1.1475327329.1698553788&semt=ais'); background-size: cover; background-position: center; padding: 20px; font-family: 'Arial', sans-serif;">
           <div style="max-width: 600px; margin: auto; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); overflow: hidden;">
@@ -90,7 +96,7 @@ const resetRequest = async (request) => {
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.error("Error sending email:", error);
-        return new Response(
+        return new NextResponse(
           JSON.stringify({
             message: "Failed to send reset email",
             desc: "There was an error sending the reset email. Please try again later or contact support.",
@@ -102,7 +108,7 @@ const resetRequest = async (request) => {
       }
     });
 
-    return new Response(
+    return new NextResponse(
       JSON.stringify({
         message: "Reset password email sent successfully",
         desc: "Please check your inbox (including spam/junk folders) for the reset email.",
@@ -111,7 +117,7 @@ const resetRequest = async (request) => {
     );
   } catch (err) {
     console.error("Error handling reset request:", err);
-    return new Response(
+    return new NextResponse(
       JSON.stringify({
         message: "Internal Server Error",
         desc: "An unexpected error occurred. Please try again later.",
@@ -120,5 +126,3 @@ const resetRequest = async (request) => {
     );
   }
 };
-
-export { resetRequest as POST };
