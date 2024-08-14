@@ -1,8 +1,8 @@
-import Ticket from "@models/Ticket";
+import Booking from "@models/Booking";
 import { connectToDB } from "@utils/database";
 import Razorpay from "razorpay";
 import nodemailer from "nodemailer";
-import { NextRequest, NextResponse } from "next/server"; // Assuming you're using Next.js
+import { NextRequest, NextResponse } from "next/server"; // Assuming  're using Next.js
 
 interface GroupMember {
   firstName: string;
@@ -14,6 +14,7 @@ interface GroupMember {
 interface RequestBody {
   userId: string;
   count: number;
+  paymentId: string;
   orderId: string;
   group: GroupMember[];
 }
@@ -28,7 +29,7 @@ const transporter = nodemailer.createTransport({
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
   try {
-    const { userId, count, orderId, group }: RequestBody = await request.json();
+    const { userId, count, paymentId, orderId, group }: RequestBody = await request.json();
 
     const razorpay = new Razorpay({
       key_id: process.env.RAZOR_KEY_ID as string,
@@ -44,15 +45,18 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
     ) {
       await connectToDB();
 
-      const payAmount = paymentData.amount_paid;
-      const newTicket = new Ticket({
+      const amount = paymentData.amount_paid;
+      console.log(amount, paymentId);
+
+      const newBooking = new Booking({
         userId,
         orderId,
+        paymentId,
         count,
-        payAmount,
+        amount,
         group,
       });
-      await newTicket.save();
+      await newBooking.save();
 
       group.forEach(async (data) => {
         const mailOptions = {
@@ -68,8 +72,8 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
             // Respond with an error if sending the email fails
             return new NextResponse(
               JSON.stringify({
-                message: "Failed to send ticket email",
-                desc: "There was an error sending the ticket email. Please try again later or contact support.",
+                message: "Failed to send Tiicket email",
+                desc: "There was an error sending the Booking email. Please try again later or contact support.",
               }),
               { status: 500 }
             );
