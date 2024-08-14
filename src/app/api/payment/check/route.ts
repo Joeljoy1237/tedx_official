@@ -2,13 +2,15 @@ import Booking from "@models/Booking";
 import { connectToDB } from "@utils/database";
 import Razorpay from "razorpay";
 import nodemailer from "nodemailer";
-import { NextRequest, NextResponse } from "next/server"; // Assuming  're using Next.js
+import { NextRequest, NextResponse } from "next/server";
+import Ticket from "@models/Ticket";
 
 interface GroupMember {
   firstName: string;
   lastName: string;
   organisation: string;
   email: string;
+  ticketId?: string;
 }
 
 interface RequestBody {
@@ -44,10 +46,15 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       paymentData.status === "paid"
     ) {
       await connectToDB();
+      const ticket = await Ticket.findOne({ _id: "66bcbd56a4f5f1dd4015ea59" });
+      group.forEach((groupMember) => {
+        ticket.ticketSold = ticket?.ticketSold + 1;
+        ticket.ticketRemaning = ticket?.ticketRemaning - 1;
+        groupMember.ticketId = `TEDXCCET/2024/${("00" + ticket.ticketSold).slice(-3)}`
 
+      })
+      console.log(group)
       const amount = paymentData.amount_paid;
-      console.log(amount, paymentId);
-
       const newBooking = new Booking({
         userId,
         orderId,
@@ -57,6 +64,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
         group,
       });
       await newBooking.save();
+      await ticket.save();
 
       group.forEach(async (data) => {
         const mailOptions = {
