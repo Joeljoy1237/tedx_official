@@ -17,6 +17,7 @@
     "firebase": "^10.12.4",
     "fs": "^0.0.1-security",
     "gsap": "^3.12.5",
+    "html2canvas": "^1.4.1",
     "jsonwebtoken": "^9.0.2",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",

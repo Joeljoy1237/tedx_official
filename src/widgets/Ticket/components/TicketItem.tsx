@@ -5,7 +5,7 @@ import React from "react";
 
 export default function TicketItem() {
   return (
-    <div className="w-auto flex flex-row items-center justify-center rotate-90 md:rotate-0 lg:rotate-0">
+    <div  id="ticket" className="w-auto flex flex-row items-center justify-center rotate-90 md:rotate-0 lg:rotate-0">
       <div className="w-[700px] bg-black-200 h-[300px] rounded-[30px] flex flex-row">
         <div className="flex w-[35%]">
           <Image
