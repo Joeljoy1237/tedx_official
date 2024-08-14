@@ -153,7 +153,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
             </html>
           `,
         };
-        
+
 
         transporter.sendMail(mailOptions, (error, info) => {
           if (error) {

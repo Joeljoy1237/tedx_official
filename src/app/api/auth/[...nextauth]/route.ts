@@ -12,6 +12,7 @@ declare module "next-auth" {
       firstName?: string | null;
       lastName?: string | null;
       email?: string | null;
+      referal_code?: string | null;
       organisation?: string | null;
       mobile?: string | null;
     };
@@ -62,10 +63,11 @@ const handler = NextAuth({
         if (sessionUser) {
           session.user.firstName = sessionUser?.firstName;
           session.user.lastName = sessionUser?.lastName;
+          session.user.referal_code = sessionUser?.referal_code;
           session.user.email = sessionUser?.email;
           session.user.organisation = sessionUser?.organisation;
           session.user._id = sessionUser._id.toString();
-          
+
         }
       }
       return session;

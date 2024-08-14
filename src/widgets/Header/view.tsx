@@ -63,7 +63,7 @@ export default function HeaderView() {
   };
   const handleSignout = async () => {
     // Show toast before sign out
-    handleSession()
+    handleSession();
     showTedxToast({
       type: "success",
       message: "Logout successful", // Updated message
@@ -149,7 +149,9 @@ export default function HeaderView() {
             )}
           </div>
         </div>
-        {drawerOpen && <Drawer handleClose={handleClose} handlesignout={handleSignout}/>}
+        {drawerOpen && (
+          <Drawer handleClose={handleClose} handlesignout={handleSignout} />
+        )}
       </div>
       {!isLoaded && <PreLoader />}
     </>

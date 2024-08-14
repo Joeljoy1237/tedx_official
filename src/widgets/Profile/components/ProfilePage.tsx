@@ -57,6 +57,8 @@ export default function ProfilePage() {
             }),
           });
           const data = await response.json();
+          console.log(data);
+
           setProfile(data);
         } catch (err) {
           console.error(err);
