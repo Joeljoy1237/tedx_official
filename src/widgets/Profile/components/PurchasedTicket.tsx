@@ -1,13 +1,40 @@
-import Logo from "@components/Logo";
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState, forwardRef } from "react";
+import QRCode from "qrcode";
+import Logo from "@components/Logo";
 
-export default function PurchasedTicket() {
+const PurchasedTicket = forwardRef<HTMLDivElement>((props, ref) => {
+  const [src, setSrc] = useState<string>("");
+
+  useEffect(() => {
+    const generateQRCode = async () => {
+      try {
+        const options = {
+          color: {
+            dark: "#FFFFFF", // White color for the QR code
+            light: "#eb0028", // Red background
+          },
+        };
+        const qrCodeSrc = await QRCode.toDataURL(
+          "https://localhost:3000/",
+          options
+        );
+        setSrc(qrCodeSrc);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    generateQRCode();
+  }, []);
+
   return (
     <div
       id="ticket"
-      className="w-auto flex flex-row items-center justify-center rotate-90 md:rotate-0 lg:rotate-0"
+      className="w-auto bg-black-100 flex flex-row items-center justify-center rotate-90 md:rotate-0 lg:rotate-0"
+      ref={ref}
     >
       <div className="w-[700px] bg-black-200 h-[300px] rounded-[30px] flex flex-row">
         <div className="flex w-[35%]">
@@ -64,9 +91,41 @@ export default function PurchasedTicket() {
         <div className="border-2 h-[20px] border-white"></div>
         <div className="border-2 h-[20px] border-white"></div>
       </div>
-      <div className="w-[300px] h-[300px] rounded-[30px] bg-primary-700 p-4 items-center flex-col  justify-center gap-[2rem] relative">
-        
+      <div className="w-[300px] h-[300px] -rotate-90 rounded-[30px] bg-primary-700 p-4 items-center flex-row justify-center gap-[2rem] relative">
+        <div className="flex flex-col">
+          <span className="font-bold text-xl">ABHISHEK SANTHOSH</span>
+          <span className="font-semibold italic">Google LLC</span>
+          <span className="font-semibold italic">Full stack developer</span>
+          <span className="font-sans">ID: TEDxCCET/2024/22</span>
+        </div>
+        <div className="absolute bottom-0 left-0 w-[10rem] flex flex-col">
+          <span className="text-[0.6rem] ml-4 mb-[-10px] z-10">
+          Be Present At The Seminar Hall Before 9:00 IST
+          </span>
+          {src ? (
+            <Image
+              src={src}
+              alt="QR Code"
+              height={100}
+              width={100}
+              className="w-[8.5rem] rounded-[30px]"
+            />
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
+        <div className=""></div>
+        <Image
+          src={"/alappy.png"}
+          alt="QR Code"
+          height={500}
+          width={500}
+          className="absolute bottom-3 right-3 w-[10rem]"
+        />
       </div>
     </div>
   );
-}
+});
+
+PurchasedTicket.displayName = "PurchasedTicket";
+export default PurchasedTicket;

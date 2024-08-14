@@ -28,7 +28,8 @@ export default function RootLayout({
           name="keywords"
           content="TEDx, tedx, tedxccet, tedx ccet, carmel ,ted, alappuzha, Alappuzha, carmel cet, Carmel CET ccet, carmelcet, TEDxCCET, Carmel College of Engineering & Technology, Kerala, innovators, speakers, workshops, networking, technology, innovation"
         />
-        <meta property="og:title" content="TEDˣCCET" />
+        <meta property="og:site_name" content="TEDxCCET"></meta>
+        <meta property="og:title" content="TEDxCCET" />
         <meta
           property="og:description"
           content="Join us at Carmel College of Engineering & Technology for TEDxCCET, showcasing Kerala's innovators and inspiring speakers."
@@ -36,7 +37,7 @@ export default function RootLayout({
         <meta property="og:image" content="/favicon.png" />
         <meta property="og:url" content="https://tedxccet.in" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="TEDˣCCET" />
+        <meta name="twitter:title" content="TEDxCCET" />
         <meta
           name="twitter:description"
           content="Join us at Carmel College of Engineering & Technology for TEDxCCET, showcasing Kerala's innovators and inspiring speakers."

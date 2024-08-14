@@ -56,7 +56,7 @@ export default function HeaderView() {
   const handleSession = () => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
-    }, 1300);
+    }, 1000);
     router.replace("/login");
 
     return () => clearTimeout(timer);

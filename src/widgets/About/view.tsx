@@ -40,7 +40,7 @@ export default function AboutView() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
-    }, 1300);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);

@@ -45,7 +45,7 @@ export default function ForgotPasswordView() {
       }
       const timer = setTimeout(() => {
         setIsLoaded(true);
-      }, 1300);
+      }, 1000);
   
       return () => clearTimeout(timer);
     }, [status, session, router]);

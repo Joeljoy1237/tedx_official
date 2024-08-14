@@ -16,10 +16,10 @@ export const navLinks = [
         title: "theme",
         url: "/our-theme"
     },
-    // {
-    //     title: "speakers",
-    //     url: "/speakers"
-    // },
+    {
+        title: "get tickets",
+        url: "/get-tickets"
+    },
     // {
     //     title: "Gallery",
     //     url: "/gallery"

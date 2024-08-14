@@ -46,7 +46,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       paymentData.status === "paid"
     ) {
       await connectToDB();
-      const ticket = await Ticket.findOne({ _id: "66bcbd56a4f5f1dd4015ea59" });
+      const ticket = await Ticket.findOne({ _id: "66bcdf73381f6901e8ed2532" });
       group.forEach((groupMember) => {
         ticket.ticketSold = ticket?.ticketSold + 1;
         ticket.ticketRemaning = ticket?.ticketRemaning - 1;
