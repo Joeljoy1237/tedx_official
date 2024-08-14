@@ -35,7 +35,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       key_secret: process.env.RAZOR_KEY_SECRET as string,
     });
 
-    console.log(orderId);
+
     const paymentData = await razorpay.orders.fetch(orderId);
 
     if (

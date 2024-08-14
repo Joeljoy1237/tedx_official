@@ -156,7 +156,9 @@ export default function Content() {
               })
                 .then((res) => {
                   console.log(res);
-                  router.replace("/success");
+                  router.replace(
+                    `/success?orderId=${response.razorpay_order_id}&paymentId=${response.razorpay_payment_id}`
+                  );
                 })
                 .catch((err) => {
                   console.log(err);
@@ -414,6 +416,7 @@ export default function Content() {
           onBuy={handleBuy} // If your RightSide component doesn't have onBuy prop, remove it
         />
       </div>
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" />
     </>
   );
 }
