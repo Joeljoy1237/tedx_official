@@ -18,5 +18,5 @@ const TicketSchema = new Schema(
   { timestamps: true }
 );
 
-const Ticket = models.Ticket || model("Booking", TicketSchema);
+const Ticket = models.Ticket || model("Ticket", TicketSchema);
 export default Ticket;

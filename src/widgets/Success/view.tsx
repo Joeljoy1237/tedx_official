@@ -1,35 +1,38 @@
 "use client";
 import Image from "next/image";
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { useSearchParams } from "next/navigation";
 import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable"; // Import autoTable
-
-const PaymentDetails: React.FC = () => {
-  const searchParams = useSearchParams();
-  const paymentId = searchParams.get("paymentId") || "";
-  const orderId = searchParams.get("orderId") || "";
-
-  return (
-    <>
-      <p className="text-lg text-gray-600 mb-3">Payment ID: {paymentId}</p>
-      <p className="text-lg text-gray-600 mb-8">Order ID: {orderId}</p>
-    </>
-  );
-};
+import autoTable, { UserOptions } from "jspdf-autotable"; // Import autoTable
 
 export default function SuccessPage() {
-  const searchParams = useSearchParams();
-  const paymentId = searchParams.get("paymentId") || "";
-  const orderId = searchParams.get("orderId") || "";
+  // const searchParams = useSearchParams();
+  // const paymentId = searchParams.get("paymentId") || "";
+  // const orderId = searchParams.get("orderId") || "";
+
+  const [paymentId, setPaymentId] = useState<String>("");
+  const [orderId, setOrderId] = useState<String>("");
+
+  const PaymentDetails: React.FC = () => {
+    const searchParams = useSearchParams();
+    setPaymentId(searchParams.get("paymentId") || "");
+    setOrderId(searchParams.get("orderId") || "");
+
+    return (
+      <>
+        <p className="text-lg text-gray-600 mb-3">Payment ID: {paymentId}</p>
+        <p className="text-lg text-gray-600 mb-8">Order ID: {orderId}</p>
+      </>
+    );
+  };
 
   const handleDownloadReceipt = () => {
     const doc = new jsPDF();
-  
+
     // Add header
     doc.setFontSize(24);
-    
+
     // Text for TEDx
     doc.setTextColor("#eb0028"); // Red color for TEDx
     doc.setFont("Helvetica", "bold");
@@ -37,20 +40,20 @@ export default function SuccessPage() {
     const textCCET = "CCET";
     const textTEDxWidth = doc.getTextWidth(textTEDx);
     const textCCETWidth = doc.getTextWidth(textCCET);
-  
+
     // Combine the widths of both texts and add some space in between
     const totalWidth = textTEDxWidth + textCCETWidth; // 5 units of space between TEDx and CCET
     const pageWidth = doc.internal.pageSize.getWidth();
     const headerX = (pageWidth - totalWidth) / 2;
-  
+
     // Add TEDx
     doc.text(textTEDx, headerX, 40);
-  
+
     // Add CCET
     doc.setTextColor("#000000"); // Color for CCET
     doc.setFont("Helvetica", "normal");
     doc.text(textCCET, headerX + textTEDxWidth, 40); // Adjust X position for CCET
-  
+
     // Add title
     doc.setFontSize(22);
     doc.setTextColor("#000000"); // Set title color to black
@@ -58,17 +61,17 @@ export default function SuccessPage() {
     const titleWidth = doc.getTextWidth(title);
     const titleX = (pageWidth - titleWidth) / 2;
     doc.text(title, titleX, 60);
-  
+
     // Define the table options
-    const options = {
+    const options: UserOptions = {
       startY: 80,
       head: [["Payment ID", "Order ID"]],
-      body: [[paymentId, orderId]],
+      body: [["" + paymentId, "" + orderId]],
       styles: {
         cellPadding: 5,
         fontSize: 12,
-        halign: 'center' as 'center', // Center align text in table
-        valign: 'middle' as 'middle',
+        halign: "center" as "center", // Center align text in table
+        valign: "middle" as "middle",
         textColor: [0, 0, 0] as [number, number, number], // Black text color for body rows
         fillColor: [255, 255, 255] as [number, number, number], // White background for body rows
       },
@@ -76,19 +79,19 @@ export default function SuccessPage() {
         fillColor: [235, 0, 40] as [number, number, number], // TEDx red background for header
         textColor: [255, 255, 255] as [number, number, number], // White text color for header
         fontSize: 14,
-        halign: 'center' as 'center',
+        halign: "center" as "center",
       },
       alternateRowStyles: {
         fillColor: [240, 240, 240] as [number, number, number], // Light gray for alternate rows
       },
     };
-  
+
     // Add table to the PDF
-    autoTable(doc,options);
-  
+    autoTable(doc, options);
+
     // Get the final Y position after the table
     const finalY = (doc as any).lastAutoTable.finalY;
-  
+
     // Add a thank you message
     doc.setFontSize(14);
     doc.setTextColor("#333333"); // Set message color to dark gray
@@ -97,7 +100,7 @@ export default function SuccessPage() {
       15,
       finalY + 10
     );
-  
+
     // Add the date, time, and IP address
     const generatedDate = new Date().toLocaleString("en-GB", {
       day: "2-digit",
@@ -108,23 +111,23 @@ export default function SuccessPage() {
       hour12: true,
       timeZone: "Asia/Kolkata",
     });
-  
+
     const ipAddress = "123.456.789.012"; // Replace with dynamic IP if available
     doc.setFontSize(12);
     doc.setTextColor("#555555"); // Set color to gray
     doc.text(`Generated on: ${generatedDate}`, 15, finalY + 25);
-  
-    const creditsText = "www.tedxccet.in | For support contact: tedxsupport@carmelcet.in";
-  const creditsWidth = doc.getTextWidth(creditsText);
-  const creditsX = (pageWidth - creditsWidth) / 1.5;
-  const creditsY = doc.internal.pageSize.height - 20; // 20 units from the bottom
-  doc.setFontSize(10);
-  doc.setTextColor("#555555"); // Set color to gray for credits
-  doc.text(creditsText, creditsX, creditsY);
+
+    const creditsText =
+      "www.tedxccet.in | For support contact: tedxsupport@carmelcet.in";
+    const creditsWidth = doc.getTextWidth(creditsText);
+    const creditsX = (pageWidth - creditsWidth) / 1.5;
+    const creditsY = doc.internal.pageSize.height - 20; // 20 units from the bottom
+    doc.setFontSize(10);
+    doc.setTextColor("#555555"); // Set color to gray for credits
+    doc.text(creditsText, creditsX, creditsY);
     // Save the PDF
     doc.save(`TEDxCCET_Payment_Receipt_${orderId}.pdf`);
   };
-  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
