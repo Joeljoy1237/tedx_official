@@ -9,13 +9,12 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import gsap from "gsap";
 
 export default function HeroText() {
+  // Register the ScrollToPlugin
+  gsap.registerPlugin(ScrollToPlugin);
 
-// Register the ScrollToPlugin
-gsap.registerPlugin(ScrollToPlugin);
-
-const scrollToSection = (sectionId:any) => {
-  gsap.to(window, { duration: 1, scrollTo: sectionId });
-};
+  const scrollToSection = (sectionId: any) => {
+    gsap.to(window, { duration: 0.5, scrollTo: sectionId });
+  };
   return (
     <div className="relative isolate min-h-[100vh] px-[5vw] flex items-center justify-center mt-2 md:mt-[5vh] lg:mt-[5vh]">
       <div className="flex items-center justify-center md:flex-row lg:flex-row flex-col-reverse md:gap-3 lg:gap-3 gap-3">
@@ -49,16 +48,16 @@ const scrollToSection = (sectionId:any) => {
               <Button
                 className="px-4 py-2 rounded-lg bg-primary-700 font-semibold w-auto md:w-auto lg:w-auto outline-none border-none"
                 title="Get Tickets"
-                onClick={()=>{
-                  scrollToSection('#get-tickets')
+                onClick={() => {
+                  scrollToSection("#get-tickets");
                 }}
               />
-              <Link href={'/about'}>
-              <Button
-                className="px-4 py-2 rounded-lg font-semibold flex items-center justify-center gap-2 w-auto md:w-auto lg:w-auto"
-                title="Learn more"
-                icon={<IconArrow className="size-6" />}
-              />
+              <Link href={"/about"}>
+                <Button
+                  className="px-4 py-2 rounded-lg font-semibold flex items-center justify-center gap-2 w-auto md:w-auto lg:w-auto"
+                  title="Learn more"
+                  icon={<IconArrow className="size-6" />}
+                />
               </Link>
             </div>
           </div>

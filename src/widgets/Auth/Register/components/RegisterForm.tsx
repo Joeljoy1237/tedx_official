@@ -133,7 +133,7 @@ export default function RegisterForm() {
                   *
                 </span>
                 <input
-                  type="text"
+                  type="email"
                   className=" w-full p-3 rounded-md bg-black-300 outline-none border-none"
                   placeholder="johndoe@gmail.com"
                   value={email}

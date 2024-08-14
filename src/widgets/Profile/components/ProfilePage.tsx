@@ -25,6 +25,8 @@ export default function ProfilePage() {
             }),
           });
           const data = await response.json();
+          console.log(data);
+
           setProfile(data);
         } catch (err) {
           console.error(err);
@@ -40,7 +42,7 @@ export default function ProfilePage() {
       <div className="flex w-full gap-10">
         <div className="flex-[0.5] w-full rounded-[10px] bg-black-200 p-3 gap-4 flex flex-col h-[48vh]">
           <div className="flex w-full items-center justify-center py-4">
-            <BsPersonSquare className="text-8xl"/>
+            <BsPersonSquare className="text-8xl" />
           </div>
           <div>
             <button className="w-full text-white p-3 rounded-[10px] flex items-center justify-center gap-2">

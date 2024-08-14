@@ -23,11 +23,19 @@ const UserSchema = new Schema(
       type: String,
       required: [true, "Organisation is required"],
     },
+    referal_code: {
+      type: String,
+      require: true,
+    },
     password: {
       type: String,
       require: [true, "Password is required"],
     },
     resetTokenUsed: {
+      type: Boolean,
+      default: false,
+    },
+    isAdmin: {
       type: Boolean,
       default: false,
     },

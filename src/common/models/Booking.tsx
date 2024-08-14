@@ -40,6 +40,10 @@ const BookingSchema = new Schema(
           type: String,
           require: true,
         },
+        checkedIn: {
+          type: Boolean,
+          default: false,
+        },
         ticketId: {
           type: String,
           require: true,
