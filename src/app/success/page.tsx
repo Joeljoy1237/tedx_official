@@ -1,8 +1,10 @@
-import SuccessPage from '@widgets/Success'
-import React from 'react'
+import SuccessPage from "@widgets/Success";
+import React, { Suspense } from "react";
 
 export default function page() {
   return (
-   <SuccessPage/>
-  )
+    <Suspense fallback={<div>Loading...</div>}>
+      <SuccessPage />
+    </Suspense>
+  );
 }
