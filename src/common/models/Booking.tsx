@@ -6,10 +6,6 @@ const BookingSchema = new Schema(
       type: String,
       require: true,
     },
-    ticketId: {
-      type: String,
-      require: true,
-    },
     orderId: {
       type: String,
       required: true,

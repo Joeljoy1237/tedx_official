@@ -2,13 +2,15 @@ import Booking from "@models/Booking";
 import { connectToDB } from "@utils/database";
 import Razorpay from "razorpay";
 import nodemailer from "nodemailer";
-import { NextRequest, NextResponse } from "next/server"; // Assuming you're using Next.js
+import { NextRequest, NextResponse } from "next/server";
+import Ticket from "@models/Ticket";
 
 interface GroupMember {
   firstName: string;
   lastName: string;
   organisation: string;
   email: string;
+  ticketId?: string;
 }
 
 interface RequestBody {
@@ -36,6 +38,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       key_secret: process.env.RAZOR_KEY_SECRET as string,
     });
 
+
     const paymentData = await razorpay.orders.fetch(orderId);
 
     if (
@@ -43,10 +46,15 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       paymentData.status === "paid"
     ) {
       await connectToDB();
+      const ticket = await Ticket.findOne({ _id: "66bcbd56a4f5f1dd4015ea59" });
+      group.forEach((groupMember) => {
+        ticket.ticketSold = ticket?.ticketSold + 1;
+        ticket.ticketRemaning = ticket?.ticketRemaning - 1;
+        groupMember.ticketId = `TEDXCCET/2024/${("00" + ticket.ticketSold).slice(-3)}`
+
+      })
 
       const amount = paymentData.amount_paid;
-      console.log(amount, paymentId);
-
       const newBooking = new Booking({
         userId,
         orderId,
@@ -56,6 +64,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
         group,
       });
       await newBooking.save();
+      await ticket.save();
 
       for (const data of group) {
         // Generate PDF
@@ -132,7 +141,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
             </html>
           `,
         };
-        
+
 
         transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
@@ -155,7 +164,6 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
         status: 200,
       });
     }
-
     return new NextResponse(
       JSON.stringify({ message: "Payment Save Unsuccessful" }),
       { status: 400 }
