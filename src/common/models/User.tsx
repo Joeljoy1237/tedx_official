@@ -25,7 +25,7 @@ const UserSchema = new Schema(
     },
     referal_code: {
       type: String,
-      require: true,
+      default: "",
     },
     referals: [
       {
