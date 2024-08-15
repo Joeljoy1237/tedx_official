@@ -54,6 +54,7 @@ const handler = NextAuth({
         }
       },
     }),
+    
   ],
   callbacks: {
     async session({ session }) {
