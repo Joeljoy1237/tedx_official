@@ -1,7 +1,7 @@
 import React from "react";
 
 interface titlebarProps {
-  title: string;
+  title: string | undefined;
   titleSecond?:string
 }
 

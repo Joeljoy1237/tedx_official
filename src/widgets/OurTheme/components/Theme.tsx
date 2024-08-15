@@ -29,7 +29,7 @@ export default function Theme() {
             </span>
           </div>
           <span className="text-2xl text-center md:text-5xl lg:text-5xl font-boldl tagline">
-            From 8 to Infinity: Embracing Limitless Growth
+            From 8 to Infinity: A Journey Beyond Limit
           </span>
         </div>
         <div className="flex flex-col md:flex-row lg:flex-row">
@@ -52,11 +52,7 @@ export default function Theme() {
               The true nature of the theme also encourages us to travel through
               wide ranging perspectives. One such perspective is shifting 8
               horizontally, symbolizing growth is iterative despite the
-              frustrations. Given below is a list of expert speakers each
-              renowned in their respective fields, to gather under one umbrella
-              for this event. Together, they are capable of dispersing their
-              ideas and insights to our audience, enriching collective knowledge
-              and understanding.
+              frustrations.
             </p>
           </div>
         </div>

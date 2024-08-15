@@ -33,15 +33,15 @@ export default function HeroText() {
               <div className="flex gap-2 flex-row items-center justify-start">
                 <IconDate className="size-5" />
                 <span className="text-sm  md:text-base lg:text-base">
-                  <span className="sans">7</span> September 2024
+                  <span className="sans">7<sup>th</sup></span> September 2024
                 </span>
               </div>
               <div className="hidden md:flex lg:flex">|</div>
               <div className="flex flex-row items-center justify-start gap-2">
                 <IconLocation className="size-6" />
-                <span className="text-sm md:text-base lg:text-base">
+                <Link href={'/getting-there'} className="text-sm md:text-base lg:text-base">
                   Carmel College of Engineering & Technology
-                </span>
+                </Link>
               </div>
             </div>
             <div className="flex flex-row w-full items-center justify-start md:justify-start lg:justify-start gap-2">

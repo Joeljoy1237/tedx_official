@@ -194,7 +194,7 @@ export default function Content() {
       };
       const rzp1 = new (window as any).Razorpay(options);
       rzp1.on("payment.failed", function (response: any) {
-        alert(response.error.description);
+       router.replace('/payment-error')
       });
       rzp1.open();
     } catch (err) {

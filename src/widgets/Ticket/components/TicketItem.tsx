@@ -38,7 +38,7 @@ export default function TicketItem() {
             <div className="flex flex-col items-start justify-center">
               <span className="text-xs">Date</span>
               <span className="text-sm">
-                <span className="sans">7</span> September{" "}
+                <span className="sans">7<sup>th</sup></span> September{" "}
                 <span className="sans">2024</span>
               </span>
             </div>

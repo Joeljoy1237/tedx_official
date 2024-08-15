@@ -136,14 +136,15 @@ export default function ProfileRightSide({ profile }: ProfilePageProps) {
                 <>
                   {profile?.group?.map((buyer, index) => (
                     <div className="">
-                      <button className="bg-primary-700 p-4 rounded-[10px] ">
-                        <Link
-                          className=""
-                          href={`http://localhost:3000/tickets/${profile?.bookingId}/${buyer?._id}`}
-                        >
-                          {`http://localhost:3000/tickets/${profile?.bookingId}/${buyer?._id}`}
-                        </Link>
-                      </button>
+                      <Link
+                        className="flex w-full"
+                        target="_blank"
+                        href={`http://localhost:3000/tickets/${profile?.bookingId}/${buyer?._id}`}
+                      >
+                        <button className="bg-primary-700 font-semibold text-xl w-[40vw] p-4 rounded-[10px] flex flex-row items-center justify-center gap-3">
+                          {buyer?.firstName} <IoMdDownload className="font-semibold text-xl"/>
+                        </button>
+                      </Link>
                     </div>
                   ))}
                 </>
