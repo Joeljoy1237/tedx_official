@@ -158,7 +158,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          count: count,
+            count: count,
           offer: discount,
           lastPrice: total,
         }),

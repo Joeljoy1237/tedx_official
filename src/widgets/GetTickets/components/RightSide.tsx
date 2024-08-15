@@ -51,7 +51,10 @@ const RightSide: React.FC<RightSideProps> = ({
           <label htmlFor="terms">I agree to the terms and conditions</label>
         </div>
         <button
-          onClick={onBuy} // Use the onBuy function here
+          onClick={() => {
+            setIsChecked(false);
+            onBuy();
+          }} // Use the onBuy function here
           disabled={!isChecked}
           className={`py-2 px-4 rounded-md font-semibold ${
             isChecked

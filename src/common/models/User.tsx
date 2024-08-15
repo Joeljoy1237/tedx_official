@@ -41,6 +41,10 @@ const UserSchema = new Schema(
       type: String,
       require: true,
     },
+    isBought:{
+      type:Boolean,
+      default:false
+    },
     password: {
       type: String,
       require: [true, "Password is required"],
@@ -59,7 +63,7 @@ const UserSchema = new Schema(
     },
     tokenUsed: {
       type: Boolean,
-      default: false, // Set this to false initially
+      default: false, 
     },
     resetLockUntil: {
       type: Date,

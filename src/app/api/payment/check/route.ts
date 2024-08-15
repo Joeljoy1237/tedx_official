@@ -53,7 +53,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       paymentData.status === "paid"
     ) {
       await connectToDB();
-
+      
       const refreredUser = await User.findOne({ referal_code: referal_code });
       if (refreredUser) {
         refreredUser.referals.push(userId);
@@ -163,20 +163,22 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
                 <p>Should you have any questions or require further assistance, please do not hesitate to reach out to us at <a href="mailto:tedxsupport@carmelcet.in">tedxsupport@carmelcet.in</a>.</p>
                 <p>We look forward to welcoming you to TEDxCCET!</p>
                 <div class="footer">
-                  <p>For support, contact us at <a href="mailto:tedxsupport@carmelcet.in">tedxsupport@carmelcet.in</a></p>
+                  <p>For support, contact us at <a href="mailto:tedxsupport@carmelcet.in">tedxsupport@carmelcet.in</a> or via WhatsApp: <a href="https://wa.me/917907247909">+91 79072 47909</a></p>
                   <p>Follow us on social media:</p>
                   <p class="social-links">
-                    <a href="https://facebook.com/tedxccet" target="_blank">Facebook</a> |
-                    <a href="https://twitter.com/tedxccet" target="_blank">Twitter</a> |
+                    <a href="https://www.facebook.com/people/TEDx-CCET/61563436965963/" target="_blank">Facebook</a> |
+                    <a href="https://linkedin.com/in/tedxccet/" target="_blank">LinkedIn</a> |
                     <a href="https://instagram.com/tedxccet" target="_blank">Instagram</a>
                   </p>
-                  // <p class="sponsor">Sponsored by: [Your Sponsors]</p>
+                  <p>Visit our website: <a href="https://www.tedxccet.in" target="_blank">www.tedxccet.in</a></p>
+                  <!-- <p class="sponsor">Sponsored by: [Your Sponsors]</p> -->
                 </div>
               </div>
             </body>
             </html>
           `,
         };
+        
 
 
         transporter.sendMail(mailOptions, (error, info) => {

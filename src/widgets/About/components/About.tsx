@@ -45,7 +45,7 @@ export default function About() {
         <div className="flex-grow">
           <iframe
             className="w-full h-[300px] md:h-full lg:h-full"
-            src="https://www.youtube.com/embed/d0NHOpeczUU?si=4M35PeDjDS5ppmdm&autoplay=1"
+           src="https://www.youtube.com/embed/d0NHOpeczUU?autoplay=1&mute=1&si=4M35PeDjDS5ppmdm"
             // Remove the allow attribute if no actions are required
             referrerPolicy="strict-origin-when-cross-origin"
             allow="autoplay; encrypted-media"
