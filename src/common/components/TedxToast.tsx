@@ -1,16 +1,34 @@
 // components/TedxToast.tsx
-import React, { useEffect } from "react";
+import React from "react";
 
 interface ToastProps {
-  type: "success" | "error";
+  type: "success" | "error" | "info"; // Added 'info' type
   message: string;
   desc?: string;
   toastId: string;
 }
 
 const TedxToast: React.FC<ToastProps> = ({ type, message, toastId, desc }) => {
-  const backgroundColor = type === "success" ? "bg-green-700" : "bg-red-700";
-  const textColor = type === "success" ? "text-white" : "text-white";
+  let backgroundColor;
+  let textColor;
+
+  switch (type) {
+    case "success":
+      backgroundColor = "bg-green-700";
+      textColor = "text-white";
+      break;
+    case "error":
+      backgroundColor = "bg-red-700";
+      textColor = "text-white";
+      break;
+    case "info":
+      backgroundColor = "bg-blue-700"; // Blue background for info
+      textColor = "text-white";
+      break;
+    default:
+      backgroundColor = "bg-gray-700"; // Fallback color
+      textColor = "text-white";
+  }
 
   return (
     <div

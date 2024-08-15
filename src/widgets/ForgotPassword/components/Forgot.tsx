@@ -12,6 +12,12 @@ export default function Forgot() {
   const [mail, setMail] = useState("");
   const [isSubmitting, setIssubmitting] = useState(false);
   const router = useRouter();
+
+  const handleEnterPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if("key" in event && event.key == "Enter") {
+      handleReset();
+    } 
+  }
   const handleReset = async () => {
     setIssubmitting(true);
     try {
@@ -85,6 +91,7 @@ export default function Forgot() {
             type="text"
             className="w-full py-4 rounded-lg px-2 bg-black-300 outline-none border-none0"
             placeholder="Email address"
+            onKeyDown={handleEnterPress}
             onChange={(e) => {
               setMail(e.target.value);
             }}
