@@ -14,6 +14,9 @@ const BookingSchema = new Schema(
       type: String,
       rquire: true,
     },
+    referal_code: {
+      type: String,
+    },
     count: {
       type: Number,
       required: true,

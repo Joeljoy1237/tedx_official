@@ -33,15 +33,22 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       );
     }
 
-    if (user.resetCount >= 3) {
+    if (user.resetLockUntil > Date.now() && user.resetCount >= 3) {
+      console.log(user.resetLockUntil);
+      const timeDifferenceInMilliseconds = user.resetLockUntil - Date.now();
+      const timeDifferenceInHours = Math.ceil(timeDifferenceInMilliseconds / (1000 * 60 * 60));
       return new NextResponse(
         JSON.stringify({
           message: "Reset request limit reached",
-          desc: "You have reached the maximum number of reset requests. Please contact support for further assistance.",
+          desc: `You have reached the maximum number of reset requests try after ${timeDifferenceInHours} hour. Please contact support for further assistance.`,
         }),
         { status: 403 }
       );
     }
+    else if (user.resetCount >= 3) {
+      user.resetCount = 0;
+    }
+
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string, {
       expiresIn: "1h",
@@ -91,6 +98,12 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 
     user.resetTokenUsed = false;
     user.resetCount = (user.resetCount || 0) + 1;
+    if (user.resetCount >= 3) {
+      // Set the lockUntil time to 12 hours from now
+      user.resetLockUntil = new Date(Date.now() + 12 * 60 * 60 * 1000); // 12 hours = 43,200,000 milliseconds
+
+
+    }
     await user.save();
 
     transporter.sendMail(mailOptions, function (error, info) {

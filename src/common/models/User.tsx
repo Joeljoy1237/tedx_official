@@ -27,6 +27,20 @@ const UserSchema = new Schema(
       type: String,
       require: true,
     },
+    referals: [
+      {
+        type: String,
+        default: [],
+      },
+    ],
+    wallet: {
+      type: Number,
+      default: 0,
+    },
+    designation: {
+      type: String,
+      require: true,
+    },
     password: {
       type: String,
       require: [true, "Password is required"],
@@ -46,6 +60,10 @@ const UserSchema = new Schema(
     tokenUsed: {
       type: Boolean,
       default: false, // Set this to false initially
+    },
+    resetLockUntil: {
+      type: Date,
+      require: true,
     },
   },
   { timestamps: true }

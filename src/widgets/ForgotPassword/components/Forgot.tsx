@@ -10,6 +10,7 @@ import React, { useState } from "react";
 
 export default function Forgot() {
   const [mail, setMail] = useState("");
+  const [isSubmitting, setIssubmitting] = useState(false);
   const router = useRouter();
 
   const handleEnterPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -18,6 +19,7 @@ export default function Forgot() {
     } 
   }
   const handleReset = async () => {
+    setIssubmitting(true);
     try {
       const response = await fetch("/api/forgot", {
         method: "POST",
@@ -56,6 +58,7 @@ export default function Forgot() {
         desc: error?.cause,
       });
     }
+    setIssubmitting(false);
   };
   return (
     <div className="flex w-full flex-col items-center justify-center gap-8 relative">
@@ -94,7 +97,8 @@ export default function Forgot() {
             }}
           />
           <Button
-            title="Request reset link"
+            title={!isSubmitting ? "Request reset link" : "Please Wait..."}
+            disabled={isSubmitting}
             className="w-full bg-primary-700 p-3 rounded-lg font-semibold"
             onClick={() => {
               handleReset();

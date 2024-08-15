@@ -16,6 +16,7 @@ export default function RegisterForm() {
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [organisation, setOrganisation] = useState("");
+  const [designation, setDesignation] = useState("");
   const [password, setPassword] = useState("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -43,6 +44,7 @@ export default function RegisterForm() {
           email,
           mobile,
           organisation,
+          designation,
           password,
         }),
       });
@@ -182,6 +184,23 @@ export default function RegisterForm() {
                   }}
                 />
               </div>
+
+              <div className="flex-1">
+                <span className="font-light text-sm italic">Designation</span>
+                <span className="text-primary-700 text-2xl mt-[15px] font-semibold">
+                  *
+                </span>
+                <input
+                  type="text"
+                  className=" w-full p-3 rounded-md bg-black-300 outline-none border-none"
+                  placeholder="Student"
+                  value={designation}
+                  onChange={(e) => {
+                    setDesignation(e.target.value);
+                  }}
+                />
+              </div>
+
               <div className="flex-1">
                 <span className="font-light text-sm italic">Password</span>
                 <span className="text-primary-700 text-2xl mt-[15px] font-semibold">
