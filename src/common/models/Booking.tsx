@@ -43,6 +43,10 @@ const BookingSchema = new Schema(
           type: String,
           require: true,
         },
+        designation: {
+          type: String,
+          require: true,
+        },
         checkedIn: {
           type: Boolean,
           default: false,

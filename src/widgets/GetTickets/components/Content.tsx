@@ -14,6 +14,7 @@ interface Member {
   lastName: string;
   email: string;
   organisation: string;
+  designation: string;
 }
 
 export default function Content() {
@@ -24,7 +25,13 @@ export default function Content() {
   );
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [members, setMembers] = useState<Member[]>([
-    { firstName: "", lastName: "", email: "", organisation: "" },
+    {
+      firstName: "",
+      lastName: "",
+      email: "",
+      organisation: "",
+      designation: "",
+    },
   ]);
   // const [orderId,setOrderId]=useState('');
 
@@ -38,6 +45,7 @@ export default function Content() {
         lastName: (session.user as any).lastName || "",
         email: session.user.email || "",
         organisation: (session.user as any).organisation || "",
+        designation: (session.user as any).designation || "",
       };
 
       if (activeTab === "individual") {
@@ -59,7 +67,13 @@ export default function Content() {
   const addMember = () => {
     setMembers([
       ...members,
-      { firstName: "", lastName: "", email: "", organisation: "" },
+      {
+        firstName: "",
+        lastName: "",
+        email: "",
+        organisation: "",
+        designation: "",
+      },
     ]);
   };
 
@@ -303,6 +317,22 @@ export default function Content() {
                         placeholder="Company"
                       />
                     </div>
+                    <div className="flex-1">
+                      <span className="font-light text-sm italic">
+                        Designation
+                      </span>
+                      <span className="text-primary-700 text-2xl mt-[15px] font-semibold">
+                        *
+                      </span>
+                      <input
+                        type="text"
+                        name="designation"
+                        value={members[0].designation}
+                        onChange={(e) => handleInputChange(0, e)}
+                        className="w-full p-3 rounded-md bg-black-300 outline-none border-none"
+                        placeholder="Company"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -386,6 +416,22 @@ export default function Content() {
                             type="text"
                             name="organisation"
                             value={member.organisation}
+                            onChange={(e) => handleInputChange(index, e)}
+                            className="w-full p-3 rounded-md bg-black-300 outline-none border-none"
+                            placeholder="Company"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <span className="font-light text-sm italic">
+                            Designation
+                          </span>
+                          <span className="text-primary-700 text-2xl mt-[15px] font-semibold">
+                            *
+                          </span>
+                          <input
+                            type="text"
+                            name="designation"
+                            value={member.designation}
                             onChange={(e) => handleInputChange(index, e)}
                             className="w-full p-3 rounded-md bg-black-300 outline-none border-none"
                             placeholder="Company"

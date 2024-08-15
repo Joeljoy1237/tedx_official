@@ -5,6 +5,7 @@ import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { useSearchParams } from "next/navigation";
 import jsPDF from "jspdf";
 import autoTable, { UserOptions } from "jspdf-autotable"; // Import autoTable
+import Link from "next/link";
 
 export default function SuccessPage() {
   // const searchParams = useSearchParams();
@@ -154,16 +155,15 @@ export default function SuccessPage() {
           Thank you for your purchase. Your transaction was successful, and your
           order is being processed.
         </p>
-        <button
-          onClick={handleDownloadReceipt}
-          className="bg-gradient-to-r from-green-500 to-teal-500 text-white py-3 px-6 rounded-lg hover:from-green-600 hover:to-teal-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-300"
-        >
-          Download Receipt
-        </button>
+        <Link href={"/profile"}>
+          <button className="bg-gradient-to-r from-green-500 to-teal-500 text-white py-3 px-6 rounded-lg hover:from-green-600 hover:to-teal-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-300">
+            Go to profile
+          </button>
+        </Link>
         <div className="mt-8">
-          <a href="/" className="text-indigo-600 hover:underline">
+          <Link href="/" className="text-indigo-600 hover:underline">
             Back to Home
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -35,6 +35,7 @@ interface Group {
 interface Profile {
   user: User;
   group: Group[];
+  bookingId:string;
 }
 
 export default function ProfileView() {

@@ -34,6 +34,7 @@ interface Group {
 interface Profile {
   user: User;
   group: Group[];
+  bookingId:string;
 }
 
 interface ProfilePageProps {

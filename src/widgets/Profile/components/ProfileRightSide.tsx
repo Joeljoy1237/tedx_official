@@ -34,6 +34,7 @@ interface Group {
 interface Profile {
   user: User;
   group: Group[];
+  bookingId: string;
 }
 
 interface ProfilePageProps {
@@ -45,16 +46,15 @@ export default function ProfileRightSide({ profile }: ProfilePageProps) {
   const user = session?.user || {};
   const router = useRouter();
   const [currentTicketId, setCurrentTicketId] = useState<string | null>(null);
+  const [refresh, setRefresh] = useState<number>(0); // Added state to force re-render
   const ticketRef = useRef<HTMLDivElement>(null);
 
   const downloadPDF = async (buyer: Group) => {
     setCurrentTicketId(buyer.ticketId);
+    setRefresh((prev) => prev + 1); // Trigger re-render
 
-    // Reset the ticket reference after setting the current ticket ID
-    const currentTicket = ticketRef.current;
-
-    if (currentTicket) {
-      const canvas = await html2canvas(currentTicket, {
+    if (ticketRef.current) {
+      const canvas = await html2canvas(ticketRef.current, {
         scale: 2,
         useCORS: true,
       });
@@ -89,7 +89,7 @@ export default function ProfileRightSide({ profile }: ProfilePageProps) {
       }
     }
   };
-
+  console.log(profile);
   return (
     <div className="flex flex-col gap-10">
       <div className="flex flex-col gap-5 w-full">
@@ -131,36 +131,20 @@ export default function ProfileRightSide({ profile }: ProfilePageProps) {
               </Link>
             </div>
           ) : (
-            <div className="flex w-full flex-col items-center justify-start md:flex-row lg:flex-row gap-3">
+            <div className="flex w-full flex-wrap flex-col items-center justify-start md:flex-row lg:flex-row gap-3">
               {profile?.group && (
                 <>
                   {profile?.group?.map((buyer, index) => (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        downloadPDF(buyer);
-                      }}
-                      className="bg-primary-700 px-3 py-2 rounded-[10px] w-full md:w-auto lg:w-auto relative"
-                    >
-                      <span className="flex items-center justify-center gap-2">
-                        {buyer?.firstName}{" "}
-                        <span className="font-sans">{buyer?.ticketId}</span>
-                        <IoMdDownload className="text-white" />
-                      </span>
-                      {/* Render the ticket off-screen for the current buyer */}
-                      {currentTicketId === buyer.ticketId && (
-                        <div
-                          style={{
-                            position: "absolute",
-                            top: "-10000px",
-                            left: "-10000px",
-                            overflow: "hidden",
-                          }}
+                    <div className="">
+                      <button className="bg-primary-700 p-4 rounded-[10px] ">
+                        <Link
+                          className=""
+                          href={`https://tedxccet.in/tickets/${profile?.bookingId}/${buyer?._id}`}
                         >
-                          <PurchasedTicket buyer={buyer} ref={ticketRef} />
-                        </div>
-                      )}
-                    </button>
+                          {`https://tedxccet.in/tickets/${profile?.bookingId}/${buyer?._id}`}
+                        </Link>
+                      </button>
+                    </div>
                   ))}
                 </>
               )}
