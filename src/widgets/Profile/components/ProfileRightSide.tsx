@@ -92,7 +92,7 @@ export default function ProfileRightSide({ profile }: ProfilePageProps) {
   console.log(profile);
   return (
     <div className="flex flex-col gap-10">
-      <div className="flex flex-col gap-5 w-full">
+      <div className="flex flex-col gap-5 w-full break-words">
         <span className="text-xl md:text-4xl lg:text-4xl break-words">
           Welcome 👋,{" "}
           <span className="font-semibold">
@@ -100,13 +100,17 @@ export default function ProfileRightSide({ profile }: ProfilePageProps) {
           </span>
         </span>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-col text-xl md:text-4xl lg:text-4xl break-words">
           <span className="text-xl">Email:</span>
-          <span className="text-xl">{profile?.user?.email || "N/A"}</span>
+          <span className="text-xl break-words">{profile?.user?.email || "N/A"}</span>
         </div>
         <div className="flex gap-2 flex-col text-xl md:text-4xl lg:text-4xl break-words">
           <span className="text-xl">Organisation:</span>
-          <p className="text-xl">{profile?.user.organisation || "N/A"}</p>
+          <p className="text-xl">{profile?.user?.organisation || "N/A"}</p>
+        </div>
+        <div className="flex gap-2 flex-col text-xl md:text-4xl lg:text-4xl break-words">
+          <span className="text-xl">Organisation:</span>
+          <p className="text-xl">{profile?.user?.designation || "N/A"}</p>
         </div>
       </div>
 

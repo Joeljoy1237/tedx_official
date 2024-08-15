@@ -170,7 +170,7 @@ export default function RegisterForm() {
           <div className="flex gap-4 items-end justify-between">
             <div className="flex items-center justify-start">
               <span className="text-xs md:text-sm lg:text-sm">
-                New to TEDx CCET?{" "}
+                New to TEDxCCET?{" "}
                 <Link
                   className="font-semibold text-primary-700"
                   href={"/register"}

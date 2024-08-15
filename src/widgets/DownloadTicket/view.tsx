@@ -1,5 +1,5 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import PurchasedTicket from "./components/Content";
 import html2canvas from "html2canvas";
@@ -10,6 +10,7 @@ import Image from "next/image";
 import TitleBar from "@components/TitleBar";
 import Button from "@components/Button";
 import PreLoader from "@components/PreLoader";
+import { useSession } from "next-auth/react";
 
 interface UserData {
   person: {
@@ -26,6 +27,16 @@ export default function DownloadTicket() {
   const params = useParams<{ id: string; ticketid: string }>(); // Use useParams to get route parameters
   const [data, setData] = useState<UserData>();
   const [isLoaded, setIsLoaded] = useState(false);
+  const { data: session, status } = useSession();
+
+  const router = useRouter();
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      // Redirect to home page
+      router.push("/login");
+    }
+  }, [status, session, router]);
+
 
   useEffect(() => {
     const dataFetch = async () => {

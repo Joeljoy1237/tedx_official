@@ -6,7 +6,7 @@ import React from "react";
 export default function TicketItem() {
   return (
     <div  id="ticket" className="w-auto flex flex-row items-center justify-center rotate-90 md:rotate-0 lg:rotate-0">
-      <div className="w-[700px] bg-black-200 h-[300px] rounded-[30px] flex flex-row">
+      <div className="w-[650px] bg-black-200 h-[300px] rounded-[30px] flex flex-row">
         <div className="flex w-[35%]">
           <Image
             src={"/ticketbg.webp"}
@@ -61,7 +61,7 @@ export default function TicketItem() {
         <div className="border-2 h-[20px] border-white"></div>
         <div className="border-2 h-[20px] border-white"></div>
       </div>
-      <div className="w-[300px] h-[300px] rounded-[30px] bg-primary-700 p-4 items-center flex-col  justify-center gap-[2rem] relative">
+      <div className="w-[280px] h-[300px] rounded-[30px] bg-primary-700 p-4 items-center flex-col  justify-center gap-[2rem] relative">
         <div className="flex flex-row w-full items-center justify-center absolute top-[2rem] left-[50%] translate-x-[-50%] translate-y-[-50%]">
           <span className="text-white text-xl font-semibold">
             Grab Your Tickets Now!

@@ -7,7 +7,7 @@ export const POST = async (request: any) => {
 
     const { firstName, lastName, email, mobile, organisation, designation, password } = await request.json();
 
-    if (!firstName && !lastName && !email && !mobile && !organisation && !password) {
+    if (!firstName && !lastName && !email && !mobile && !organisation && !password && !designation) {
         return new Response(
             JSON.stringify({ message: "Please fill the required fields" }),
             { status: 400 }
@@ -38,6 +38,11 @@ export const POST = async (request: any) => {
     } else if (!organisation) {
         return new Response(
             JSON.stringify({ message: "Organisation is required" }),
+            { status: 400 }
+        );
+    }else if (!designation) {
+        return new Response(
+            JSON.stringify({ message: "Designation is required" }),
             { status: 400 }
         );
     } else if (!password) {
@@ -76,6 +81,7 @@ export const POST = async (request: any) => {
             { status: 201 }
         );
     } catch (err: any) {
+        console.log(err?.message)
         return new Response(JSON.stringify({ message: "Internal Server Error" }), { status: 500 });
     }
 };

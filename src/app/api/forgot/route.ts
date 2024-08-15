@@ -77,14 +77,14 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
             <hr style="border: 1px solid #ddd; margin: 40px 0;">
 
             <div style="text-align: center; margin-bottom: 30px;">
-              <img src="https://tedxccet.in/Logo.svg" alt="TEDxCCET 2024" style="height: 5rem;">
+              <img src="https://tedxccet.in/logo.svg" alt="TEDxCCET 2024" style="height: 5rem;">
             </div>
 
             <div style="padding: 0 20px; text-align: center;">
               <p style="font-size: 18px; color: #333; margin-bottom: 20px;">Thank you for choosing TEDxCCET. We are dedicated to providing exceptional support to our users.</p>
               <p style="font-size: 16px; color: #333; margin-bottom: 20px;">If you have any questions or need further assistance, please don't hesitate to contact our support team at:</p>
-              <p style="font-size: 16px; color: #333; margin-bottom: 10px;"><strong>Email:</strong> support@tedxccet.in</p>
-              <p style="font-size: 16px; color: #333; margin-bottom: 30px;"><strong>Phone:</strong> +1 (555) 123-4567</p>
+              <p style="font-size: 16px; color: #333; margin-bottom: 10px;"><strong>Email:</strong> tedxsupport@carmelcet.in</p>
+              <p style="font-size: 16px; color: #333; margin-bottom: 30px;"><strong>Phone:</strong> +91 797247909</p>
             </div>
 
             <div style="background-color: #D32F2F; color: #fff; padding: 20px; text-align: center;">

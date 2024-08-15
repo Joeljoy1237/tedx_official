@@ -17,7 +17,11 @@ interface Member {
   designation: string;
 }
 
-export default function Content() {
+interface contentProps {
+  handlePassLoadStatus: () => void;
+}
+
+export default function Content({ handlePassLoadStatus }: contentProps) {
   const router = useRouter();
   const { data: session, status } = useSession() as SessionContextValue;
   const [activeTab, setActiveTab] = useState<"individual" | "group">(
@@ -37,6 +41,29 @@ export default function Content() {
 
   const individualPrice = 1200;
   const groupPrice = individualPrice; // Group price is the same as individual price initially
+
+
+  const validateFields = () => {
+    if (activeTab === "individual") {
+      const member = members[0];
+      return (
+        member.firstName.trim() !== "" &&
+        member.lastName.trim() !== "" &&
+        member.email.trim() !== "" &&
+        member.organisation.trim() !== "" &&
+        member.designation.trim() !== ""
+      );
+    } else {
+      return members.every(
+        (member) =>
+          member.firstName.trim() !== "" &&
+          member.lastName.trim() !== "" &&
+          member.email.trim() !== "" &&
+          member.organisation.trim() !== "" &&
+          member.designation.trim() !== ""
+      );
+    }
+  };
 
   useEffect(() => {
     if (status === "authenticated" && session?.user) {
@@ -115,6 +142,14 @@ export default function Content() {
   //apit to create
 
   const handleBuy = async () => {
+
+    if (!validateFields()) {
+      showTedxToast({
+        type: "error",
+        message: "Please fill out all required fields.",
+      });
+      return;
+    }
     try {
       // Create a new payment instance in Razorpay
       const response = await fetch("/api/payment/create", {
@@ -138,7 +173,6 @@ export default function Content() {
         description: "Payment for TEDxCCET",
         order_id: data.id,
         handler: async function (response: any) {
-          console.log("Response=> ", response);
           showTedxToast({
             type: "success",
             message: "Payment Succesffull",
@@ -171,7 +205,7 @@ export default function Content() {
                 }),
               })
                 .then((res) => {
-                  console.log(res);
+                  handlePassLoadStatus()
                   router.replace(
                     `/success?orderId=${response.razorpay_order_id}&paymentId=${response.razorpay_payment_id}`
                   );
@@ -194,7 +228,7 @@ export default function Content() {
       };
       const rzp1 = new (window as any).Razorpay(options);
       rzp1.on("payment.failed", function (response: any) {
-       router.replace('/payment-error')
+        router.replace("/payment-error");
       });
       rzp1.open();
     } catch (err) {

@@ -82,7 +82,7 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="w-[100vw] md:w-[40vw] lg:w-[40vw] flex flex-col items-center lg:justify-center relative min-h-[100vh] pt-96 md:pt-0 lg:pt-0 py-[30vh] md:py-[10vh] lg:py-0  shadow-xl">
+    <div className="w-[100vw] md:w-[40vw] lg:w-[40vw] flex flex-col items-center lg:justify-center relative  min-h-[100vh] pt-96 md:pt-0 lg:pt-0 py-[40vh] md:py-[10vh] lg:py-0  shadow-xl">
       <Image
         src={"/bg2.svg"}
         alt=""
@@ -225,7 +225,7 @@ export default function RegisterForm() {
             className="w-full py-3 font-semibold bg-primary-700 rounded-md outline-none border-none "
           ></Button>
           <div className="flex gap-4 items-center justify-between">
-            <div className="flex items-center justify-start">
+            <div className="flex items-center justify-start mt-5 mb-5">
               <span className="text-xs md:text-sm lg:text-sm">
                 Already have an account?{" "}
                 <Link

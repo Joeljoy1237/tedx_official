@@ -28,17 +28,17 @@ const Drawer: React.FC<DrawerProps> = ({ handleClose, handlesignout }) => {
           >
             <Link
               href={navLink?.url}
-              className={`capitalize font-semibold ${
+              className={`capitalize font-semibold flex w-full items-center justify-between ${
                 location === navLink?.url && "text-primary-700"
               }`}
             >
               {navLink?.title}
+              <IoIosArrowForward
+                className={`capitalize font-semibold ${
+                  location === navLink?.url && "text-primary-700"
+                }`}
+              />
             </Link>
-            <IoIosArrowForward
-              className={`capitalize font-semibold ${
-                location === navLink?.url && "text-primary-700"
-              }`}
-            />
           </div>
         ))}
       </div>

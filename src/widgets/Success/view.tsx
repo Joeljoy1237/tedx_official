@@ -11,10 +11,6 @@ import { useRouter } from "next/navigation";
 import PreLoader from "@components/PreLoader";
 
 export default function SuccessPage() {
-  // const searchParams = useSearchParams();
-  // const paymentId = searchParams.get("paymentId") || "";
-  // const orderId = searchParams.get("orderId") || "";
-
   const [paymentId, setPaymentId] = useState<String>("");
   const [orderId, setOrderId] = useState<String>("");
   const [isLoaded, setIsLoaded] = useState(false);
@@ -24,7 +20,7 @@ export default function SuccessPage() {
   useEffect(() => {
     if (status === "unauthenticated") {
       // Redirect to home page
-      router.push("/");
+      router.push("/login");
     }
     const timer = setTimeout(() => {
       setIsLoaded(true);
@@ -46,107 +42,107 @@ export default function SuccessPage() {
     );
   };
 
-  const handleDownloadReceipt = () => {
-    const doc = new jsPDF();
+  // const handleDownloadReceipt = () => {
+  //   const doc = new jsPDF();
 
-    // Add header
-    doc.setFontSize(24);
+  //   // Add header
+  //   doc.setFontSize(24);
 
-    // Text for TEDx
-    doc.setTextColor("#eb0028"); // Red color for TEDx
-    doc.setFont("Helvetica", "bold");
-    const textTEDx = "TEDx";
-    const textCCET = "CCET";
-    const textTEDxWidth = doc.getTextWidth(textTEDx);
-    const textCCETWidth = doc.getTextWidth(textCCET);
+  //   // Text for TEDx
+  //   doc.setTextColor("#eb0028"); // Red color for TEDx
+  //   doc.setFont("Helvetica", "bold");
+  //   const textTEDx = "TEDx";
+  //   const textCCET = "CCET";
+  //   const textTEDxWidth = doc.getTextWidth(textTEDx);
+  //   const textCCETWidth = doc.getTextWidth(textCCET);
 
-    // Combine the widths of both texts and add some space in between
-    const totalWidth = textTEDxWidth + textCCETWidth; // 5 units of space between TEDx and CCET
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const headerX = (pageWidth - totalWidth) / 2;
+  //   // Combine the widths of both texts and add some space in between
+  //   const totalWidth = textTEDxWidth + textCCETWidth; // 5 units of space between TEDx and CCET
+  //   const pageWidth = doc.internal.pageSize.getWidth();
+  //   const headerX = (pageWidth - totalWidth) / 2;
 
-    // Add TEDx
-    doc.text(textTEDx, headerX, 40);
+  //   // Add TEDx
+  //   doc.text(textTEDx, headerX, 40);
 
-    // Add CCET
-    doc.setTextColor("#000000"); // Color for CCET
-    doc.setFont("Helvetica", "normal");
-    doc.text(textCCET, headerX + textTEDxWidth, 40); // Adjust X position for CCET
+  //   // Add CCET
+  //   doc.setTextColor("#000000"); // Color for CCET
+  //   doc.setFont("Helvetica", "normal");
+  //   doc.text(textCCET, headerX + textTEDxWidth, 40); // Adjust X position for CCET
 
-    // Add title
-    doc.setFontSize(22);
-    doc.setTextColor("#000000"); // Set title color to black
-    const title = "Payment Receipt";
-    const titleWidth = doc.getTextWidth(title);
-    const titleX = (pageWidth - titleWidth) / 2;
-    doc.text(title, titleX, 60);
+  //   // Add title
+  //   doc.setFontSize(22);
+  //   doc.setTextColor("#000000"); // Set title color to black
+  //   const title = "Payment Receipt";
+  //   const titleWidth = doc.getTextWidth(title);
+  //   const titleX = (pageWidth - titleWidth) / 2;
+  //   doc.text(title, titleX, 60);
 
-    // Define the table options
-    const options: UserOptions = {
-      startY: 80,
-      head: [["Payment ID", "Order ID"]],
-      body: [["" + paymentId, "" + orderId]],
-      styles: {
-        cellPadding: 5,
-        fontSize: 12,
-        halign: "center" as "center", // Center align text in table
-        valign: "middle" as "middle",
-        textColor: [0, 0, 0] as [number, number, number], // Black text color for body rows
-        fillColor: [255, 255, 255] as [number, number, number], // White background for body rows
-      },
-      headStyles: {
-        fillColor: [235, 0, 40] as [number, number, number], // TEDx red background for header
-        textColor: [255, 255, 255] as [number, number, number], // White text color for header
-        fontSize: 14,
-        halign: "center" as "center",
-      },
-      alternateRowStyles: {
-        fillColor: [240, 240, 240] as [number, number, number], // Light gray for alternate rows
-      },
-    };
+  //   // Define the table options
+  //   const options: UserOptions = {
+  //     startY: 80,
+  //     head: [["Payment ID", "Order ID"]],
+  //     body: [["" + paymentId, "" + orderId]],
+  //     styles: {
+  //       cellPadding: 5,
+  //       fontSize: 12,
+  //       halign: "center" as "center", // Center align text in table
+  //       valign: "middle" as "middle",
+  //       textColor: [0, 0, 0] as [number, number, number], // Black text color for body rows
+  //       fillColor: [255, 255, 255] as [number, number, number], // White background for body rows
+  //     },
+  //     headStyles: {
+  //       fillColor: [235, 0, 40] as [number, number, number], // TEDx red background for header
+  //       textColor: [255, 255, 255] as [number, number, number], // White text color for header
+  //       fontSize: 14,
+  //       halign: "center" as "center",
+  //     },
+  //     alternateRowStyles: {
+  //       fillColor: [240, 240, 240] as [number, number, number], // Light gray for alternate rows
+  //     },
+  //   };
 
-    // Add table to the PDF
-    autoTable(doc, options);
+  //   // Add table to the PDF
+  //   autoTable(doc, options);
 
-    // Get the final Y position after the table
-    const finalY = (doc as any).lastAutoTable.finalY;
+  //   // Get the final Y position after the table
+  //   const finalY = (doc as any).lastAutoTable.finalY;
 
-    // Add a thank you message
-    doc.setFontSize(14);
-    doc.setTextColor("#333333"); // Set message color to dark gray
-    doc.text(
-      "Thank you for your purchase! Your transaction was successful.",
-      15,
-      finalY + 10
-    );
+  //   // Add a thank you message
+  //   doc.setFontSize(14);
+  //   doc.setTextColor("#333333"); // Set message color to dark gray
+  //   doc.text(
+  //     "Thank you for your purchase! Your transaction was successful.",
+  //     15,
+  //     finalY + 10
+  //   );
 
-    // Add the date, time, and IP address
-    const generatedDate = new Date().toLocaleString("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-      timeZone: "Asia/Kolkata",
-    });
+  //   // Add the date, time, and IP address
+  //   const generatedDate = new Date().toLocaleString("en-GB", {
+  //     day: "2-digit",
+  //     month: "2-digit",
+  //     year: "numeric",
+  //     hour: "2-digit",
+  //     minute: "2-digit",
+  //     hour12: true,
+  //     timeZone: "Asia/Kolkata",
+  //   });
 
-    const ipAddress = "123.456.789.012"; // Replace with dynamic IP if available
-    doc.setFontSize(12);
-    doc.setTextColor("#555555"); // Set color to gray
-    doc.text(`Generated on: ${generatedDate}`, 15, finalY + 25);
+  //   const ipAddress = "123.456.789.012"; // Replace with dynamic IP if available
+  //   doc.setFontSize(12);
+  //   doc.setTextColor("#555555"); // Set color to gray
+  //   doc.text(`Generated on: ${generatedDate}`, 15, finalY + 25);
 
-    const creditsText =
-      "www.tedxccet.in | For support contact: tedxsupport@carmelcet.in";
-    const creditsWidth = doc.getTextWidth(creditsText);
-    const creditsX = (pageWidth - creditsWidth) / 1.5;
-    const creditsY = doc.internal.pageSize.height - 20; // 20 units from the bottom
-    doc.setFontSize(10);
-    doc.setTextColor("#555555"); // Set color to gray for credits
-    doc.text(creditsText, creditsX, creditsY);
-    // Save the PDF
-    doc.save(`TEDxCCET_Payment_Receipt_${orderId}.pdf`);
-  };
+  //   const creditsText =
+  //     "www.tedxccet.in | For support contact: tedxsupport@carmelcet.in";
+  //   const creditsWidth = doc.getTextWidth(creditsText);
+  //   const creditsX = (pageWidth - creditsWidth) / 1.5;
+  //   const creditsY = doc.internal.pageSize.height - 20; // 20 units from the bottom
+  //   doc.setFontSize(10);
+  //   doc.setTextColor("#555555"); // Set color to gray for credits
+  //   doc.text(creditsText, creditsX, creditsY);
+  //   // Save the PDF
+  //   doc.save(`TEDxCCET_Payment_Receipt_${orderId}.pdf`);
+  // };
 
   return (
     <main>
@@ -174,6 +170,11 @@ export default function SuccessPage() {
           <p className="text-lg text-gray-600 mb-8">
             Thank you for your purchase. Your transaction was successful, and
             your order is being processed.
+          </p>
+          <p className="text-lg text-gray-600 mb-8">
+            You can get your tickets and payment receipts from your profile. You
+            will also receive a confirmation email shortly. If you encounter any
+            issues, kindly request support; our support team is here for you.
           </p>
           <Link href={"/profile"}>
             <button className="bg-gradient-to-r from-green-500 to-teal-500 text-white py-3 px-6 rounded-lg hover:from-green-600 hover:to-teal-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-300">

@@ -139,10 +139,10 @@ export default function HeaderView() {
                 />
               </Link>
             ) : (
-              <Link href={session?.user ? "/profile" : "/register"}>
+              <Link href={session?.user ? "/profile" : "/login"}>
                 <Button
                   className="px-4 py-2 rounded-[10px] md:flex lg:flex hidden items-center justify-center font-bold text-primary-700 gap-2"
-                  title={session?.user ? "Profile" : "Register"}
+                  title={session?.user ? "Profile" : "Login"}
                   icon={<IconArrow className="size-6" />}
                 />
               </Link>

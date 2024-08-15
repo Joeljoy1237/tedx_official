@@ -16,7 +16,7 @@ export default function GetTickets() {
   useEffect(() => {
     if (status === "unauthenticated") {
       // Redirect to home page
-      router.push("/");
+      router.push("/login");
     }
     const timer = setTimeout(() => {
       setIsLoaded(true);
@@ -25,12 +25,16 @@ export default function GetTickets() {
     return () => clearTimeout(timer);
   }, [status, session, router]);
 
+  const handlePassLoadStatus = () => {
+    setIsLoaded(false);
+  };
+
   return (
     <main>
       {!isLoaded && <PreLoader />}
       <HeaderView />
       <div className="pt-[100px]">
-        <Content />
+        <Content handlePassLoadStatus={handlePassLoadStatus}/>
       </div>
       <Footer />
     </main>
