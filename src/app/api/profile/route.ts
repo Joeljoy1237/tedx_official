@@ -9,7 +9,10 @@ export const POST = async (request: any) => {
 
         const user = await User.findOne({ _id: id });
         const booking = await Booking.findOne({ userId: id });
-        const group = booking.group;
+        let group = {}
+        if (booking) {
+            group = booking.group;
+        }
 
         if (!user) {
             return new Response(JSON.stringify({ message: "User not Found", desc: "Redirecting to login page" }), { status: 404 });

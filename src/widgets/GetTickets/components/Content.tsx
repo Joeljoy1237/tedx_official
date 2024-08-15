@@ -150,6 +150,7 @@ export default function Content() {
                 body: JSON.stringify({
                   userId: session?.user?._id,
                   count,
+                  referal_code: "9BIDXRIec", // referal code goes here
                   paymentId: response.razorpay_payment_id,
                   orderId: response.razorpay_order_id,
                   group: members,

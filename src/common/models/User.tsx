@@ -27,6 +27,16 @@ const UserSchema = new Schema(
       type: String,
       require: true,
     },
+    referals: [
+      {
+        type: String,
+        default: [],
+      },
+    ],
+    wallet: {
+      type: Number,
+      default: 0,
+    },
     designation: {
       type: String,
       require: true,

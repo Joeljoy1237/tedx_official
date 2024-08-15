@@ -4,18 +4,21 @@ import Razorpay from "razorpay";
 import nodemailer from "nodemailer";
 import { NextRequest, NextResponse } from "next/server";
 import Ticket from "@models/Ticket";
+import User from "@models/User";
 
 interface GroupMember {
   firstName: string;
   lastName: string;
   organisation: string;
   email: string;
+  referal_code?: string;
   ticketId?: string;
 }
 
 interface RequestBody {
   userId: string;
   count: number;
+  referal_code?: string;
   paymentId: string;
   orderId: string;
   group: GroupMember[];
@@ -31,7 +34,7 @@ const transporter = nodemailer.createTransport({
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
   try {
-    const { userId, count, paymentId, orderId, group }: RequestBody = await request.json();
+    const { userId, count, referal_code, paymentId, orderId, group }: RequestBody = await request.json();
 
     const razorpay = new Razorpay({
       key_id: process.env.RAZOR_KEY_ID as string,
@@ -46,6 +49,16 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       paymentData.status === "paid"
     ) {
       await connectToDB();
+
+      const refreredUser = await User.findOne({ referal_code: referal_code });
+      if (refreredUser) {
+        console.log(refreredUser);
+
+        refreredUser.referals.push(userId);
+        refreredUser.wallet += 80;
+        await refreredUser.save();
+      }
+
       const ticket = await Ticket.findOne({ _id: "66bcdf73381f6901e8ed2532" });
       group.forEach((groupMember) => {
         ticket.ticketSold = ticket?.ticketSold + 1;
@@ -59,12 +72,14 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
         userId,
         orderId,
         paymentId,
+        referal_code,
         count,
         amount,
         group,
       });
       await newBooking.save();
       await ticket.save();
+
 
       for (const data of group) {
         // Generate PDF
