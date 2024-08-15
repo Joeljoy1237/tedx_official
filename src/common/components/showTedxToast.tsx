@@ -4,7 +4,7 @@ import TedxToast from './TedxToast';
 import { useEffect } from 'react';
 
 interface ToastOptions {
-  type: 'success' | 'error';
+  type: 'success' | 'error' | 'info';
   message: string;
   desc?:string
 }
