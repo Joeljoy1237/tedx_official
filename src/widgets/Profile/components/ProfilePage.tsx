@@ -15,11 +15,11 @@ interface User {
   resetCount: Number;
   tokenUsed: boolean;
   _id: string;
-  firstName:string;
-  lastName:string;
-  email:string;
-  organisation:string;
-  designation:string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  organisation: string;
+  designation: string;
 }
 
 interface Group {
@@ -34,7 +34,7 @@ interface Group {
 interface Profile {
   user: User;
   group: Group[];
-  bookingId:string;
+  bookingId: string;
 }
 
 interface ProfilePageProps {
@@ -47,6 +47,9 @@ export default function ProfilePage({ profile }: ProfilePageProps) {
   const router = useRouter();
 
   const handleSession = () => {
+    // router.prefetch(
+    //   "/tickets/66bdc42baaed4152efdeace1/66bdc42baaed4152efdeace2"
+    // );
     const timer = setTimeout(() => {
       setIsLoaded(true);
     }, 1000);
@@ -95,7 +98,7 @@ export default function ProfilePage({ profile }: ProfilePageProps) {
           </div>
         </div>
         <div className="flex-[2]">
-          <ProfileRightSide  profile={profile} />
+          <ProfileRightSide profile={profile} />
         </div>
       </div>
     </div>
