@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState, forwardRef, Ref } from "react";
+import React, { useEffect, useState, forwardRef } from "react";
 import QRCode from "qrcode";
 import Logo from "@components/Logo";
 

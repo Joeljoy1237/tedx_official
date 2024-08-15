@@ -139,9 +139,9 @@ export default function ProfileRightSide({ profile }: ProfilePageProps) {
                       <button className="bg-primary-700 p-4 rounded-[10px] ">
                         <Link
                           className=""
-                          href={`https://tedxccet.in/tickets/${profile?.bookingId}/${buyer?._id}`}
+                          href={`http://localhost:3000/tickets/${profile?.bookingId}/${buyer?._id}`}
                         >
-                          {`https://tedxccet.in/tickets/${profile?.bookingId}/${buyer?._id}`}
+                          {`http://localhost:3000/tickets/${profile?.bookingId}/${buyer?._id}`}
                         </Link>
                       </button>
                     </div>
