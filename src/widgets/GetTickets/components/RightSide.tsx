@@ -27,17 +27,17 @@ const RightSide: React.FC<RightSideProps> = ({
       <div className="space-y-4">
         <div className="flex justify-between text-sm">
           <span>Subtotal:</span>
-          <span className="font-semibold">₹{subtotal.toFixed(2)}</span>
+          <span className="font-semibold">₹{subtotal.toFixed(2)}/-</span>
         </div>
         {discount > 0 && (
           <div className="flex justify-between text-sm text-green-500">
             <span>Discount:</span>
-            <span className="font-semibold">-₹{discount.toFixed(2)}</span>
+            <span className="font-semibold">-₹{discount.toFixed(2)}/-</span>
           </div>
         )}
         <div className="flex justify-between text-lg font-bold">
           <span>Total:</span>
-          <span>₹{total.toFixed(2)}</span>
+          <span>₹{total.toFixed(2)}/-</span>
         </div>
       </div>
       <div className="flex flex-col mt-6 gap-4">
