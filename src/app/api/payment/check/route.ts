@@ -4,6 +4,7 @@ import Razorpay from "razorpay";
 import nodemailer from "nodemailer";
 import { NextRequest, NextResponse } from "next/server";
 import Ticket from "@models/Ticket";
+import { customAlphabet } from 'nanoid';
 import User from "@models/User";
 
 interface GroupMember {
@@ -33,6 +34,9 @@ const transporter = nodemailer.createTransport({
 });
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
+
+  const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const generateId = customAlphabet(alphabet, 9);
   try {
     const { userId, count, referal_code, paymentId, orderId, group }: RequestBody = await request.json();
 
@@ -52,11 +56,16 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 
       const refreredUser = await User.findOne({ referal_code: referal_code });
       if (refreredUser) {
-        console.log(refreredUser);
-
         refreredUser.referals.push(userId);
         refreredUser.wallet += 80;
         await refreredUser.save();
+      }
+
+      const currentUser = await User.findOne({ _id: userId });
+      if (currentUser.referal_code === "") {
+        const referal_code = generateId();
+        currentUser.referal_code = referal_code;
+        await currentUser.save();
       }
 
       const ticket = await Ticket.findOne({ _id: "66bcdf73381f6901e8ed2532" });

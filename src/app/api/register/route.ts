@@ -2,11 +2,9 @@
 import User from "@models/User";
 import { connectToDB } from "@utils/database";
 import CryptoJS from "crypto-js";
-import { customAlphabet } from 'nanoid'
 
 export const POST = async (request: any) => {
-    const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    const generateId = customAlphabet(alphabet, 9);
+
     const { firstName, lastName, email, mobile, organisation, designation, password } = await request.json();
 
     if (!firstName && !lastName && !email && !mobile && !organisation && !password) {
@@ -59,7 +57,6 @@ export const POST = async (request: any) => {
                 { status: 409 }
             );
         }
-        const referal_code = generateId();
         const resetLockUntil = Date.now();
         const encryptedData = CryptoJS.AES.encrypt(password, process.env.CRYPTO_SECRET_KEY!).toString();
         const newUser = new User({
@@ -68,7 +65,6 @@ export const POST = async (request: any) => {
             email,
             mobile,
             organisation,
-            referal_code,
             designation,
             password: encryptedData,
             resetLockUntil,
