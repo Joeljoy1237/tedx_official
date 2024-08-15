@@ -19,8 +19,14 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleEnterPress = async (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if('key' in event && event.key == "Enter") {
+      handleSignUp(event);
+    }
+  }
   const handleSignUp = async (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>
   ) => {
     event.preventDefault(); // Prevent the default form submission behavior
     setIsSubmitting(true);
@@ -92,7 +98,7 @@ export default function RegisterForm() {
         <div className="w-full flex items-center justify-center">
           <span className="text-xl">Sign up</span>
         </div>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6" onKeyDown={handleEnterPress}>
           <div className="flex flex-col gap-2">
             <div className="flex gap-4 flex-col md:flex-row lg:flex-row">
               <div className="flex-1">
