@@ -34,6 +34,10 @@ export default function Form() {
           message: data.message, // Show the success message from the response
           desc: data.desc,
         });
+        setMessage("");
+        setEmail("");
+        setPhone("")
+        setName('');
       } else {
         showTedxToast({
           type: "error",
@@ -51,7 +55,7 @@ export default function Form() {
     <div className="flex-1 flex-col gap-2 flex rounded-lg p-6 border border-black-300">
       <div className="flex flex-col gap-1">
         <span className="text-2xl capitalize font-bold text-primary">
-          Give us a message
+          Send us a message
         </span>
         <span className="font-medium text-font-secondary">
           Your email address will not be published. Required fields are marked *
@@ -90,7 +94,7 @@ export default function Form() {
           className="flex-1 rounded-lg p-3 w-[100%] outline-none bg-black-200"
         />
         <input
-          type="text"
+          type="tel"
           value={phone}
           onChange={(e) => {
             setPhone(e.target.value);

@@ -28,7 +28,7 @@ export default function TicketMobile() {
           <div className="flex flex-col items-start justify-center text-[10px] gap-[2px]">
             <span className="text-[8px]">Date</span>
             <span className="text-[9px]">
-              <span className="sans">7</span> September{" "}
+              <span className="sans">77<sup>th</sup></span> September{" "}
               <span className="sans">2024</span>
             </span>
           </div>

@@ -11,8 +11,8 @@ export default function ContactDetails() {
       </div>
       <div className="">
         <span className="">
-          Send a message through given form, If your enquiry is time sensitive
-          please use below contact details.
+          Send a message through the given form, If your enquiry is time sensitive
+          Kindly refer to the contact details given below.
         </span>
       </div>
       <div className="flex flex-col gap-6">

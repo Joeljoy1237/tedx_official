@@ -15,8 +15,8 @@ export default function Welcome() {
           CCET, where brilliant minds ignite ideas worth spreading! Join us at
           Carmel College of Engineering & Technology for an exhilarating event
           showcasing Kerala's innovators and inspiring speakers. Immerse
-          yourself in thought-provoking talks, engaging workshops, and
-          networking opportunities that promise to inspire, educate, and
+          yourself in thought-provoking talks, engaging workshops and
+          networking opportunities that promise to inspire, educate and
           empower. Don't miss this chance to be part of a transformative
           experience shaping the future of technology and innovation in our
           community.
