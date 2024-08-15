@@ -16,6 +16,7 @@
     "crypto-js": "^4.2.0",
     "firebase": "^10.12.4",
     "fs": "^0.0.1-security",
+    "googleapis": "^140.0.1",
     "gsap": "^3.12.5",
     "html2canvas": "^1.4.1",
     "jsonwebtoken": "^9.0.2",
