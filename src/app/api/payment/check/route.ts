@@ -53,7 +53,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       paymentData.status === "paid"
     ) {
       await connectToDB();
-      
+
       const refreredUser = await User.findOne({ referal_code: referal_code });
       if (refreredUser) {
         refreredUser.referals.push(userId);
@@ -64,6 +64,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       const currentUser = await User.findOne({ _id: userId });
       if (currentUser.referal_code === "") {
         const referal_code = generateId();
+        currentUser.isBought = true;
         currentUser.referal_code = referal_code;
         await currentUser.save();
       }
@@ -178,7 +179,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
             </html>
           `,
         };
-        
+
 
 
         transporter.sendMail(mailOptions, (error, info) => {
