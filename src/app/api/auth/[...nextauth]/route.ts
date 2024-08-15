@@ -16,6 +16,7 @@ declare module "next-auth" {
       organisation?: string | null;
       designation?: string | null;
       mobile?: string | null;
+      isBought?: boolean | null;
     };
   }
 }
@@ -66,6 +67,7 @@ const handler = NextAuth({
           session.user.lastName = sessionUser?.lastName;
           session.user.referal_code = sessionUser?.referal_code;
           session.user.email = sessionUser?.email;
+          session.user.isBought = sessionUser?.isBought;
           session.user.organisation = sessionUser?.organisation;
           session.user._id = sessionUser._id.toString();
           session.user.designation = sessionUser?.designation
