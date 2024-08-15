@@ -47,6 +47,10 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false, // Set this to false initially
     },
+    resetLockUntil: {
+      type: Date,
+      require: true,
+    },
   },
   { timestamps: true }
 );

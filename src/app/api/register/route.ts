@@ -61,7 +61,7 @@ export const POST = async (request: any) => {
         }
 
         const referal_code = generateId()
-
+        const resetLockUntil = Date.now()
         const encryptedData = CryptoJS.AES.encrypt(password, process.env.CRYPTO_SECRET_KEY!).toString();
         const newUser = new User({
             firstName,
@@ -71,6 +71,7 @@ export const POST = async (request: any) => {
             organisation,
             referal_code,
             password: encryptedData,
+            resetLockUntil,
         });
         await newUser.save();
 
