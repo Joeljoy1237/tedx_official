@@ -28,6 +28,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
     "individual"
   );
   const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [offer, setOffer] = useState<number>(0);
   const [members, setMembers] = useState<Member[]>([
     {
       firstName: "",
@@ -41,7 +42,6 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
 
   const individualPrice = 1200;
   const groupPrice = individualPrice; // Group price is the same as individual price initially
-
 
   const validateFields = () => {
     if (activeTab === "individual") {
@@ -79,6 +79,18 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
         setMembers([initialMember]);
       }
     }
+
+    async function fetchOffer() {
+      const res = await fetch("/api/ticket/status");
+      if (res.ok) {
+        const numData = await res.json();
+
+        if (numData?.value + members?.length > 20) {
+          setOffer(150);
+        }
+      }
+    }
+    fetchOffer();
   }, [session, status, activeTab]);
 
   const handleInputChange = (
@@ -130,7 +142,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
       total = subtotal - discount;
     }
     // setLastPrice(total);
-    return { subtotal, discount, total };
+    return { subtotal, discount, total, offer };
   };
 
   const { subtotal, discount, total } = calculatePricing();
@@ -142,7 +154,6 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
   //apit to create
 
   const handleBuy = async () => {
-
     if (!validateFields()) {
       showTedxToast({
         type: "error",
@@ -158,7 +169,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            count: count,
+          count: count,
           offer: discount,
           lastPrice: total,
         }),
@@ -205,7 +216,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                 }),
               })
                 .then((res) => {
-                  handlePassLoadStatus()
+                  handlePassLoadStatus();
                   router.replace(
                     `/success?orderId=${response.razorpay_order_id}&paymentId=${response.razorpay_payment_id}`
                   );
