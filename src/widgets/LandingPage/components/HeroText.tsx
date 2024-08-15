@@ -7,6 +7,7 @@ import Link from "next/link";
 import React from "react";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import gsap from "gsap";
+import Tooltip from "./Tooltip";
 
 export default function HeroText() {
   // Register the ScrollToPlugin
@@ -15,6 +16,18 @@ export default function HeroText() {
   const scrollToSection = (sectionId: any) => {
     gsap.to(window, { duration: 0.5, scrollTo: sectionId });
   };
+
+
+  const title = 'TEDx CCET';
+  const description = 'TEDxCCET is a full-day event with many other dynamic speakers with an audience of about 100 in our college campus. Our aim is to unite brilliant intellects to deliver talks centered on ideas spanning a wide array of subjects, with the intention of nurturing learning, inspiration and wonder.';
+  const location = 'Carmel College of Engineering and Technology, Punnapra, Alappuzha';
+  const startTime = '2024-09-07T09:00:00';
+  const endTime = '2024-09-07T17:00:00';
+
+  // Google Calendar Link
+  const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startTime.replace(/[-:]/g, '')}/${endTime.replace(/[-:]/g, '')}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
+
+
   return (
     <div className="relative isolate min-h-[100vh] px-[5vw] flex items-center justify-center mt-2 md:mt-[5vh] lg:mt-[5vh]">
       <div className="flex items-center justify-center md:flex-row lg:flex-row flex-col-reverse md:gap-3 lg:gap-3 gap-3">
@@ -30,12 +43,16 @@ export default function HeroText() {
           </div>
           <div className="w-full flex-col flex items-start gap-6 justify-center mt-4">
             <div className="bg-primary-700 px-3 py-2 md:rounded-[50px] lg:rounded-[50px] w-full md:w-auto lg:w-auto rounded-[10px] bg-opacity-10 flex md:flex-row lg:flex-row flex-col gap-4">
+              <Link href={googleCalendarUrl} target="_blank">
+              <Tooltip content="Add to Calender" >
               <div className="flex gap-2 flex-row items-center justify-start">
                 <IconDate className="size-5" />
                 <span className="text-sm  md:text-base lg:text-base">
                   <span className="sans">7</span> September 2024
                 </span>
               </div>
+              </Tooltip>
+              </Link>
               <div className="hidden md:flex lg:flex">|</div>
               <div className="flex flex-row items-center justify-start gap-2">
                 <IconLocation className="size-6" />
