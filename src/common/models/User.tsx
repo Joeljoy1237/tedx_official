@@ -27,6 +27,10 @@ const UserSchema = new Schema(
       type: String,
       require: true,
     },
+    designation: {
+      type: String,
+      require: true,
+    },
     password: {
       type: String,
       require: [true, "Password is required"],
