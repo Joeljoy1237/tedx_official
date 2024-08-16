@@ -178,7 +178,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
       });
       const data = await response.json();
       const options = {
-        key: "rzp_test_PqOK3SguDXSVk6",
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY,
         amount: total * 100,
         currency: "INR",
         name: "TEDxCCET",

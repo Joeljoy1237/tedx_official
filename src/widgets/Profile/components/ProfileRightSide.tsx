@@ -143,7 +143,7 @@ export default function ProfileRightSide({ profile }: ProfilePageProps) {
                       <Link
                         className="flex w-full"
                         target="_blank"
-                        href={`http://localhost:3000/tickets/${profile?.bookingId}/${buyer?._id}`}
+                        href={`/tickets/${profile?.bookingId}/${buyer?._id}`}
                       >
                         <button className="bg-primary-700 font-semibold text-xl w-[40vw] p-4 rounded-[10px] flex flex-row items-center justify-center gap-3">
                           {buyer?.firstName} <IoMdDownload className="font-semibold text-xl"/>

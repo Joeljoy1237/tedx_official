@@ -5,7 +5,7 @@ export const GET = async () => {
   try {
     await connectToDB();
     const ticket = await Ticket.findOne({ totalTicket: 100 });
-    return new Response(JSON.stringify({ value: ticket.ticketSold }), {
+    return new Response(JSON.stringify({ value: ticket?.ticketSold }), {
       status: 200,
     });
   } catch (err) {

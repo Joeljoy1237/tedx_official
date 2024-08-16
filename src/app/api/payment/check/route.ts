@@ -74,7 +74,6 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
         ticket.ticketSold = ticket?.ticketSold + 1;
         ticket.ticketRemaning = ticket?.ticketRemaning - 1;
         groupMember.ticketId = `TEDXCCET/2024/${("00" + ticket.ticketSold).slice(-3)}`
-
       })
 
       const amount = paymentData.amount_paid;
