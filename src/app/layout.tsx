@@ -6,7 +6,7 @@ import Provider from "@components/Provider";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "TEDx CCET",
+  title: "TEDxCCET",
   description:
     "Join us at Carmel College of Engineering & Technology for TEDxCCET, showcasing Kerala's innovators and inspiring speakers.",
 };

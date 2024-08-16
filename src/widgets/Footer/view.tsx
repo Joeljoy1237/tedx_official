@@ -78,7 +78,7 @@ export default function FooterView() {
         </div>
       </div>
       <div className="flex-1 flex-col flex md:hidden lg:hidden items-center justify-start gap-2 text-xs">
-        <Link href="/terms-and-condtions">Terms and Conditions</Link>
+        <Link href="/terms-and-conditions">Terms and Conditions</Link>
         <Link href="/privacy-policy">Privacy Policy</Link>
         <Link href="/refund-policy">Refund Policy</Link>
       </div>

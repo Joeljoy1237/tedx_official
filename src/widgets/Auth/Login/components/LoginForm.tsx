@@ -195,7 +195,7 @@ export default function RegisterForm() {
       </div>
       <span className=" absolute text-sm bottom-4">
         For technical assistance.{" "}
-        <Link href={"/"} className="font-semibold text-primary-700">
+        <Link href={"/getting-there"} className="font-semibold text-primary-700">
           Get help
         </Link>{" "}
       </span>

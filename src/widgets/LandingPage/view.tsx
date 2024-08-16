@@ -11,15 +11,14 @@ import FooterView from "@widgets/Footer";
 import AboutSection from "./components/AboutSection";
 import ThemeSection from "./components/Theme";
 import TicketView from "@widgets/Ticket";
-import { animateScroll } from 'react-scroll';
+import { animateScroll } from "react-scroll";
+import Reasons from "./components/Reasons";
+import SpeakerSection from "@widgets/Speakers/components/SpeakerSection";
 
 // Dynamically import the SmoothScrollCustom component without SSR
-const SmoothScrollCustom = dynamic(
-  () => import("@components/ScrollSmoother"),
-  {
-    ssr: false,
-  }
-);
+const SmoothScrollCustom = dynamic(() => import("@components/ScrollSmoother"), {
+  ssr: false,
+});
 
 // Dynamically import the ScrollTextView component without SSR
 const Flicker = dynamic(
@@ -54,14 +53,14 @@ const LandingPageView: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
-    },1000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
     animateScroll.scrollToTop();
-  }, [])
+  }, []);
 
   return (
     <div className="w-full flex flex-col gap-2">
@@ -69,10 +68,12 @@ const LandingPageView: React.FC = () => {
       <HeaderView />
       <BannerView />
       {/* <ScrollTextView /> */}
-      <Flicker/>
+      <Flicker />
       <Welcome />
+      <Reasons />
       <ThemeSection />
-      <TicketView/>
+      <SpeakerSection/>
+      <TicketView />
       <AboutSection />
       <FooterView />
       {/* {isDesktop && <SmoothScrollCustom />} */}

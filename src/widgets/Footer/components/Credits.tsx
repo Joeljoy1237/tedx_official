@@ -5,7 +5,7 @@ export default function Credits() {
   return (
     <div className="flex md:flex-row lg:flex-row flex-col gap-5 items-center justify-between">
       <div className="flex-1 hidden max-h-full md:flex lg:flex items-center justify-start gap-4 text-xs">
-        <Link href="/terms-and-condtions">Terms and Conditions</Link>
+        <Link href="/terms-and-conditions">Terms and Conditions</Link>
         <Link href="/privacy-policy">Privacy Policy</Link>
         <Link href="/refund-policy">Refund Policy</Link>
       </div>

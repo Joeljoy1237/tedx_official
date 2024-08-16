@@ -122,7 +122,6 @@ input::placeholder {
   // text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 8px #fff, 0 0 5px #fff;
 }
 
-
 .tagline {
   background: -webkit-linear-gradient(
       45deg,
@@ -151,6 +150,11 @@ input::placeholder {
     background-clip: text;
     animation: back 20s linear infinite;
   }
+}
+
+.sptitle {
+  color: transparent;
+  -webkit-text-stroke: 2px $theme-color;
 }
 
 .blankWhite {
@@ -339,7 +343,7 @@ input::placeholder {
   }
 }
 
-h2{
+h2 {
   -webkit-box-reflect: below 2px linear-gradient(#0000, #0005);
 }
 
@@ -358,26 +362,41 @@ h2{
   animation-iteration-count: 2;
 }
 
-.e{
+.e {
   animation-delay: 2.4s;
 }
 
-
-.x{
+.x {
   animation-delay: 2.9s;
 }
 
-.ccet1{
+.ccet1 {
   animation-delay: 1.3s;
 }
 
-
-.ccet3{
+.ccet3 {
   animation-delay: 1.6s;
 }
 
 .blur-overlay {
   backdrop-filter: blur(10px);
   // -webkit-backdrop-filter: blur(10px); /* For Safari */
-  background-color: rgba(0, 0, 0, 0.7); 
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #333333 inset !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+.reasons {
+  background: linear-gradient(rgba(0, 0, 0, 0.775), rgba(0, 0, 0, 0.814)),
+    url("/images/bg3.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+.speaker {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.656)),
+    url("/speakerbg.png") no-repeat center center fixed;
+  background-size: cover;
 }

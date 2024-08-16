@@ -17,13 +17,13 @@ export const navLinks = [
         url: "/our-theme"
     },
     {
+        title: "Our Speakers",
+        url: "/our-speakers"
+    },
+    {
         title: "get tickets",
         url: "/get-tickets"
     },
-    // {
-    //     title: "Gallery",
-    //     url: "/gallery"
-    // },
     {
         title: "getting there",
         url: "/getting-there"
@@ -57,5 +57,48 @@ export const aboutDetails = [
         id:3,
         title: "TEDxCCET",
         desc: "The first-ever TEDxCCET at Carmel College of Engineering & Technology (CCET) is something we are quite excited about! Our dedication to encouraging creativity, inspiration and insightful conversation is demonstrated by this event. CCET is pleased to welcome the TEDx platform to our campus as a forward-thinking organization committed to academic excellence. TEDxCCET will bring together intellectuals and thought leaders. Join us on this journey of exploration, discovery and inspiration at TEDxCCET. Together, let’s embrace the power of ideas to ignite change and transform lives."
+    }
+]
+
+export const speakersList = [
+    {
+        name:"Dr. Divya S Iyyer",
+        designation:"Md, Vizhinjam Seaport",
+        image:"/speakers/divya.png",
+    },
+    {
+        name:"Dr. V P Gangadharan",
+        designation:"Oncologist",
+        image:"/speakers/gangadharandr.png",
+    },
+    {
+        name:"Ms. Alakananda R",
+        designation:"News Reader & Journalist",
+        image:"/speakers/alakananda.png",
+    },
+    {
+        name:"Mr. Joy Sebastian",
+        designation:"CEO, Techgentsia",
+        image:"/speakers/joy.png",
+    },
+    {
+        name:"Mr. Job Kurian",
+        designation:"Singer & Composer",
+        image:"/speakers/jobkurian.png",
+    },
+    {
+        name:"Mr. Akhil P Darmajan",
+        designation:"Write",
+        image:"/speakers/akhilp.png",
+    },
+    {
+        name:"Mr. Nikhil Kilivayil",
+        designation:"CEO, Brototype",
+        image:"/speakers/nikhil.png",
+    },
+    {
+        name:"Master. Raul",
+        designation:"Tech Enthusiast",
+        image:"/speakers/rault.png",
     }
 ]
