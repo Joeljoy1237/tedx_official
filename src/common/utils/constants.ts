@@ -88,7 +88,7 @@ export const speakersList = [
     },
     {
         name:"Mr. Akhil P Darmajan",
-        designation:"Write",
+        designation:"Writer",
         image:"/speakers/akhilp.png",
     },
     {

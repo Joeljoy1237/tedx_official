@@ -1,6 +1,7 @@
 import React from "react";
 import TitleBar from "@components/TitleBar";
 import { speakersList } from "@utils/constants";
+import Image from "next/image";
 
 export default function SpeakerSection() {
   return (
@@ -44,9 +45,11 @@ export default function SpeakerSection() {
               key={index}
               className="flex items-center bg-black-200 rounded-lg p-4 shadow-lg transform hover:scale-105 transition-transform duration-300"
             >
-              <img
-                src={speaker.image}
-                alt={speaker.name}
+              <Image
+                src={speaker?.image}
+                alt={speaker?.name}
+                width={1000}
+                height={1000}
                 className="w-24 h-24 rounded-full object-cover mr-4 border-2 border-[#eb0028]"
               />
               <div>
