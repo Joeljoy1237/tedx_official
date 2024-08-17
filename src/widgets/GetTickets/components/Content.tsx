@@ -135,9 +135,9 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
       subtotal = memberCount * groupPrice;
 
       if (memberCount >= 5 && memberCount <= 10) {
-        discount = subtotal * 0.1; // 10% discount
+        discount = memberCount * 100; // Rs 100 discount
       } else if (memberCount > 10) {
-        discount = subtotal * 0.15; // 15% discount
+        discount = memberCount * 150; // Rs 150 discount
       }
 
       total = subtotal - discount;
