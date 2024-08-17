@@ -95,21 +95,21 @@ export default function ProfileRightSide({ profile }: ProfilePageProps) {
       <div className="flex flex-col gap-5 w-full break-words">
         <span className="text-xl md:text-4xl lg:text-4xl break-words">
           Welcome 👋,{" "}
-          <span className="font-semibold">
-            {profile?.user?.firstName || "User"} {profile?.user?.lastName || ""}
+          <span className="font-semibold capitalize">
+            {profile?.user?.firstName?.toLowerCase() || "User"} {profile?.user?.lastName?.toLowerCase() || ""}
           </span>
         </span>
 
         <div className="flex gap-2 flex-col text-xl md:text-4xl lg:text-4xl break-words">
-          <span className="text-xl">Email:</span>
+          <span className="text-base text-black-500 italic">Email:</span>
           <span className="text-xl break-words">{profile?.user?.email || "N/A"}</span>
         </div>
         <div className="flex gap-2 flex-col text-xl md:text-4xl lg:text-4xl break-words">
-          <span className="text-xl">Organisation:</span>
+          <span className="text-base text-black-500 italic">Organisation:</span>
           <p className="text-xl">{profile?.user?.organisation || "N/A"}</p>
         </div>
         <div className="flex gap-2 flex-col text-xl md:text-4xl lg:text-4xl break-words">
-          <span className="text-xl">Organisation:</span>
+          <span className="text-base text-black-500 italic">Designation:</span>
           <p className="text-xl">{profile?.user?.designation || "N/A"}</p>
         </div>
       </div>
