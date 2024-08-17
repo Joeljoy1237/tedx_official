@@ -17,7 +17,6 @@ export const POST = async (request: any) => {
 
 
     } catch (e) {
-        console.log(e);
 
         return new Response(JSON.stringify({ message: "Internal Server Error" }), { status: 500 });
     }

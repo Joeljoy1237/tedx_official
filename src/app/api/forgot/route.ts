@@ -34,7 +34,6 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
     }
 
     if (user.resetLockUntil > Date.now() && user.resetCount >= 3) {
-      console.log(user.resetLockUntil);
       const timeDifferenceInMilliseconds = user.resetLockUntil - Date.now();
       const timeDifferenceInHours = Math.ceil(timeDifferenceInMilliseconds / (1000 * 60 * 60));
       return new NextResponse(
@@ -117,7 +116,6 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
           { status: 500 }
         );
       } else {
-        console.log("Email sent: " + info.response);
       }
     });
 

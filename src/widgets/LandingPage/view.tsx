@@ -14,6 +14,8 @@ import TicketView from "@widgets/Ticket";
 import { animateScroll } from "react-scroll";
 import Reasons from "./components/Reasons";
 import SpeakerSection from "@widgets/Speakers/components/SpeakerSection";
+import BannerRed from "./components/BannerRed";
+import Tariff from "./components/Tariff";
 
 // Dynamically import the SmoothScrollCustom component without SSR
 const SmoothScrollCustom = dynamic(() => import("@components/ScrollSmoother"), {
@@ -72,8 +74,12 @@ const LandingPageView: React.FC = () => {
       <Welcome />
       <Reasons />
       <ThemeSection />
+      <BannerRed/>
+      <div className="pt-[50px]">
       <SpeakerSection/>
+      </div>
       <TicketView />
+      <Tariff/>
       <AboutSection />
       <FooterView />
       {/* {isDesktop && <SmoothScrollCustom />} */}

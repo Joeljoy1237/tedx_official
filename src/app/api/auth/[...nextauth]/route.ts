@@ -17,6 +17,7 @@ declare module "next-auth" {
       designation?: string | null;
       mobile?: string | null;
       isBought?: boolean | null;
+      isAdmin: boolean | null;
     };
   }
 }
@@ -54,7 +55,7 @@ const handler = NextAuth({
         }
       },
     }),
-    
+
   ],
   callbacks: {
     async session({ session }) {
@@ -71,9 +72,11 @@ const handler = NextAuth({
           session.user.isBought = sessionUser?.isBought;
           session.user.organisation = sessionUser?.organisation;
           session.user._id = sessionUser._id.toString();
-          session.user.designation = sessionUser?.designation
+          session.user.designation = sessionUser?.designation;
+          session.user.isAdmin = sessionUser?.isAdmin;
         }
       }
+      console.log(session)
       return session;
     },
   },

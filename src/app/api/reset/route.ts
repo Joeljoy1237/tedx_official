@@ -10,8 +10,6 @@ interface JwtPayload {
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
   try {
     const { token }: { token: string } = await request.json();
-    console.log(token);
-
     const decode = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload;
 
     await connectToDB();

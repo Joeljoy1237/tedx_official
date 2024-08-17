@@ -59,12 +59,12 @@ const Drawer: React.FC<DrawerProps> = ({ handleClose, handlesignout }) => {
           </Link>
         ) : (
           <Link
-            href={session?.user ? "/profile" : "/register"}
+            href={session?.user ? "/profile" : "/login"}
             className="w-full"
           >
             <Button
               className="px-4 py-2 rounded-[10px] md:hidden flex lg:hidden items-center justify-center font-bold w-full bg-primary-700 text-white gap-2"
-              title={session?.user ? "Profile" : "Register"}
+              title={session?.user ? "Profile" : "Login"}
               icon={<IconArrow className="size-6" />}
             />
           </Link>

@@ -5,6 +5,7 @@ import TicketMobile from "./TicketMobile";
 import Button from "@components/Button";
 import Link from "next/link";
 import { IoRocketOutline } from "react-icons/io5";
+import Tariff from "@widgets/LandingPage/components/Tariff";
 
 export default function Content() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -45,22 +46,23 @@ export default function Content() {
             {isDesktop ? <TicketItem /> : <TicketMobile />}
           </div>
           <div className="w-full flex items-start flex-col justify-start gap-4">
-            <div className="flex flex-col gap-2">
+            {/* <div className="flex flex-col gap-2">
               {offers?.map((offer, index) => (
                 <div className="flex items-start justify-start gap-2" key={index}>
                   <IoRocketOutline className="text-[20px]" />
                   <span className="text-justify">{offer}</span>
                 </div>
               ))}
-            </div>
-            <div className="w-full flex items-center justify-center">
+            </div> */}
+            {/* <Tariff/> */}
+            {/* <div className="w-full flex items-center justify-center">
               <Link href={"/get-tickets"}>
                 <Button
                   title="Get your tickets now"
                   className="bg-primary-700 p-4 rounded-[8px] outline-none border-none font-semibold"
                 />
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
