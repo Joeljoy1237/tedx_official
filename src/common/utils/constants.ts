@@ -62,8 +62,8 @@ export const aboutDetails = [
 
 export const speakersList = [
     {
-        name:"Dr. Divya S Iyyer",
-        designation:"Md, Vizhinjam Seaport",
+        name:"Dr. Divya S Iyer IAS",
+        designation:"MD, Vizhinjam International Seaport ",
         image:"/speakers/divya.png",
     },
     {
@@ -87,7 +87,7 @@ export const speakersList = [
         image:"/speakers/jobkurian.png",
     },
     {
-        name:"Mr. Akhil P Darmajan",
+        name:"Mr. Akhil P Dharmajan",
         designation:"Writer",
         image:"/speakers/akhilp.png",
     },
@@ -97,7 +97,7 @@ export const speakersList = [
         image:"/speakers/nikhil.png",
     },
     {
-        name:"Master. Raul",
+        name:"Master Raul Aju John",
         designation:"Tech Enthusiast",
         image:"/speakers/rault.png",
     }

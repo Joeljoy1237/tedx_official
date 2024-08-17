@@ -81,7 +81,6 @@ export const POST = async (request: any) => {
             { status: 201 }
         );
     } catch (err: any) {
-        console.log(err?.message)
         return new Response(JSON.stringify({ message: "Internal Server Error" }), { status: 500 });
     }
 };

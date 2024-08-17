@@ -29,7 +29,7 @@ export default function FooterView() {
           <CiLink />
           <div className="relative link-container">
             <Link
-              className="capitalize font-medium group-hover:text-blue-500 transition-all duration-300 inline-block"
+              className="capitalize font-medium transition-all duration-300 inline-block"
               href={link?.url}
             >
               {link?.title}

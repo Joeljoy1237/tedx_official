@@ -20,7 +20,6 @@ const QrCode = () => {
   useEffect(() => {
     const handleValidation = async () => {
       try {
-        console.log(params.ticketId);
 
         const response = await fetch(
           `/api/admin/qr/validate/${params.ticketId}`
@@ -52,7 +51,6 @@ const QrCode = () => {
       }
 
       const res = await response.json();
-      console.log(res);
       router.refresh();
     } catch (error) {
       console.error("Error during check-in:", error);
