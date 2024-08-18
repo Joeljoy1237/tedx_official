@@ -4,10 +4,10 @@ import Logo from "@components/Logo";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import showTedxToast from "@components/showTedxToast";
+import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -16,28 +16,31 @@ export default function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (status === "authenticated") {
-      // Redirect to home page
       router.push("/");
     }
   }, [status, session, router]);
 
-  const handleEnterPress = async (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if ('key' in event && event.key == 'Enter') {
+  const handleEnterPress = async (
+    event: React.KeyboardEvent<HTMLDivElement>
+  ) => {
+    if ("key" in event && event.key === "Enter") {
       handleSignIn(event);
     }
-  }
+  };
 
   const handleSignIn = async (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>
+    event:
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.KeyboardEvent<HTMLDivElement>
   ) => {
-    event.preventDefault(); // Prevent default form submission behavior
+    event.preventDefault();
     setIsSubmitting(true);
 
     try {
-      // Validate input fields
       if (!email && !password) {
         throw new Error(
           JSON.stringify({
@@ -61,14 +64,12 @@ export default function RegisterForm() {
         );
       }
 
-      // Perform sign-in
       const response = await signIn("credentials", {
         email: email,
         password: password,
         redirect: false,
       });
 
-      // Check response and handle success
       if (response?.ok) {
         const data = response?.error
           ? JSON.parse(response.error)
@@ -76,8 +77,8 @@ export default function RegisterForm() {
 
         showTedxToast({
           type: "success",
-          message: data.message, // Show the success message from the response
-          desc: data.desc, // Optionally, show the description from the response
+          message: data.message,
+          desc: data.desc,
         });
 
         setTimeout(() => {
@@ -92,16 +93,15 @@ export default function RegisterForm() {
         );
       }
     } catch (err: any) {
-      // Handle errors
       const error = JSON.parse(err.message || "{}");
 
       showTedxToast({
         type: "error",
-        message: error.message, // Show the error message
-        desc: error.desc, // Optionally, show the error description
+        message: error.message,
+        desc: error.desc,
       });
 
-      setIsSubmitting(false); // Ensure to stop submitting state regardless of outcome
+      setIsSubmitting(false);
     }
   };
 
@@ -109,6 +109,7 @@ export default function RegisterForm() {
     <div className="md:w-[40vw] lg:w-[40vw] w-[90vw] flex flex-col items-center justify-center relative h-screen">
       <Image
         src={"/bg2.svg"}
+        priority
         alt=""
         className="w-full h-screen"
         width={1000}
@@ -117,7 +118,6 @@ export default function RegisterForm() {
       <div className="md:w-[70%] lg:w-[70%] w-[100%] flex flex-col gap-8 absolute">
         <div className="w-full flex items-center justify-center">
           <Link href={"/"}>
-            {" "}
             <Logo />
           </Link>
         </div>
@@ -143,21 +143,33 @@ export default function RegisterForm() {
                 />
               </div>
             </div>
-            <div className="flex gap-4">
+            <div className="flex gap-4 relative">
               <div className="flex-1">
                 <span className="font-light text-sm italic">Password</span>
                 <span className="text-primary-700 text-2xl mt-[15px] font-semibold">
                   *
                 </span>
-                <input
-                  type="password"
-                  className=" w-full p-3 rounded-md bg-black-300 outline-none border-none"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="w-full p-3 pr-10 rounded-md bg-black-300 outline-none border-none"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
+                  <div
+                    className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <IoEyeOffOutline size={20} className="text-xl"/>
+                    ) : (
+                      <IoEyeOutline size={20} className="text-xl"/>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -165,7 +177,7 @@ export default function RegisterForm() {
             title={isSubmitting ? "Please wait ..." : "Login"}
             disabled={isSubmitting}
             onClick={handleSignIn}
-            className="w-full py-3 font-semibold bg-primary-700 rounded-md outline-none border-none "
+            className="w-full py-3 font-semibold bg-primary-700 rounded-md outline-none border-none"
           ></Button>
           <div className="flex gap-4 items-end justify-between">
             <div className="flex items-center justify-start">
@@ -185,9 +197,8 @@ export default function RegisterForm() {
                   className="font-semibold text-primary-700 cursor-pointer"
                   href={"/forgot-password"}
                 >
-                  Forgot password
-                ?
-                </Link>{" "}
+                  Forgot password?
+                </Link>
               </span>
             </div>
           </div>
@@ -195,8 +206,11 @@ export default function RegisterForm() {
       </div>
       <span className=" absolute text-sm bottom-4">
         For technical assistance.{" "}
-        <Link href={"/getting-there"} className="font-semibold text-primary-700">
-          Get help
+        <Link
+          href={"/support"}
+          className="font-semibold text-primary-700"
+        >
+          Get Support
         </Link>{" "}
       </span>
     </div>

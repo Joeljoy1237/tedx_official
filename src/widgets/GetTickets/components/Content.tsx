@@ -88,7 +88,6 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
         if (numData?.value + members?.length < 20) {
           setOffer(150);
           setTicketCount(numData?.value);
-          console.log(numData);
         }
       }
     }
@@ -224,11 +223,9 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                   );
                 })
                 .catch((err) => {
-                  console.log(err);
                 });
             })
             .catch((err) => {
-              console.log(err);
             });
         },
         prefill: {
@@ -266,7 +263,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                 className="w-[4rem] h-full md:w-[7rem] lg:w-[7rem]"
               />
             </div>
-            {ticketCount < 20 && (
+            {ticketCount < 20 && activeTab === "individual" && (
               <Image
                 src={"/early.png"}
                 className="absolute top-[-3rem] left-[-3.5rem]"

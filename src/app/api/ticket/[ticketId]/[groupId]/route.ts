@@ -8,8 +8,6 @@ export const GET = async (
   { params }: { params: { ticketId: string, groupId: string } }
 ) => {
   try {
-    console.log(params.ticketId);
-    console.log(params.groupId);
 
     await connectToDB();
 

@@ -40,6 +40,58 @@ export default function ListUsers() {
     fetchUsers();
   }, []);
 
+  const handleDownloadCSV = () => {
+    const headers = [
+      "_id", 
+      "First Name", 
+      "Last Name", 
+      "Email", 
+      "Mobile", 
+      "Organisation", 
+      "Designation", 
+    ];
+    
+    // Calculate maximum width for each column
+    const columnWidths = headers.map(header => Math.max(header.length, ...users.map(user => {
+      return [
+        user._id || "",
+        user.firstName || "",
+        user.lastName || "",
+        user.email || "",
+        user.mobile || "N/A",
+        user.organisation || "N/A",
+        user.designation || "N/A",
+      ][headers.indexOf(header)].length;
+    })));
+    
+    // Create CSV rows
+    const csvRows = [];
+    csvRows.push(headers.map((header, i) => header.padEnd(columnWidths[i])).join(","));
+
+    for (const user of users) {
+      const row = [
+        user._id || "",
+        user.firstName || "",
+        user.lastName || "",
+        user.email || "",
+        user.mobile || "N/A",
+        user.organisation || "N/A",
+        user.designation || "N/A",
+      ].map(field => String(field)); // Convert to string
+      
+      csvRows.push(row.map((field, i) => field.padEnd(columnWidths[i])).join(","));
+    }
+
+    const csvString = csvRows.join("\n");
+    const blob = new Blob([csvString], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'users.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   if (loading) {
     return (
       <div className="flex w-full h-full items-center justify-center">
@@ -62,7 +114,15 @@ export default function ListUsers() {
 
   return (
     <div className="p-6 rounded-lg shadow-lg">
-      <h3 className="text-2xl font-semibold mb-4">User List</h3>
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-2xl font-semibold">User List</h3>
+        <button
+          onClick={handleDownloadCSV}
+          className="bg-blue-500 text-white p-2 rounded"
+        >
+          Download CSV
+        </button>
+      </div>
       <div className="mb-6">
         <p className="text-lg font-medium">Total Users: {totalUsers}</p>
         <p className="text-lg font-medium">Users Who Bought Tickets: {boughtUsersCount}</p>
