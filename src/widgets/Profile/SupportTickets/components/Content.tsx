@@ -39,9 +39,14 @@ const SupportTicketList: React.FC = () => {
     if (session?.user?._id) {
       const fetchTickets = async () => {
         try {
-          const response = await fetch(
-            `/api/support-ticket/show-support-ticket?userId=${session.user._id}`
-          );
+          const response = await fetch("/api/support-ticket/show-support-ticket", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userId: session.user._id }),
+          });
+
           const result = await response.json();
 
           if (response.ok) {
