@@ -31,7 +31,7 @@ export default function ContactDetails() {
           </div>
           <div className=" flex flex-col">
             <span className="font-semibold text-xl">Phone</span>
-            <span className="">+91 80755 12624</span>
+            <span className="font-sans">+91 80755 12624</span>
           </div>
         </div>
         <div className="flex gap-3 items-center justify-start">

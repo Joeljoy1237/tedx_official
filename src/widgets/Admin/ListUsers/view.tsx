@@ -19,51 +19,56 @@ export default function ListUsers() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Fetch the user details from the API
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("/api/admin/list-users");
-        if (!response.ok) {
-          throw new Error("Failed to fetch users");
-        }
-
-        const data = await response.json();
-        setUsers(data);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch("/api/admin/list-users");
+      if (!response.ok) {
+        throw new Error("Failed to fetch users");
       }
-    };
 
+      const data = await response.json();
+      console.log("Fetched users:", data.length); // Check how many users are fetched
+      setUsers(data);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchUsers();
   }, []);
 
   const handleDownloadCSV = () => {
     const headers = [
-      "_id", 
-      "First Name", 
-      "Last Name", 
-      "Email", 
-      "Mobile", 
-      "Organisation", 
-      "Designation", 
+      "_id",
+      "First Name",
+      "Last Name",
+      "Email",
+      "Mobile",
+      "Organisation",
+      "Designation",
     ];
-    
+
     // Calculate maximum width for each column
-    const columnWidths = headers.map(header => Math.max(header.length, ...users.map(user => {
-      return [
-        user._id || "",
-        user.firstName || "",
-        user.lastName || "",
-        user.email || "",
-        user.mobile || "N/A",
-        user.organisation || "N/A",
-        user.designation || "N/A",
-      ][headers.indexOf(header)].length;
-    })));
-    
+    const columnWidths = headers.map((header) =>
+      Math.max(
+        header.length,
+        ...users.map((user) => {
+          return [
+            user._id || "",
+            user.firstName || "",
+            user.lastName || "",
+            user.email || "",
+            user.mobile || "N/A",
+            user.organisation || "N/A",
+            user.designation || "N/A",
+          ][headers.indexOf(header)].length;
+        })
+      )
+    );
+
     // Create CSV rows
     const csvRows = [];
     csvRows.push(headers.map((header, i) => header.padEnd(columnWidths[i])).join(","));
@@ -77,17 +82,17 @@ export default function ListUsers() {
         user.mobile || "N/A",
         user.organisation || "N/A",
         user.designation || "N/A",
-      ].map(field => String(field)); // Convert to string
-      
+      ].map((field) => String(field)); // Convert to string
+
       csvRows.push(row.map((field, i) => field.padEnd(columnWidths[i])).join(","));
     }
 
     const csvString = csvRows.join("\n");
-    const blob = new Blob([csvString], { type: 'text/csv' });
+    const blob = new Blob([csvString], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = 'users.csv';
+    a.download = "users.csv";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -109,23 +114,33 @@ export default function ListUsers() {
   }
 
   const totalUsers = users.length;
-  const boughtUsersCount = users.filter(user => user.isBought).length;
-  const adminUsersCount = users.filter(user => user.isAdmin).length;
+  const boughtUsersCount = users.filter((user) => user.isBought).length;
+  const adminUsersCount = users.filter((user) => user.isAdmin).length;
 
   return (
     <div className="p-6 rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-2xl font-semibold">User List</h3>
-        <button
-          onClick={handleDownloadCSV}
-          className="bg-blue-500 text-white p-2 rounded"
-        >
-          Download CSV
-        </button>
+        <div>
+          <button
+            onClick={fetchUsers} // Manual refresh button
+            className="bg-gray-500 text-white p-2 rounded mr-2"
+          >
+            Refresh
+          </button>
+          <button
+            onClick={handleDownloadCSV}
+            className="bg-blue-500 text-white p-2 rounded"
+          >
+            Download CSV
+          </button>
+        </div>
       </div>
       <div className="mb-6">
         <p className="text-lg font-medium">Total Users: {totalUsers}</p>
-        <p className="text-lg font-medium">Users Who Bought Tickets: {boughtUsersCount}</p>
+        <p className="text-lg font-medium">
+          Users Who Bought Tickets: {boughtUsersCount}
+        </p>
         <p className="text-lg font-medium">Admin Users: {adminUsersCount}</p>
       </div>
       {totalUsers === 0 ? (
@@ -133,7 +148,10 @@ export default function ListUsers() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {users.map((user) => (
-            <div key={user._id} className="bg-black-100 text-white p-4 rounded-lg shadow-md">
+            <div
+              key={user._id}
+              className="bg-black-100 text-white p-4 rounded-lg shadow-md"
+            >
               <h4 className="text-xl font-bold mb-2">
                 {user?.firstName} {user?.lastName}
               </h4>
