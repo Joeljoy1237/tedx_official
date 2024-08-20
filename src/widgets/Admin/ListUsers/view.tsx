@@ -12,22 +12,33 @@ interface User {
   mobile?: string | null;
   isBought?: boolean | null;
   isAdmin: boolean | null;
+  createdAt?: string; // This will still be used for UI display
 }
 
 export default function ListUsers() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
 
   const fetchUsers = async () => {
+    setLoading(true);
     try {
-      const response = await fetch("/api/admin/list-users");
+      const response = await fetch(`/api/admin/list-users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ startDate, endDate }),
+        cache: "no-store", // Prevent caching
+      });
+
       if (!response.ok) {
         throw new Error("Failed to fetch users");
       }
 
       const data = await response.json();
-      console.log("Fetched users:", data.length); // Check how many users are fetched
       setUsers(data);
     } catch (err: any) {
       setError(err.message);
@@ -51,10 +62,21 @@ export default function ListUsers() {
       "Designation",
     ];
 
-    // Calculate maximum width for each column
+    // Define minimum widths for each column
+    const minWidths: { [key: string]: number } = {
+      "_id": 20,
+      "First Name": 20,
+      "Last Name": 20,
+      "Email": 30,
+      "Mobile": 15,
+      "Organisation": 25,
+      "Designation": 25,
+    };
+
+    // Calculate maximum width for each column, ensuring minimum width
     const columnWidths = headers.map((header) =>
       Math.max(
-        header.length,
+        minWidths[header] || 10, // Default to 10 if min width is not defined
         ...users.map((user) => {
           return [
             user._id || "",
@@ -122,11 +144,23 @@ export default function ListUsers() {
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-2xl font-semibold">User List</h3>
         <div>
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            className="border p-2 rounded mr-2 bg-black-200"
+          />
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            className="border p-2 rounded mr-2 bg-black-200"
+          />
           <button
-            onClick={fetchUsers} // Manual refresh button
+            onClick={fetchUsers} // Fetch users based on date range
             className="bg-gray-500 text-white p-2 rounded mr-2"
           >
-            Refresh
+            Apply Filter
           </button>
           <button
             onClick={handleDownloadCSV}
@@ -176,6 +210,10 @@ export default function ListUsers() {
               </p>
               <p className="mb-1">
                 <strong>Admin:</strong> {user?.isAdmin ? "Yes" : "No"}
+              </p>
+              <p className="mb-1">
+                <strong>Created Date:</strong>{" "}
+                {user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : "N/A"}
               </p>
             </div>
           ))}

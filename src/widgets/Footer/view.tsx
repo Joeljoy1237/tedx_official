@@ -12,6 +12,7 @@ import Image from "@components/Image";
 import Button from "@components/Button";
 import { IoBugOutline } from "react-icons/io5";
 import { useSession } from "next-auth/react";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 
 export default function FooterView() {
   const { data: session, status } = useSession();
@@ -88,6 +89,18 @@ export default function FooterView() {
                       className="flex w-full md:justify-start lg:justify-start items-center justify-center font-semibold text-primary-700 gap-2 rounded-[8px] py-2"
                       title="Raise a support ticket"
                       icon={<IoBugOutline className="font-semibold" />}
+                    />
+                  </Link>
+                </div>
+              )}
+              {status === "authenticated" && session.user.isAdmin === true && (
+                <div className="w-full">
+                  <Link href={"/admin/list-users"}>
+                    <Button
+                      position="left"
+                      className="flex w-full md:justify-start lg:justify-start items-center justify-center font-semibold text-primary-700 gap-2 rounded-[8px] py-2"
+                      title="Admin Panel"
+                      icon={<MdOutlineAdminPanelSettings className="font-semibold" />}
                     />
                   </Link>
                 </div>

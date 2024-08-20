@@ -1,13 +1,26 @@
 import User from "@models/User"; // Assuming you have a User model
 import { connectToDB } from "@utils/database";
 
-export const GET = async (request: Request) => {
+export const POST = async (request: Request) => {
   try {
     // Connect to the database
     await connectToDB();
 
-    // Fetch all users from the User collection
-    const users = await User.find({}).exec();
+    // Extract the startDate and endDate from the request body
+    const { startDate, endDate } = await request.json();
+
+    // Create a filter object
+    const filter: any = {};
+
+    if (startDate && endDate) {
+      filter.createdAt = {
+        $gte: new Date(startDate),
+        $lte: new Date(endDate),
+      };
+    }
+
+    // Fetch users from the User collection based on the filter
+    const users = await User.find(filter).exec();
 
     // If no users are found, return a 404 status
     if (!users || users.length === 0) {
