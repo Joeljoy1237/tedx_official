@@ -60,6 +60,7 @@ export default function ListUsers() {
       "Mobile",
       "Organisation",
       "Designation",
+      "Has Bought Ticket", // Added "isBought" field to the headers
     ];
 
     // Define minimum widths for each column
@@ -71,6 +72,7 @@ export default function ListUsers() {
       "Mobile": 15,
       "Organisation": 25,
       "Designation": 25,
+      "Has Bought Ticket": 15, // Define width for "isBought"
     };
 
     // Calculate maximum width for each column, ensuring minimum width
@@ -86,6 +88,7 @@ export default function ListUsers() {
             user.mobile || "N/A",
             user.organisation || "N/A",
             user.designation || "N/A",
+            user.isBought ? "Yes" : "No", // Include the "isBought" value in the row
           ][headers.indexOf(header)].length;
         })
       )
@@ -104,6 +107,7 @@ export default function ListUsers() {
         user.mobile || "N/A",
         user.organisation || "N/A",
         user.designation || "N/A",
+        user.isBought ? "Yes" : "No", // Add the "isBought" value here
       ].map((field) => String(field)); // Convert to string
 
       csvRows.push(row.map((field, i) => field.padEnd(columnWidths[i])).join(","));
@@ -213,7 +217,9 @@ export default function ListUsers() {
               </p>
               <p className="mb-1">
                 <strong>Created Date:</strong>{" "}
-                {user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : "N/A"}
+                {user?.createdAt
+                  ? new Date(user.createdAt).toLocaleDateString()
+                  : "N/A"}
               </p>
             </div>
           ))}

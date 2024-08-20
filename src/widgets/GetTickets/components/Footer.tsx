@@ -5,8 +5,8 @@ import { IoBugOutline } from "react-icons/io5";
 export default function Footer() {
   return (
     <footer className="text-white px-[5vw] py-[4vh] border-t border-black-300">
-      <div className="container mx-auto flex items-center justify-between">
-        <div className="flex space-x-4">
+      <div className="container mx-auto flex flex-col items-center justify-between md:flex-row lg:flex-row gap-4">
+        <div className="flex flex-col md:flex-row lg:flex-row items-center justify-center gap-3">
           <Link href="/privacy-policy">
             <span className="hover:underline text-xs">Privacy Policy</span>
           </Link>
