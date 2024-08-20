@@ -9,21 +9,22 @@ interface RequestBody {
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
   try {
+    // Parse the request body
     const { count, offer, lastPrice }: RequestBody = await request.json();
+    if (!count || !offer || !lastPrice) {
+      return new NextResponse(
+        JSON.stringify({ message: "Invalid input data" }),
+        { status: 400 }
+      );
+    }
 
+    // Initialize Razorpay instance
     const razorpay = new Razorpay({
       key_id: process.env.RAZOR_KEY_ID as string,
       key_secret: process.env.RAZOR_KEY_SECRET as string,
     });
 
-    // Uncomment this section if you need to re-enable the security check
-    // if (lastPrice !== 1200 * count - 1200 * count * (offer / 100)) {
-    //   return new NextResponse(
-    //     JSON.stringify({ message: "Security Compromise" }),
-    //     { status: 403 }
-    //   );
-    // }
-
+    // Create an order
     const options = {
       amount: lastPrice * 100, // Amount in paise
       currency: "INR",
@@ -33,12 +34,36 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 
     const response = await razorpay.orders.create(options);
     return new NextResponse(JSON.stringify(response), { status: 200 });
+
   } catch (err: any) {
     console.error("Error creating order:", err);
 
-    return new NextResponse(
-      JSON.stringify({ message: "Internal Server Error" }),
-      { status: 500 }
-    );
+    // Handle specific error types
+    if (err instanceof SyntaxError) {
+      return new NextResponse(
+        JSON.stringify({ message: "Invalid JSON format" }),
+        { status: 400 }
+      );
+    } else if (err.code === "ECONNREFUSED") {
+      return new NextResponse(
+        JSON.stringify({ message: "Connection refused by Razorpay" }),
+        { status: 502 }
+      );
+    } else if (err.name === "RazorpayError") {
+      return new NextResponse(
+        JSON.stringify({ message: "Error from Razorpay: " + err.message }),
+        { status: 500 }
+      );
+    } else if (err.name === "TypeError") {
+      return new NextResponse(
+        JSON.stringify({ message: "Type error: " + err.message }),
+        { status: 500 }
+      );
+    } else {
+      return new NextResponse(
+        JSON.stringify({ message: "Internal Server Error" }),
+        { status: 500 }
+      );
+    }
   }
 };
