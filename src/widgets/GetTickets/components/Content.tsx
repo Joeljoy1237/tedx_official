@@ -155,6 +155,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
   //apit to create
 
   const handleBuy = async () => {
+    let failStatus = false;
     if (!validateFields()) {
       showTedxToast({
         type: "error",
@@ -188,7 +189,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
         handler: async function (response: any) {
           showTedxToast({
             type: "success",
-            message: "Payment Succesffull",
+            message: "Payment Succesfull",
           });
 
           await fetch("/api/payment/validate", {
@@ -231,6 +232,18 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
               console.log(err);
             });
         },
+        modal: {
+          ondismiss: function () {
+            console.log(failStatus);
+            if (failStatus) {
+              showTedxToast({
+                message: "Payment Failed",
+                type: "error",
+                desc: "Try again or contact the adminisator for support",
+              });
+            }
+          },
+        },
         prefill: {
           name: session?.user.firstName,
           email: session?.user.email,
@@ -241,7 +254,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
       };
       const rzp1 = new (window as any).Razorpay(options);
       rzp1.on("payment.failed", function (response: any) {
-        router.replace("/payment-error");
+        failStatus = true;
       });
       rzp1.open();
     } catch (err) {
