@@ -1,7 +1,16 @@
 // pages/api/register.ts
 import User from "@models/User";
+import nodemailer, { Transporter } from "nodemailer";
 import { connectToDB } from "@utils/database";
 import CryptoJS from "crypto-js";
+
+const transporter: Transporter = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD,
+    },
+});
 
 export const POST = async (request: any) => {
 
@@ -40,7 +49,7 @@ export const POST = async (request: any) => {
             JSON.stringify({ message: "Organisation is required" }),
             { status: 400 }
         );
-    }else if (!designation) {
+    } else if (!designation) {
         return new Response(
             JSON.stringify({ message: "Designation is required" }),
             { status: 400 }
@@ -75,6 +84,25 @@ export const POST = async (request: any) => {
             resetLockUntil,
         });
         await newUser.save();
+
+
+        const mailOptions = {
+            from: process.env.EMAIL,
+            to: email,
+            subject: "Welcome To TEDxCCET",
+            text: `Hello ${firstName + " " + lastName},\n\n Welcome to TEDxCCET`,
+            html: `
+              <h1>Welcome To TEDxCCET</h1>
+            `,
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.error("Error sending email:", error);
+            } else {
+                console.log("New user mail send to ", email);
+            }
+        });
 
         return new Response(
             JSON.stringify({ message: "Registered successfully", desc: "Redirecting to login page", user: newUser }),

@@ -16,7 +16,7 @@ const UserSchema = new Schema(
       require: [true, "Email is required"],
     },
     mobile: {
-      type: Number,
+      type: String,
       require: [true, "Mobile Number is required"],
     },
     organisation: {
@@ -41,9 +41,9 @@ const UserSchema = new Schema(
       type: String,
       require: true,
     },
-    isBought:{
-      type:Boolean,
-      default:false
+    isBought: {
+      type: Boolean,
+      default: false,
     },
     password: {
       type: String,
@@ -63,7 +63,7 @@ const UserSchema = new Schema(
     },
     tokenUsed: {
       type: Boolean,
-      default: false, 
+      default: false,
     },
     resetLockUntil: {
       type: Date,
