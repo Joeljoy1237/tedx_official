@@ -36,7 +36,6 @@ export default function GetTickets() {
     setIsLoaded(false);
   };
 
-  console.log(session);
 
   return (
     <main>

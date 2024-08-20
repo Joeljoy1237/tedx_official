@@ -20,7 +20,7 @@ const RightSide: React.FC<RightSideProps> = ({
   onBuy,
 }) => {
   return (
-    <div className="flex-1 p-6 rounded-lg shadow-lg">
+    <div className="md:flex-1 lg:flex-1 p-1 md:p-6 lg:p-6 flex-1 rounded-lg shadow-lg w-full md:mt-0 lg:mt-0 md:mb-0 lg:mb-0 mt-10 mb-10">
       <h3 className="text-lg font-semibold mb-4">
         {activeTab === "individual" ? "Individual Ticket" : "Group Ticket"}
       </h3>

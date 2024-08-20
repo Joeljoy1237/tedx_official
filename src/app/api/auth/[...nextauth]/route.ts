@@ -69,6 +69,7 @@ const handler = NextAuth({
           session.user.lastName = sessionUser?.lastName;
           session.user.referal_code = sessionUser?.referal_code;
           session.user.email = sessionUser?.email;
+          session.user.mobile = sessionUser?.mobile;
           session.user.isBought = sessionUser?.isBought;
           session.user.organisation = sessionUser?.organisation;
           session.user._id = sessionUser._id.toString();
@@ -76,7 +77,6 @@ const handler = NextAuth({
           session.user.isAdmin = sessionUser?.isAdmin;
         }
       }
-      console.log(session)
       return session;
     },
   },

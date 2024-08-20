@@ -8,7 +8,6 @@ export default function BannerView() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const imgUrls = [
-    "/images/bg1.gif",
     "/images/bg2.jpg",
     "/images/bg3.jpg",
     "/images/bg4.jpg",

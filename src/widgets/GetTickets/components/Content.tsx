@@ -88,7 +88,6 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
         if (numData?.value + members?.length < 20) {
           setOffer(150);
           setTicketCount(numData?.value);
-          console.log(numData);
         }
       }
     }
@@ -225,11 +224,9 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                   );
                 })
                 .catch((err) => {
-                  console.log(err);
                 });
             })
             .catch((err) => {
-              console.log(err);
             });
         },
         modal: {
@@ -264,7 +261,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
 
   return (
     <>
-      <div className="px-[5vw] md:py-[5vh] lg:py-[5vh] py-2 flex md:flex-row lg:flex-row flex-col items-start justify-between min-h-[75vh] relative">
+      <div className="px-[5vw] md:py-[5vh] lg:py-[5vh] py-0 flex md:flex-row lg:flex-row flex-col items-start justify-between min-h-[75vh] relative">
         <div className="flex-[2] w-full flex flex-col items-start justify-center gap-8">
           <div className="w-full items-center flex flex-col md:flex-row lg:flex-row justify-end relative">
             <div className="flex gap-2 items-center justify-center w-auto">
@@ -279,17 +276,17 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                 className="w-[4rem] h-full md:w-[7rem] lg:w-[7rem]"
               />
             </div>
-            {ticketCount < 20 && (
+            {ticketCount < 20 && activeTab === "individual" && (
               <Image
                 src={"/early.png"}
-                className="absolute top-[-3rem] left-[-3.5rem]"
+                className="absolute top-[-3rem] left-[-4rem]"
                 height={140}
                 width={140}
                 alt=""
               />
             )}
           </div>
-          <div className="md:w-full lg:w-full flex items-center justify-center gap-8">
+          <div className="md:w-full lg:w-full w-full flex items-center justify-center gap-8">
             <div
               className={`text-xs md:text-base lg:text-base relative cursor-pointer py-2 px-4 ${
                 activeTab === "individual"

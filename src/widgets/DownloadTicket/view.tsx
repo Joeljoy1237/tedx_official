@@ -50,7 +50,6 @@ export default function DownloadTicket() {
         }
 
         const fetchedData = await response.json();
-        console.log(fetchedData);
         setData(fetchedData);
         setIsLoaded(true);
       } catch (error) {

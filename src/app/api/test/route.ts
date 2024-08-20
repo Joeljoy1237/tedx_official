@@ -165,7 +165,6 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
           { status: 500 }
         );
       } else {
-        console.log("Email sent: " + info.response);
       }
     });
 

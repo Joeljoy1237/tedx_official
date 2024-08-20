@@ -12,33 +12,116 @@ interface User {
   mobile?: string | null;
   isBought?: boolean | null;
   isAdmin: boolean | null;
+  createdAt?: string; // This will still be used for UI display
 }
 
 export default function ListUsers() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
+
+  const fetchUsers = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/admin/list-users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ startDate, endDate }),
+        cache: "no-store", // Prevent caching
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch users");
+      }
+
+      const data = await response.json();
+      setUsers(data);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Fetch the user details from the API
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("/api/admin/list-users");
-        if (!response.ok) {
-          throw new Error("Failed to fetch users");
-        }
-
-        const data = await response.json();
-        setUsers(data);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchUsers();
   }, []);
+
+  const handleDownloadCSV = () => {
+    const headers = [
+      "_id",
+      "First Name",
+      "Last Name",
+      "Email",
+      "Mobile",
+      "Organisation",
+      "Designation",
+      "Has Bought Ticket", // Added "isBought" field to the headers
+    ];
+
+    // Define minimum widths for each column
+    const minWidths: { [key: string]: number } = {
+      "_id": 20,
+      "First Name": 20,
+      "Last Name": 20,
+      "Email": 30,
+      "Mobile": 15,
+      "Organisation": 25,
+      "Designation": 25,
+      "Has Bought Ticket": 15, // Define width for "isBought"
+    };
+
+    // Calculate maximum width for each column, ensuring minimum width
+    const columnWidths = headers.map((header) =>
+      Math.max(
+        minWidths[header] || 10, // Default to 10 if min width is not defined
+        ...users.map((user) => {
+          return [
+            user._id || "",
+            user.firstName || "",
+            user.lastName || "",
+            user.email || "",
+            user.mobile || "N/A",
+            user.organisation || "N/A",
+            user.designation || "N/A",
+            user.isBought ? "Yes" : "No", // Include the "isBought" value in the row
+          ][headers.indexOf(header)].length;
+        })
+      )
+    );
+
+    // Create CSV rows
+    const csvRows = [];
+    csvRows.push(headers.map((header, i) => header.padEnd(columnWidths[i])).join(","));
+
+    for (const user of users) {
+      const row = [
+        user._id || "",
+        user.firstName || "",
+        user.lastName || "",
+        user.email || "",
+        user.mobile || "N/A",
+        user.organisation || "N/A",
+        user.designation || "N/A",
+        user.isBought ? "Yes" : "No", // Add the "isBought" value here
+      ].map((field) => String(field)); // Convert to string
+
+      csvRows.push(row.map((field, i) => field.padEnd(columnWidths[i])).join(","));
+    }
+
+    const csvString = csvRows.join("\n");
+    const blob = new Blob([csvString], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "users.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   if (loading) {
     return (
@@ -57,15 +140,45 @@ export default function ListUsers() {
   }
 
   const totalUsers = users.length;
-  const boughtUsersCount = users.filter(user => user.isBought).length;
-  const adminUsersCount = users.filter(user => user.isAdmin).length;
+  const boughtUsersCount = users.filter((user) => user.isBought).length;
+  const adminUsersCount = users.filter((user) => user.isAdmin).length;
 
   return (
     <div className="p-6 rounded-lg shadow-lg">
-      <h3 className="text-2xl font-semibold mb-4">User List</h3>
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-2xl font-semibold">User List</h3>
+        <div>
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            className="border p-2 rounded mr-2 bg-black-200"
+          />
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            className="border p-2 rounded mr-2 bg-black-200"
+          />
+          <button
+            onClick={fetchUsers} // Fetch users based on date range
+            className="bg-gray-500 text-white p-2 rounded mr-2"
+          >
+            Apply Filter
+          </button>
+          <button
+            onClick={handleDownloadCSV}
+            className="bg-blue-500 text-white p-2 rounded"
+          >
+            Download CSV
+          </button>
+        </div>
+      </div>
       <div className="mb-6">
         <p className="text-lg font-medium">Total Users: {totalUsers}</p>
-        <p className="text-lg font-medium">Users Who Bought Tickets: {boughtUsersCount}</p>
+        <p className="text-lg font-medium">
+          Users Who Bought Tickets: {boughtUsersCount}
+        </p>
         <p className="text-lg font-medium">Admin Users: {adminUsersCount}</p>
       </div>
       {totalUsers === 0 ? (
@@ -73,7 +186,10 @@ export default function ListUsers() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {users.map((user) => (
-            <div key={user._id} className="bg-black-100 text-white p-4 rounded-lg shadow-md">
+            <div
+              key={user._id}
+              className="bg-black-100 text-white p-4 rounded-lg shadow-md"
+            >
               <h4 className="text-xl font-bold mb-2">
                 {user?.firstName} {user?.lastName}
               </h4>
@@ -98,6 +214,12 @@ export default function ListUsers() {
               </p>
               <p className="mb-1">
                 <strong>Admin:</strong> {user?.isAdmin ? "Yes" : "No"}
+              </p>
+              <p className="mb-1">
+                <strong>Created Date:</strong>{" "}
+                {user?.createdAt
+                  ? new Date(user.createdAt).toLocaleDateString()
+                  : "N/A"}
               </p>
             </div>
           ))}

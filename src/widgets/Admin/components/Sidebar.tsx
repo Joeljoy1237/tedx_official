@@ -16,6 +16,10 @@ export default function Sidebar() {
       title: "Purchased",
       link: "/admin/purchased",
     },
+    {
+      title: "Support-Tickets",
+      link: "/admin/support-tickets",
+    },
   ];
 
   return (

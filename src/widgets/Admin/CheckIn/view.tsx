@@ -10,7 +10,6 @@ import Content from './components/Content';
 export default function CheckIn() {
     const [isLoaded, setIsLoaded] = useState(false);
     const { data: session, status } = useSession();
-  console.log(session?.user?.isAdmin)
     const router = useRouter();
     useEffect(() => {
       if (status === "unauthenticated") {

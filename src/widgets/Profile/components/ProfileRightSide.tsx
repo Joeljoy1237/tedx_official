@@ -89,7 +89,6 @@ export default function ProfileRightSide({ profile }: ProfilePageProps) {
       }
     }
   };
-  console.log(profile);
   return (
     <div className="flex flex-col gap-10">
       <div className="flex flex-col gap-5 w-full break-words">

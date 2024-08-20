@@ -1,14 +1,37 @@
+"use client"
+
+import PreLoader from "@components/PreLoader";
 import AdminHeader from "@widgets/Admin/components/AdminHeader";
 import Sidebar from "@widgets/Admin/components/Sidebar";
-import React from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const { data: session, status } = useSession();
+  const [visible, setVisible] = useState(true);
+
+  const router = useRouter();
+  useEffect(() => {
+  
+    if (status === "unauthenticated") {
+      // Redirect to home page
+      router.replace("/");
+    }
+    if(session?.user?.isAdmin === false){
+      router.replace("/login");
+    }else{
+      setIsLoaded(true)
+    }
+  }, [status, session, router]);
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
+      {!isLoaded && <PreLoader/>}
       {/* Header */}
       <header>
         <AdminHeader />

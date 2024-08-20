@@ -21,7 +21,6 @@ interface PurchasedTicketProps {
 const PurchasedTicket = forwardRef<HTMLDivElement, PurchasedTicketProps>(
   ({ buyer }, ref) => {
     const [src, setSrc] = useState<string>("");
-console.log(buyer)
     useEffect(() => {
       const generateQRCode = async () => {
         try {

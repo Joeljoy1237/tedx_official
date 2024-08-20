@@ -69,6 +69,7 @@ const UserSchema = new Schema(
       type: Date,
       require: true,
     },
+    createdAt: { type: Date, default: Date.now },
   },
   { timestamps: true }
 );

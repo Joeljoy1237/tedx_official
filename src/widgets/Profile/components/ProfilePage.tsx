@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { LuLogOut } from "react-icons/lu";
-import { FaRegEdit } from "react-icons/fa";
+import { IoBugOutline } from "react-icons/io5";
 import { BsPersonSquare } from "react-icons/bs";
 import ProfileRightSide from "./ProfileRightSide";
 import { useRouter } from "next/navigation";
 import showTedxToast from "@components/showTedxToast";
+import Link from "next/link";
 
 interface User {
   resetTokenUsed: boolean;
@@ -80,11 +81,19 @@ export default function ProfilePage({ profile }: ProfilePageProps) {
           <div className="flex w-full items-center justify-center py-4">
             <BsPersonSquare className="text-8xl" />
           </div>
-          <div>
-            {/* <button className="w-full text-white p-3 rounded-[10px] flex items-center justify-center gap-2">
-              <FaRegEdit />
-              Edit Profile
-            </button> */}
+          <div className="w-full flex flex-col gap-5">
+          <Link href={'/profile/support-tickets'}>
+            <button className="w-full border border-primary-700 text-white p-3 rounded-[10px] flex items-center justify-center gap-2">
+              <IoBugOutline />
+             Your Support Tickets
+            </button>
+            </Link>
+            <Link href={'/support-ticket'}>
+            <button className="w-full border border-primary-700 text-white p-3 rounded-[10px] flex items-center justify-center gap-2">
+              <IoBugOutline />
+              Raise a Support Ticket
+            </button>
+            </Link>
           </div>
           <div>
             <button

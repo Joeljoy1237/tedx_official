@@ -15,7 +15,6 @@ interface DrawerProps {
 
 const Drawer: React.FC<DrawerProps> = ({ handleClose, handlesignout }) => {
   const { data: session } = useSession();
-  console.log(session?.user);
   const location = usePathname();
   return (
     <div className="h-[92vh] items-center justify-start mt-[3vh] bg-black-100 w-[100vw] px-[5vw] flex flex-col pt-[10vh] gap-8 relative">
