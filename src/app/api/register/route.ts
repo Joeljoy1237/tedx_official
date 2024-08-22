@@ -96,13 +96,13 @@ export const POST = async (request: any) => {
             `,
         };
 
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.error("Error sending email:", error);
-            } else {
-                console.log("New user mail send to ", email);
-            }
-        });
+        // transporter.sendMail(mailOptions, function (error, info) {
+        //     if (error) {
+        //         console.error("Error sending email:", error);
+        //     } else {
+        //         console.log("New user mail send to ", email);
+        //     }
+        // });
 
         return new Response(
             JSON.stringify({ message: "Registered successfully", desc: "Redirecting to login page", user: newUser }),
