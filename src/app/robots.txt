@@ -1,4 +1,6 @@
 User-Agent: *
 Allow: /
 
+Disallow: /admin
+
 Sitemap: https://www.tedxccet.in/sitemap-0.xml
