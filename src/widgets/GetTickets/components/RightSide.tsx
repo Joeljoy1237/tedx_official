@@ -4,6 +4,9 @@ interface RightSideProps {
   activeTab: "individual" | "group";
   subtotal: number;
   discount: number;
+  student: boolean;
+  isStudentChecked: boolean;
+  setIsStudentChecked: React.Dispatch<React.SetStateAction<boolean>>;
   total: number;
   isChecked: boolean;
   setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,6 +17,9 @@ const RightSide: React.FC<RightSideProps> = ({
   activeTab,
   subtotal,
   discount,
+  setIsStudentChecked,
+  isStudentChecked,
+  student,
   total,
   isChecked,
   setIsChecked,
@@ -41,6 +47,17 @@ const RightSide: React.FC<RightSideProps> = ({
         </div>
       </div>
       <div className="flex flex-col mt-6 gap-4">
+        {student && (
+          <div className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={isStudentChecked}
+              onChange={(e) => setIsStudentChecked(e.target.checked)}
+              className="form-checkbox"
+            />
+            <label htmlFor="terms">I agree to bring my ID Card on visit</label>
+          </div>
+        )}
         <div className="flex items-center gap-2 text-sm">
           <input
             type="checkbox"
@@ -55,9 +72,9 @@ const RightSide: React.FC<RightSideProps> = ({
             setIsChecked(false);
             onBuy();
           }} // Use the onBuy function here
-          disabled={!isChecked}
+          disabled={!isChecked || !isStudentChecked}
           className={`py-2 px-4 rounded-md font-semibold ${
-            isChecked
+            isChecked && isStudentChecked
               ? "bg-primary-700 text-white hover:bg-primary-800"
               : "bg-gray-400 cursor-not-allowed text-gray-700"
           } transition-colors`}

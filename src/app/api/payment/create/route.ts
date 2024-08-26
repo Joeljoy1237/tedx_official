@@ -11,7 +11,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
   try {
     // Parse the request body
     const { count, offer, lastPrice }: RequestBody = await request.json();
-    if (!count || !offer || !lastPrice) {
+    if (!count || offer < 0 || !lastPrice) {
       return new NextResponse(
         JSON.stringify({ message: "Invalid input data" }),
         { status: 400 }

@@ -19,6 +19,7 @@ interface GroupMember {
 interface RequestBody {
   userId: string;
   count: number;
+  isStudent?: boolean;
   referal_code?: string;
   paymentId: string;
   orderId: string;
@@ -38,7 +39,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
   const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   const generateId = customAlphabet(alphabet, 9);
   try {
-    const { userId, count, referal_code, paymentId, orderId, group }: RequestBody = await request.json();
+    const { userId, count, isStudent, referal_code, paymentId, orderId, group }: RequestBody = await request.json();
 
     const razorpay = new Razorpay({
       key_id: process.env.RAZOR_KEY_ID as string,
@@ -62,6 +63,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       }
 
       const currentUser = await User.findOne({ _id: userId });
+      currentUser.isStudent = isStudent;
       if (currentUser.referal_code === "") {
         const referal_code = generateId();
         currentUser.isBought = true;
@@ -247,7 +249,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
               { status: 500 }
             );
           } else {
-            
+
           }
         });
       }

@@ -57,6 +57,10 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    isStudent: {
+      type: Boolean,
+      default: false,
+    },
     resetCount: {
       type: Number,
       default: 0,
