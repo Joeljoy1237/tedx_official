@@ -138,7 +138,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
       // total = individualPrice - discount;
     }
     if (activeTab === "individual") {
-      subtotal = individualPrice - offer;
+      subtotal = individualPrice - offer-discount;
       total = subtotal;
     } else {
       const memberCount = members.length;

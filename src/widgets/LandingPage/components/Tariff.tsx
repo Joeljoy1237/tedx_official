@@ -33,7 +33,7 @@ export default function Tariff() {
                 *Early Bird is only for the first 20 tickets
               </p>
               <p className="flex justify-between">
-                <span>Student</span>
+                <span>School kStudent</span>
                 <span className="font-bold">750/-</span>
               </p>
               <p className="text-sm italic text-gray-400">
