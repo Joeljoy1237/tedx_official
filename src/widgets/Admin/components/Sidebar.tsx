@@ -20,6 +20,10 @@ export default function Sidebar() {
       title: "Support-Tickets",
       link: "/admin/support-tickets",
     },
+    {
+      title: "New Ticket",
+      link: "/admin/newTicket",
+    },
   ];
 
   return (
@@ -31,7 +35,9 @@ export default function Sidebar() {
             <Link key={item.link} href={item.link}>
               <div
                 className={`w-full px-4 py-2 rounded ${
-                  isActive ? "bg-primary-400 text-white" : "bg-black-100 text-gray-400"
+                  isActive
+                    ? "bg-primary-400 text-white"
+                    : "bg-black-100 text-gray-400"
                 } hover:bg-primary-300 hover:text-white transition-all duration-200`}
               >
                 {item.title}
