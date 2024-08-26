@@ -28,6 +28,7 @@ export const POST = async (request: Request) => {
     }
 
     // Return the user data in JSON format
+
     return new Response(JSON.stringify(users), { status: 200 });
   } catch (err) {
     // Log any errors to the console

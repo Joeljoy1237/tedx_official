@@ -28,6 +28,8 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
   const [activeTab, setActiveTab] = useState<"individual" | "group">(
     "individual"
   );
+  const [isStudent, setIsStudent] = useState<boolean>(false);
+  const [isStudentChecked, setIsStudentChecked] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [offer, setOffer] = useState<number>(0);
   const [members, setMembers] = useState<Member[]>([
@@ -65,6 +67,11 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
       );
     }
   };
+
+  useEffect(() => {
+    setIsStudent(false);
+    setIsChecked(false);
+  }, [activeTab]);
 
   useEffect(() => {
     if (status === "authenticated" && session?.user) {
@@ -126,14 +133,19 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
     let subtotal = 0;
     let discount = 0;
     let total = 0;
+    if (isStudent) {
+      discount = 450;
+      // total = individualPrice - discount;
+    }
     if (activeTab === "individual") {
       subtotal = individualPrice - offer;
       total = subtotal;
     } else {
       const memberCount = members.length;
       subtotal = memberCount * groupPrice;
-
-      if (memberCount >= 5 && memberCount <= 10) {
+      if (isStudent) {
+        discount = memberCount * 450; //Rs 40 discount
+      } else if (memberCount >= 5 && memberCount <= 10) {
         discount = memberCount * 100; // Rs 100 discount
       } else if (memberCount > 10) {
         discount = memberCount * 150; // Rs 150 discount
@@ -211,6 +223,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                 body: JSON.stringify({
                   userId: session?.user?._id,
                   count,
+                  isStudent,
                   referal_code: "9BIDXRIec", // referal code goes here
                   paymentId: response.razorpay_payment_id,
                   orderId: response.razorpay_order_id,
@@ -223,15 +236,12 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                     `/success?orderId=${response.razorpay_order_id}&paymentId=${response.razorpay_payment_id}`
                   );
                 })
-                .catch((err) => {
-                });
+                .catch((err) => {});
             })
-            .catch((err) => {
-            });
+            .catch((err) => {});
         },
         modal: {
           ondismiss: function () {
-            console.log(failStatus);
             if (failStatus) {
               showTedxToast({
                 message: "Payment Failed",
@@ -288,7 +298,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
           </div>
           <div className="md:w-full lg:w-full w-full flex items-center justify-center gap-8">
             <div
-              className={`text-xs md:text-base lg:text-base relative cursor-pointer py-2 px-4 ${
+              className={`text-s md:text-base lg:text-base relative cursor-pointer py-2 px-4 ${
                 activeTab === "individual"
                   ? "text-primary-700"
                   : "text-gray-500"
@@ -301,7 +311,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
               )}
             </div>
             <div
-              className={`relative text-xs md:text-base lg:text-base cursor-pointer py-2 px-4 ${
+              className={`relative text-s md:text-base lg:text-base cursor-pointer py-2 px-4 ${
                 activeTab === "group" ? "text-primary-700" : "text-gray-500"
               }`}
               onClick={() => setActiveTab("group")}
@@ -518,6 +528,42 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                 </div>
               </div>
             )}
+
+            <div className="mt-6">
+              <p className="flex text-lg text-white mb-2 lg:justify-end">
+                Are you {activeTab == "group" && "all"} a student?
+              </p>
+              <div className="flex items-center space-x-8 lg:justify-end">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="student"
+                    checked={isStudent}
+                    onClick={() => {
+                      setIsStudent(true);
+                      setIsStudentChecked(false);
+                    }}
+                    value="yes"
+                    className="w-4 h-4 text-primary-700 bg-gray-800 border-2 border-gray-600"
+                  />
+                  <span className="ml-3 text-lg text-white">Yes</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="student"
+                    checked={!isStudent}
+                    onClick={() => {
+                      setIsStudent(false);
+                      setIsStudentChecked(true);
+                    }}
+                    value="no"
+                    className="w-4 h-4 text-primary-700 bg-gray-800 border-2 border-gray-600"
+                  />
+                  <span className="ml-3 text-lg text-white">No</span>
+                </label>
+              </div>
+            </div>
           </div>
         </div>
         <RightSide
@@ -525,6 +571,9 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
           subtotal={subtotal}
           discount={discount}
           total={total}
+          isStudentChecked={isStudentChecked}
+          setIsStudentChecked={setIsStudentChecked}
+          student={isStudent}
           isChecked={isChecked} // This should be a boolean state
           setIsChecked={setIsChecked} // This should be a setter function for the isChecked state
           onBuy={handleBuy} // If your RightSide component doesn't have onBuy prop, remove it

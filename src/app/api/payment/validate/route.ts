@@ -15,6 +15,13 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       razorpay_signature,
     }: RequestBody = await request.json();
 
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+      return new NextResponse(
+        JSON.stringify({ message: "Payment Gateway Error" }),
+        { status: 400 }
+      );
+    }
+
     const generatedSignature = CryptoJS.HmacSHA256(
       `${razorpay_order_id}|${razorpay_payment_id}`,
       process.env.RAZOR_KEY_SECRET as string
