@@ -23,7 +23,7 @@ interface contentProps {
 
 export default function Content({ handlePassLoadStatus }: contentProps) {
   const router = useRouter();
-  const [ticketCount, setTicketCount] = useState(20);
+  const [ticketCount, setTicketCount] = useState(0);
   const { data: session, status } = useSession() as SessionContextValue;
   const [activeTab, setActiveTab] = useState<"individual" | "group">(
     "individual"
@@ -92,9 +92,10 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
       const res = await fetch("/api/ticket/status");
       if (res.ok) {
         const numData = await res.json();
-        if (numData?.value + members?.length < 20) {
+        setTicketCount(numData?.value+21);
+        console.log(numData)
+        if (numData?.value + members?.length+21 < 20) {
           setOffer(150);
-          setTicketCount(numData?.value);
         }
       }
     }
@@ -130,18 +131,23 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
   };
 
   const calculatePricing = () => {
+    console.log('count',ticketCount)
     let subtotal = 0;
     let discount = 0;
     let total = 0;
+    const memberCount = members.length;
     if (isStudent) {
+     if(ticketCount<20){
+      discount = 300;
+     }else{
       discount = 450;
+     }
       // total = individualPrice - discount;
     }
     if (activeTab === "individual") {
       subtotal = individualPrice - offer-discount;
       total = subtotal;
     } else {
-      const memberCount = members.length;
       subtotal = memberCount * groupPrice;
       if (isStudent) {
         discount = memberCount * 450; //Rs 40 discount
@@ -553,7 +559,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                     type="radio"
                     name="student"
                     checked={!isStudent}
-                    onClick={() => {
+                    onChange={() => {
                       setIsStudent(false);
                       setIsStudentChecked(true);
                     }}
