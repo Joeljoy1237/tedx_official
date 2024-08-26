@@ -92,9 +92,9 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
       const res = await fetch("/api/ticket/status");
       if (res.ok) {
         const numData = await res.json();
-        setTicketCount(numData?.value+21);
+        setTicketCount(numData?.value);
         console.log(numData)
-        if (numData?.value + members?.length+21 < 20) {
+        if (numData?.value + members?.length < 20) {
           setOffer(150);
         }
       }
