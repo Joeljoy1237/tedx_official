@@ -51,6 +51,10 @@ const BookingSchema = new Schema(
           type: Boolean,
           default: false,
         },
+        isStudent: {
+          type: Boolean,
+          default: false,
+        },
         ticketId: {
           type: String,
           require: true,

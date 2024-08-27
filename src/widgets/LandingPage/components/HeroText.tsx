@@ -8,6 +8,7 @@ import React from "react";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import gsap from "gsap";
 import Tooltip from "./Tooltip";
+import { IoTicket } from "react-icons/io5";
 
 export default function HeroText() {
   // Register the ScrollToPlugin
@@ -34,7 +35,7 @@ export default function HeroText() {
         <div className="">
           <div className="flex">
             <div className="text-start w-full">
-              <span className="text-[10vw] md:text-[90px] lg:text-[90px] inline-block line leading-[1em] font-extrabold">
+              <span className="text-[10vw] md:text-[10vw] lg:text-[6vw] inline-block line leading-[1em] font-extrabold">
                 AN <span className="blankRedScroll">INDEPENDENTLY</span>{" "}
                 <span className="blankWhite"> ORGANIZED</span> <br />
                 <span className="text-primary-700">TED</span> EVENT
@@ -63,11 +64,13 @@ export default function HeroText() {
             </div>
             <div className="flex flex-row w-full items-center justify-start md:justify-start lg:justify-start gap-2">
               <Button
-                className="px-4 py-2 rounded-lg bg-primary-700 font-semibold w-auto md:w-auto lg:w-auto outline-none border-none"
+                className="px-4 flex items-center justify-center gap-2 py-2 rounded-lg bg-primary-700 font-semibold w-auto md:w-auto lg:w-auto outline-none border-none"
                 title="Get Tickets"
                 onClick={() => {
                   scrollToSection("#get-tickets");
                 }}
+                icon={<IoTicket/>}
+                position="right"
               />
               <Link href={"/about"}>
                 <Button

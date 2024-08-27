@@ -84,6 +84,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
         orderId,
         paymentId,
         referal_code,
+        isStudent,
         count,
         amount,
         group,
@@ -243,7 +244,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
             // Respond with an error if sending the email fails
             return new NextResponse(
               JSON.stringify({
-                message: "Failed to send Tiicket email",
+                message: "Failed to send Ticket email",
                 desc: "There was an error sending the Booking email. Please try again later or contact support.",
               }),
               { status: 500 }

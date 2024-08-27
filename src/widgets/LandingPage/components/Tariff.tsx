@@ -27,14 +27,14 @@ export default function Tariff() {
               </p>
               <p className="flex justify-between">
                 <span>*Early Bird</span>
-                <span className="font-bold">1050/-</span>
+                <span className="font-bold font-sans">1050/-</span>
               </p>
               <p className="text-sm italic text-gray-400">
                 *Early Bird is only for the first 20 tickets
               </p>
               <p className="flex justify-between">
-                <span>School kStudent</span>
-                <span className="font-bold">750/-</span>
+                <span>School Student</span>
+                <span className="font-bold font-sans">750/-</span>
               </p>
               <p className="text-sm italic text-gray-400">
                 *ID Card is mandatory
@@ -48,11 +48,11 @@ export default function Tariff() {
             <div className="text-lg space-y-1">
               <p className="flex justify-between">
                 <span>For 5 - 10 members</span>
-                <span className="font-bold">1100 / Ticket</span>
+                <span className="font-bold font-sans">1100 / Ticket</span>
               </p>
               <p className="flex justify-between">
                 <span>For more than 10 members</span>
-                <span className="font-bold">1050 / Ticket</span>
+                <span className="font-bold font-sans">1050 / Ticket</span>
               </p>
             </div>
           </div>
