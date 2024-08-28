@@ -46,7 +46,6 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       key_secret: process.env.RAZOR_KEY_SECRET as string,
     });
 
-
     const paymentData = await razorpay.orders.fetch(orderId);
 
     if (
@@ -92,12 +91,11 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       await newBooking.save();
       await ticket.save();
 
-
+      // Send individual ticket confirmation emails
       for (const data of group) {
-        // Generate PDF
         const mailOptions = {
           from: process.env.EMAIL,
-          to: data?.email, // Replace with the recipient's email address
+          to: data?.email,
           subject: "Your TEDxCCET Ticket Confirmation",
           html: `
             <html>
@@ -236,12 +234,9 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
           `,
         };
 
-
-
         transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
             console.error("Error sending email:", error);
-            // Respond with an error if sending the email fails
             return new NextResponse(
               JSON.stringify({
                 message: "Failed to send Ticket email",
@@ -249,11 +244,78 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
               }),
               { status: 500 }
             );
-          } else {
-
           }
         });
       }
+
+      // Send summary email to Abhishek
+      const summaryMailOptions = {
+        from: process.env.EMAIL,
+        to: "abhisheksanthoshofficial19@gmail.com",
+        subject: "TEDxCCET Ticket Purchase Summary",
+        html: `
+          <html>
+          <head>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                color: #000;
+              }
+              .container {
+                width: 100%;
+                max-width: 800px;
+                margin: auto;
+                padding: 20px;
+              }
+              .header {
+                background-color: #f0f0f0;
+                padding: 10px;
+                text-align: center;
+              }
+              .header h1 {
+                font-size: 24px;
+                margin: 0;
+              }
+              .content {
+                padding: 20px;
+                background-color: #fff;
+              }
+              .content p {
+                margin: 10px 0;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <div class="header">
+                <h1>Ticket Purchase Summary</h1>
+              </div>
+              <div class="content">
+                <p><strong>User:</strong> ${group.map(member => `${member.firstName} ${member.lastName}`).join(', ')}</p>
+                <p><strong>User ID:</strong> ${userId}</p>
+                <p><strong>Organisation:</strong> ${group.map(member => member.organisation).join(', ')}</p>
+                <p><strong>Email:</strong> ${group.map(member => member.email).join(', ')}</p>
+                <p><strong>Count:</strong> ${count}</p>
+                <p><strong>Amount:</strong> ₹${amount / 100}</p>
+              </div>
+            </div>
+          </body>
+          </html>
+        `,
+      };
+
+      transporter.sendMail(summaryMailOptions, (error, info) => {
+        if (error) {
+          console.error("Error sending summary email:", error);
+          return new NextResponse(
+            JSON.stringify({
+              message: "Failed to send summary email",
+              desc: "There was an error sending the summary email. Please try again later or contact support.",
+            }),
+            { status: 500 }
+          );
+        }
+      });
 
       return new NextResponse(JSON.stringify({ message: "Save successful" }), {
         status: 200,

@@ -34,6 +34,11 @@ const Purchased: React.FC = () => {
     const fetchBookings = async () => {
       try {
         const response = await fetch('/api/admin/purchased-list', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-store'
+          },
           cache: "no-store",
         });
         if (response.ok) {
