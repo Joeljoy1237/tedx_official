@@ -96,7 +96,75 @@ export default function ListUsers() {
   }, []);
 
   const handleDownloadCSV = () => {
-    // CSV download logic here (unchanged)
+    const headers = [
+      "_id",
+      "First Name",
+      "Last Name",
+      "Email",
+      "Mobile",
+      "Organisation",
+      "Designation",
+      "Has Bought Ticket", // Added "isBought" field to the headers
+    ];
+
+    // Define minimum widths for each column
+    const minWidths: { [key: string]: number } = {
+      "_id": 20,
+      "First Name": 20,
+      "Last Name": 20,
+      "Email": 30,
+      "Mobile": 15,
+      "Organisation": 25,
+      "Designation": 25,
+      "Has Bought Ticket": 15, // Define width for "isBought"
+    };
+
+    // Calculate maximum width for each column, ensuring minimum width
+    const columnWidths = headers.map((header) =>
+      Math.max(
+        minWidths[header] || 10, // Default to 10 if min width is not defined
+        ...users.map((user) => {
+          return [
+            user._id || "",
+            user.firstName || "",
+            user.lastName || "",
+            user.email || "",
+            user.mobile || "N/A",
+            user.organisation || "N/A",
+            user.designation || "N/A",
+            user.isBought ? "Yes" : "No", // Include the "isBought" value in the row
+          ][headers.indexOf(header)].length;
+        })
+      )
+    );
+
+    // Create CSV rows
+    const csvRows = [];
+    csvRows.push(headers.map((header, i) => header.padEnd(columnWidths[i])).join(","));
+
+    for (const user of users) {
+      const row = [
+        user._id || "",
+        user.firstName || "",
+        user.lastName || "",
+        user.email || "",
+        user.mobile || "N/A",
+        user.organisation || "N/A",
+        user.designation || "N/A",
+        user.isBought ? "Yes" : "No", // Add the "isBought" value here
+      ].map((field) => String(field)); // Convert to string
+
+      csvRows.push(row.map((field, i) => field.padEnd(columnWidths[i])).join(","));
+    }
+
+    const csvString = csvRows.join("\n");
+    const blob = new Blob([csvString], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "users.csv";
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   if (loading) {

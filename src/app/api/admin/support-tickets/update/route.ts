@@ -19,12 +19,12 @@ export const PUT = async (request: NextRequest): Promise<NextResponse> => {
     // Extract the request body
     const { _id: ticketId, status, reply } = await request.json();
 
-    if (!ticketId || !status || !reply) {
-      return new NextResponse(
-        JSON.stringify({ message: "Ticket ID, status, and reply are required" }),
-        { status: 400 }
-      );
-    }
+    // if (!ticketId || !status || !reply) {
+    //   return new NextResponse(
+    //     JSON.stringify({ message: "Ticket ID, status, and reply are required" }),
+    //     { status: 400 }
+    //   );
+    // }
 
     // Find and update the support ticket
     const updatedTicket = await SupportTicket.findByIdAndUpdate(

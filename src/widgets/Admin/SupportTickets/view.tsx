@@ -7,6 +7,7 @@ import SupportTicketModal from './components/SupportTicketModal';
 
 interface SupportTicket {
   _id: string;
+  userId: string;
   name: string;
   email: string;
   subject: string;
@@ -14,6 +15,11 @@ interface SupportTicket {
   status: string;
   createdAt: string;
   updatedAt: string;
+  messages: {
+    sender: string;
+    content: string;
+    timestamp: string;
+  }[];
 }
 
 const statusColors: Record<string, string> = {

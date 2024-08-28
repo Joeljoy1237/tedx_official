@@ -1,10 +1,26 @@
 import { Schema, model, models } from "mongoose";
 
+const MessageSchema = new Schema({
+  sender: {
+    type: String, // "user" or "support"
+    required: true,
+  },
+  content: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  timestamp: {
+    type: Date,
+    default: () => new Date(),
+  },
+});
+
 const SupportTicketSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
-      ref: "User", // Replace 'User' with the name of your user model if different
+      ref: "User",
       required: true,
     },
     name: {
@@ -31,11 +47,7 @@ const SupportTicketSchema = new Schema(
       required: true,
       trim: true,
     },
-    reply: {
-      type: String,
-      default: "",
-      trim: true,
-    },
+    messages: [MessageSchema], // Array of messages
     status: {
       type: String,
       enum: ["open", "in-progress", "resolved", "closed"],
