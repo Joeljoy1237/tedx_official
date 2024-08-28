@@ -235,6 +235,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                   orderId: response.razorpay_order_id,
                   group: members,
                 }),
+                cache: "no-store",
               })
                 .then((res) => {
                   handlePassLoadStatus();

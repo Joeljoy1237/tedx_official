@@ -3,16 +3,21 @@ import { connectToDB } from "@utils/database";
 
 export async function GET(): Promise<Response> {
   try {
+    // Ensure MongoDB connection
     await connectToDB();
-    const purchased = await Booking.find({});
 
-    if (purchased) {
-      return new Response(JSON.stringify(purchased), { status: 200 });
+    // Fetch all bookings
+    const bookings = await Booking.find({}).exec();
+
+    // Check if any bookings were found
+    if (bookings.length > 0) {
+      return new Response(JSON.stringify(bookings), { status: 200 });
+    } else {
+      return new Response(
+        JSON.stringify({ message: "No booking data found" }),
+        { status: 404 }
+      );
     }
-
-    return new Response(JSON.stringify({ message: "No booking data found" }), {
-      status: 404,
-    });
   } catch (err) {
     console.error("Error fetching booking data:", err);
 

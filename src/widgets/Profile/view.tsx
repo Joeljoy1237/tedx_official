@@ -83,6 +83,7 @@ export default function ProfileView() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ id: session.user._id }),
+          cache: "no-store",
         });
 
         if (!response.ok) {

@@ -25,6 +25,7 @@ const ReplyModal: React.FC<{
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ ticketId, content: reply, sender: "user" }),
+        cache: "no-store",
       });
 
       const result = await response.json();
@@ -126,6 +127,7 @@ const SupportTicketList: React.FC = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({ userId: session.user._id }),
+            cache: "no-store",
           });
 
           const result = await response.json();

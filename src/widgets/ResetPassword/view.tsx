@@ -31,6 +31,7 @@ export default function ResetPasswordView() {
           body: JSON.stringify({
             token: params.token,
           }),
+          cache: "no-store",
         });
   
         // Check if the response is OK (status code 200)
