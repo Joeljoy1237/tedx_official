@@ -564,7 +564,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
 
             <div className="mt-6">
               <p className="flex text-lg text-white mb-2 lg:justify-end">
-                Are you {activeTab == "group" && "all"} a student?
+                Are you {activeTab == "group" && "all"} a School student?
               </p>
 
               <div className="flex items-center space-x-8 lg:justify-end">
