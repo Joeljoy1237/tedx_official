@@ -29,7 +29,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
     "individual"
   );
   const [isStudent, setIsStudent] = useState<boolean>(false);
-  const [isStudentChecked, setIsStudentChecked] = useState<boolean>(false);
+  const [isStudentChecked, setIsStudentChecked] = useState<boolean>(true);
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [offer, setOffer] = useState<number>(0);
   const [members, setMembers] = useState<Member[]>([
