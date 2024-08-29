@@ -39,6 +39,10 @@ const BookingSchema = new Schema(
           type: String,
           require: true,
         },
+        food: {
+          type: String,
+          require: true,
+        },
         organisation: {
           type: String,
           require: true,
