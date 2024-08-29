@@ -14,6 +14,7 @@ interface Member {
   lastName: string;
   email: string;
   organisation: string;
+  food: string;
   designation: string;
 }
 
@@ -39,6 +40,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
       email: "",
       organisation: "",
       designation: "",
+      food: ""
     },
   ]);
   // const [orderId,setOrderId]=useState('');
@@ -54,7 +56,8 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
         member.lastName.trim() !== "" &&
         member.email.trim() !== "" &&
         member.organisation.trim() !== "" &&
-        member.designation.trim() !== ""
+        member.designation.trim() !== "" &&
+        member.food.trim() !== ""
       );
     } else {
       return members.every(
@@ -63,7 +66,8 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
           member.lastName.trim() !== "" &&
           member.email.trim() !== "" &&
           member.organisation.trim() !== "" &&
-          member.designation.trim() !== ""
+          member.designation.trim() !== "" &&
+          member.food.trim() !== ""
       );
     }
   };
@@ -81,6 +85,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
         email: session.user.email || "",
         organisation: (session.user as any).organisation || "",
         designation: (session.user as any).designation || "",
+        food: (session.user as any).food || "",
       };
 
       if (activeTab === "individual") {
@@ -104,7 +109,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
 
   const handleInputChange = (
     index: number,
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = event.target;
     const newMembers = [...members];
@@ -121,6 +126,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
         email: "",
         organisation: "",
         designation: "",
+        food: ""
       },
     ]);
   };
@@ -131,21 +137,21 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
   };
 
   const calculatePricing = () => {
-    console.log('count',ticketCount)
+    console.log('count', ticketCount)
     let subtotal = 0;
     let discount = 0;
     let total = 0;
     const memberCount = members.length;
     if (isStudent) {
-     if(ticketCount<20){
-      discount = 300;
-     }else{
-      discount = 450;
-     }
+      if (ticketCount < 20) {
+        discount = 300;
+      } else {
+        discount = 450;
+      }
       // total = individualPrice - discount;
     }
     if (activeTab === "individual") {
-      subtotal = individualPrice - offer-discount;
+      subtotal = individualPrice - offer - discount;
       total = subtotal;
     } else {
       subtotal = memberCount * groupPrice;
@@ -243,9 +249,9 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                     `/success?orderId=${response.razorpay_order_id}&paymentId=${response.razorpay_payment_id}`
                   );
                 })
-                .catch((err) => {});
+                .catch((err) => { });
             })
-            .catch((err) => {});
+            .catch((err) => { });
         },
         modal: {
           ondismiss: function () {
@@ -305,11 +311,10 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
           </div>
           <div className="md:w-full lg:w-full w-full flex items-center justify-center gap-8">
             <div
-              className={`text-s md:text-base lg:text-base relative cursor-pointer py-2 px-4 ${
-                activeTab === "individual"
-                  ? "text-primary-700"
-                  : "text-gray-500"
-              }`}
+              className={`text-s md:text-base lg:text-base relative cursor-pointer py-2 px-4 ${activeTab === "individual"
+                ? "text-primary-700"
+                : "text-gray-500"
+                }`}
               onClick={() => setActiveTab("individual")}
             >
               Individual Ticket
@@ -318,9 +323,8 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
               )}
             </div>
             <div
-              className={`relative text-s md:text-base lg:text-base cursor-pointer py-2 px-4 ${
-                activeTab === "group" ? "text-primary-700" : "text-gray-500"
-              }`}
+              className={`relative text-s md:text-base lg:text-base cursor-pointer py-2 px-4 ${activeTab === "group" ? "text-primary-700" : "text-gray-500"
+                }`}
               onClick={() => setActiveTab("group")}
             >
               Group Tickets
@@ -366,6 +370,23 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                         placeholder="Doe"
                       />
                     </div>
+                    <div className="flex-1">
+                      <span className="font-light text-sm italic">Food Preference</span>
+                      <span className="text-primary-700 text-2xl mt-[15px] font-semibold">*</span>
+                      <select
+                        name="food"
+                        value={members[0].food}
+                        onChange={(e) => handleInputChange(0, e)}
+                        className="w-full p-3 rounded-md bg-black-300 outline-none border-none"
+                      >
+                        <option value="" disabled>
+                          Select Preference
+                        </option>
+                        <option value="veg">Veg</option>
+                        <option value="non-veg">Non-Veg</option>
+                      </select>
+                    </div>
+
                   </div>
                 </div>
                 <div>
@@ -538,8 +559,9 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
 
             <div className="mt-6">
               <p className="flex text-lg text-white mb-2 lg:justify-end">
-                Are you {activeTab == "group" && "all"} a student?
+                Are you {activeTab === "group" && "all"} a school student or a student of Carmel Institutions, Punnapra, Alappuzha?
               </p>
+
               <div className="flex items-center space-x-8 lg:justify-end">
                 <label className="flex items-center">
                   <input
