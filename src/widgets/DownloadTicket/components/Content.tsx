@@ -105,7 +105,7 @@ const PurchasedTicket = forwardRef<HTMLDivElement, PurchasedTicketProps>(
             <span className="font-bold text-xl">
               {buyer?.person?.firstName} {buyer?.person?.lastName}
             </span>
-            <span className="font-semibold italic">{buyer?.person?.organisation}</span>
+            <span className="font-semibold italic">{buyer?.person?.organisation?.length > 33 ? <>{buyer?.person?.organisation?.slice(0,33)}...</>:<>{buyer?.person?.organisation}</>}</span>
             <span className="font-normal text-base italic">
               {buyer?.person?.designation}
             </span>

@@ -10,7 +10,7 @@ interface RightSideProps {
   total: number;
   isChecked: boolean;
   setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
-  onBuy: () => Promise<void>; // Add the onBuy prop
+  onBuy: () => Promise<void>;
 }
 
 const RightSide: React.FC<RightSideProps> = ({
@@ -25,6 +25,9 @@ const RightSide: React.FC<RightSideProps> = ({
   setIsChecked,
   onBuy,
 }) => {
+  // Determine whether the button should be enabled
+  const isButtonEnabled = student ? isChecked && isStudentChecked : isChecked;
+
   return (
     <div className="md:flex-1 lg:flex-1 p-1 md:p-6 lg:p-6 flex-1 rounded-lg shadow-lg w-full md:mt-0 lg:mt-0 md:mb-0 lg:mb-0 mt-10 mb-10">
       <h3 className="text-lg font-semibold mb-4">
@@ -55,7 +58,7 @@ const RightSide: React.FC<RightSideProps> = ({
               onChange={(e) => setIsStudentChecked(e.target.checked)}
               className="form-checkbox"
             />
-            <label htmlFor="terms">I agree to bring my ID Card on visit</label>
+            <label htmlFor="student-id">I agree to bring my ID Card on visit</label>
           </div>
         )}
         <div className="flex items-center gap-2 text-sm">
@@ -70,11 +73,14 @@ const RightSide: React.FC<RightSideProps> = ({
         <button
           onClick={() => {
             setIsChecked(false);
+            if (student) {
+              setIsStudentChecked(false);
+            }
             onBuy();
-          }} // Use the onBuy function here
-          disabled={!isChecked || !isStudentChecked}
+          }}
+          disabled={!isButtonEnabled}
           className={`py-2 px-4 rounded-md font-semibold ${
-            isChecked && isStudentChecked
+            isButtonEnabled
               ? "bg-primary-700 text-white hover:bg-primary-800"
               : "bg-gray-400 cursor-not-allowed text-gray-700"
           } transition-colors`}

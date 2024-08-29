@@ -25,6 +25,7 @@ export default function Form() {
           email: email,
           phone: phone,
         }),
+        cache: "no-store",
       });
       const data = await response.json();
 

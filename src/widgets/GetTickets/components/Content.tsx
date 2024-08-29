@@ -14,6 +14,7 @@ interface Member {
   lastName: string;
   email: string;
   organisation: string;
+  food: string;
   designation: string;
 }
 
@@ -23,7 +24,7 @@ interface contentProps {
 
 export default function Content({ handlePassLoadStatus }: contentProps) {
   const router = useRouter();
-  const [ticketCount, setTicketCount] = useState(20);
+  const [ticketCount, setTicketCount] = useState(0);
   const { data: session, status } = useSession() as SessionContextValue;
   const [activeTab, setActiveTab] = useState<"individual" | "group">(
     "individual"
@@ -39,6 +40,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
       email: "",
       organisation: "",
       designation: "",
+      food: "",
     },
   ]);
   // const [orderId,setOrderId]=useState('');
@@ -54,7 +56,8 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
         member.lastName.trim() !== "" &&
         member.email.trim() !== "" &&
         member.organisation.trim() !== "" &&
-        member.designation.trim() !== ""
+        member.designation.trim() !== "" &&
+        member.food.trim() !== ""
       );
     } else {
       return members.every(
@@ -63,7 +66,8 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
           member.lastName.trim() !== "" &&
           member.email.trim() !== "" &&
           member.organisation.trim() !== "" &&
-          member.designation.trim() !== ""
+          member.designation.trim() !== "" &&
+          member.food.trim() !== ""
       );
     }
   };
@@ -81,6 +85,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
         email: session.user.email || "",
         organisation: (session.user as any).organisation || "",
         designation: (session.user as any).designation || "",
+        food: (session.user as any).food || "",
       };
 
       if (activeTab === "individual") {
@@ -92,9 +97,10 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
       const res = await fetch("/api/ticket/status");
       if (res.ok) {
         const numData = await res.json();
+        setTicketCount(numData?.value);
+        console.log(numData);
         if (numData?.value + members?.length < 20) {
           setOffer(150);
-          setTicketCount(numData?.value);
         }
       }
     }
@@ -103,7 +109,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
 
   const handleInputChange = (
     index: number,
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = event.target;
     const newMembers = [...members];
@@ -120,6 +126,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
         email: "",
         organisation: "",
         designation: "",
+        food: "",
       },
     ]);
   };
@@ -130,18 +137,23 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
   };
 
   const calculatePricing = () => {
+    console.log("count", ticketCount);
     let subtotal = 0;
     let discount = 0;
     let total = 0;
+    const memberCount = members.length;
     if (isStudent) {
-      discount = 450;
+      if (ticketCount < 20) {
+        discount = 300;
+      } else {
+        discount = 450;
+      }
       // total = individualPrice - discount;
     }
     if (activeTab === "individual") {
       subtotal = individualPrice - offer - discount;
       total = subtotal;
     } else {
-      const memberCount = members.length;
       subtotal = memberCount * groupPrice;
       if (isStudent) {
         discount = memberCount * 450; //Rs 40 discount
@@ -229,6 +241,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                   orderId: response.razorpay_order_id,
                   group: members,
                 }),
+                cache: "no-store",
               })
                 .then((res) => {
                   handlePassLoadStatus();
@@ -358,6 +371,26 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                         className="w-full p-3 rounded-md bg-black-300 outline-none border-none"
                         placeholder="Doe"
                       />
+                    </div>
+                    <div className="flex-1">
+                      <span className="font-light text-sm italic">
+                        Food Preference
+                      </span>
+                      <span className="text-primary-700 text-2xl mt-[15px] font-semibold">
+                        *
+                      </span>
+                      <select
+                        name="food"
+                        value={members[0].food}
+                        onChange={(e) => handleInputChange(0, e)}
+                        className="w-full p-3 rounded-md bg-black-300 outline-none border-none"
+                      >
+                        <option value="" disabled>
+                          Select Preference
+                        </option>
+                        <option value="veg">Veg</option>
+                        <option value="non-veg">Non-Veg</option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -531,8 +564,9 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
 
             <div className="mt-6">
               <p className="flex text-lg text-white mb-2 lg:justify-end">
-                Are you {activeTab == "group" && "all"} a School Student?
+                Are you {activeTab == "group" && "all"} a student?
               </p>
+
               <div className="flex items-center space-x-8 lg:justify-end">
                 <label className="flex items-center">
                   <input
@@ -553,7 +587,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                     type="radio"
                     name="student"
                     checked={!isStudent}
-                    onClick={() => {
+                    onChange={() => {
                       setIsStudent(false);
                       setIsStudentChecked(true);
                     }}

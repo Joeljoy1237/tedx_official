@@ -35,7 +35,7 @@ const PurchasedTicket = forwardRef<HTMLDivElement, PurchasedTicketProps>(
           );
           setSrc(qrCodeSrc);
         } catch (err) {
-          console.error(err);
+          // console.error(err);
         }
       };
 
