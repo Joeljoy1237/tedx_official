@@ -102,16 +102,16 @@ const PurchasedTicket = forwardRef<HTMLDivElement, PurchasedTicketProps>(
         </div>
         <div className="max-w-[300px] max-h-[300px] min-w-[300px] min-h-[300px] -rotate-90 rounded-[30px] bg-primary-700 p-4 items-center flex-row justify-center gap-[10px] relative">
           <div className="flex flex-col items-start">
-            <span className="font-bold text-xl">
+            <span className="font-bold text-xl capitalize">
               {buyer?.person?.firstName} {buyer?.person?.lastName}
             </span>
-            <span className="font-semibold italic">{buyer?.person?.organisation?.length > 33 ? <>{buyer?.person?.organisation?.slice(0,33)}...</>:<>{buyer?.person?.organisation}</>}</span>
-            <span className="font-normal text-base italic">
+            <span className="font-semibold italic capitalize">{buyer?.person?.organisation?.length > 33 ? <>{buyer?.person?.organisation?.slice(0,33)}...</>:<>{buyer?.person?.organisation}</>}</span>
+            <span className="font-normal text-base italic capitalize">
               {buyer?.person?.designation}
             </span>
-            <span className="font-sans text-sm">ID: {buyer?.person?.ticketId}</span>
+            <span className="font-sans text-sm font-semibold">ID: {buyer?.person?.ticketId}</span>
           </div>
-          <div className="absolute bottom-0 left-0 w-[180px] flex-wrap flex flex-col items-start justify-start">
+          <div className="absolute bottom-2 left-2 w-[180px] flex-wrap flex flex-col items-start justify-start">
             <div className="">
               <span className="text-[12px] ml-[13px] mb-[7px] z-10 leading-none break-words items-start justify-start flex flex-col">
                 Be Present At The Seminar
@@ -124,7 +124,7 @@ const PurchasedTicket = forwardRef<HTMLDivElement, PurchasedTicketProps>(
               <img
                 src={src}
                 alt="QR Code"
-                className="w-[140px] rounded-[30px]"
+                className="w-[120px] rounded-[30px]"
               />
             ) : (
               <p>Loading...</p>
@@ -134,7 +134,7 @@ const PurchasedTicket = forwardRef<HTMLDivElement, PurchasedTicketProps>(
           <img
             src={"/alappy.png"}
             alt=""
-            className="absolute bottom-4 right-3 w-[150px]"
+            className="absolute bottom-5 right-3 w-[150px]"
           />
         </div>
       </div>
