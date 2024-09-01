@@ -82,7 +82,7 @@ const LandingPageView: React.FC = () => {
       <TicketView />
       <Tariff/>
       <AboutSection />
-      <Content/>
+      {/* <Content/> */}
       <FooterView />
       {/* {isDesktop && <SmoothScrollCustom />} */}
     </div>
