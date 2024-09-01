@@ -61,11 +61,11 @@ export const aboutDetails = [
 ]
 
 export const speakersList = [
-    {
-        name:"Dr. Divya S Iyer IAS",
-        designation:"MD, Vizhinjam International Seaport ",
-        image:"/speakers/divya.png",
-    },
+    // {
+    //     name:"Dr. Divya S Iyer IAS",
+    //     designation:"MD, Vizhinjam International Seaport ",
+    //     image:"/speakers/divya.png",
+    // },
     {
         name:"Dr. V P Gangadharan",
         designation:"Oncologist",

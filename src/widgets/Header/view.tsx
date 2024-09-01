@@ -87,7 +87,7 @@ export default function HeaderView() {
           isScrolled ? "backdrop-blur-lg" : ""
         }`}
       >
-        <div className="flex w-full">
+        <div className="flex w-full h-full items-center">
           <Link href="/">
             <div className="flex-1 hidden md:flex lg:flex">
               <Logo />

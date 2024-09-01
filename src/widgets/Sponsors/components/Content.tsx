@@ -4,42 +4,59 @@ import React from 'react'
 
 export default function Content() {
   return (
-    <div className='px-[5vw] pb-[5vw] w-full flex flex-col gap-[5vh]'>
-      <TitleBar title='Our' titleSecond='Sponsors' />
+    <div className="px-[5vw] py-[5vw] w-full flex flex-col items-center justify-center bg-black">
+      <TitleBar title="Our" titleSecond="Sponsors" />
 
-      <div className="w-full flex flex-col items-center justify-center rounded-xl shadow-lg p-6">
-        <div className="w-full flex flex-col items-center justify-center mb-[4vh]">
-          <span className="font-semibold text-3xl text-gray-800 mb-2">Sponsored by</span>
+      {/* Main Sponsor */}
+      <div className="w-full max-w-[600px] flex flex-col items-center justify-center rounded-xl p-8 shadow-2xl text-center transform hover:scale-105 transition-all duration-500 ease-in-out mb-12">
+        <span className="text-[#eb0028] text-4xl font-bold uppercase mb-4 tracking-wide drop-shadow-lg">
+          Main Sponsor
+        </span>
+        <Image
+          src={'/sponsors/al-muqtadir.png'}
+          width={250}
+          height={250}
+          alt="Al Muqtadir"
+          className="rounded-full shadow-lg hover:scale-110 transition-transform transform duration-300 ease-in-out"
+        />
+      </div>
+
+      {/* Sponsors Section */}
+      <div className="w-full flex  items-start justify-center">
+        {/* Banking Partner */}
+        <div className="flex flex-col items-center justify-center p-8 rounded-xl shadow-2xl text-center transform hover:scale-105 transition-all duration-500 ease-in-out">
+          <span className="text-[#eb0028] text-3xl font-semibold mb-6 tracking-wide drop-shadow-lg">
+            Banking Partner
+          </span>
           <Image
-            src={'/sponsors/al-muqtadir.png'}
-            width={200}
-            height={200}
-            alt='Al Muqtadir'
-            className="rounded-lg shadow-md transition-transform transform hover:scale-105"
+            src={'/sponsors/federalbank.png'}
+            width={220}
+            height={150}
+            alt="Federal Bank"
+            className="rounded-lg shadow-md hover:scale-110 transition-transform transform duration-300 ease-in-out"
           />
         </div>
-        
-        <div className="w-full flex flex-col md:flex-row lg:flex-row items-center justify-center gap-[4vw] mb-[4vh]">
-          <div className="flex flex-col items-center justify-center">
-            <span className="font-semibold text-2xl text-gray-700 mb-2">Banking Partner</span>
-            <Image
-              src={'/sponsors/federalbank.png'}
-              width={250}
-              height={180}
-              alt='Federal Bank'
-              className="rounded-lg shadow-md transition-transform transform hover:scale-105"
-            />
-          </div>
-          
-          <div className="flex flex-col items-center justify-center">
-            <span className="font-semibold text-2xl text-gray-700 mb-2">Co-Sponsored by</span>
-            <Image
-              src={'/sponsors/obcydians.png'}
-              width={250}
-              height={180}
-              alt='Obcydians'
-              className="rounded-lg shadow-md transition-transform transform hover:scale-105"
-            />
+
+        {/* Co-Sponsors */}
+        <div className="flex flex-col items-center justify-center p-8 rounded-xl shadow-2xl text-center transform hover:scale-105 transition-all duration-500 ease-in-out">
+          <span className="text-[#eb0028] text-3xl font-semibold mb-6 tracking-wide drop-shadow-lg">
+            Co-Sponsored by
+          </span>
+          <div className="flex">
+          <Image
+            src={'/sponsors/obcydians.png'}
+            width={220}
+            height={150}
+            alt="Obcydians"
+            className="rounded-lg shadow-md hover:scale-110 transition-transform transform duration-300 ease-in-out mb-4"
+          />
+          <Image
+            src={'/sponsors/lichfl.png'}
+            width={220}
+            height={150}
+            alt="LIC HFL"
+            className="rounded-lg shadow-md hover:scale-110 transition-transform transform duration-300 ease-in-out"
+          />
           </div>
         </div>
       </div>
