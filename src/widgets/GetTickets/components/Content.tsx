@@ -267,11 +267,13 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
         prefill: {
           name: session?.user.firstName,
           email: session?.user.email,
+          contact: session?.user.mobile,
         },
         theme: {
           color: "#d70000",
         },
       };
+
       const rzp1 = new (window as any).Razorpay(options);
       rzp1.on("payment.failed", function (response: any) {
         failStatus = true;
@@ -282,8 +284,8 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
     }
   };
 
-  console.log('food',members)
-  console.log(isStudent)
+  console.log("food", members);
+  console.log(isStudent);
   return (
     <>
       <div className="px-[5vw] md:py-[5vh] lg:py-[5vh] py-0 flex md:flex-row lg:flex-row flex-col items-start justify-between min-h-[75vh] relative">
@@ -498,21 +500,25 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                         />
                       </div>
                       <div className="flex-1">
-                      <span className="font-light text-sm italic">Food Preference</span>
-                      <span className="text-primary-700 text-2xl mt-[15px] font-semibold">*</span>
-                      <select
-                        name="food"
-                        value={member.food}
-                        onChange={(e) => handleInputChange(index, e)}
-                        className="w-full p-3 rounded-md bg-black-300 outline-none border-none"
-                      >
-                        <option value="" disabled>
-                          Select Preference
-                        </option>
-                        <option value="veg">Veg</option>
-                        <option value="non-veg">Non-Veg</option>
-                      </select>
-                    </div>
+                        <span className="font-light text-sm italic">
+                          Food Preference
+                        </span>
+                        <span className="text-primary-700 text-2xl mt-[15px] font-semibold">
+                          *
+                        </span>
+                        <select
+                          name="food"
+                          value={member.food}
+                          onChange={(e) => handleInputChange(index, e)}
+                          className="w-full p-3 rounded-md bg-black-300 outline-none border-none"
+                        >
+                          <option value="" disabled>
+                            Select Preference
+                          </option>
+                          <option value="veg">Veg</option>
+                          <option value="non-veg">Non-Veg</option>
+                        </select>
+                      </div>
                     </div>
                     <div>
                       <div className="flex gap-4 flex-col md:flex-row lg:flex-row">
@@ -591,7 +597,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                     type="radio"
                     name="student"
                     checked={isStudent}
-                    onClick={() => {
+                    onChange={() => {
                       setIsStudent(true);
                       setIsStudentChecked(false);
                     }}
