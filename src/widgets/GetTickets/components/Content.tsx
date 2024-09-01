@@ -30,7 +30,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
     "individual"
   );
   const [isStudent, setIsStudent] = useState<boolean>(false);
-  const [isStudentChecked, setIsStudentChecked] = useState<boolean>(false);
+  const [isStudentChecked, setIsStudentChecked] = useState<boolean>(true);
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [offer, setOffer] = useState<number>(0);
   const [members, setMembers] = useState<Member[]>([
@@ -40,7 +40,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
       email: "",
       organisation: "",
       designation: "",
-      food: ""
+      food: "",
     },
   ]);
   // const [orderId,setOrderId]=useState('');
@@ -98,7 +98,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
       if (res.ok) {
         const numData = await res.json();
         setTicketCount(numData?.value);
-        console.log(numData)
+        console.log(numData);
         if (numData?.value + members?.length < 20) {
           setOffer(150);
         }
@@ -126,7 +126,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
         email: "",
         organisation: "",
         designation: "",
-        food: ""
+        food: "",
       },
     ]);
   };
@@ -137,7 +137,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
   };
 
   const calculatePricing = () => {
-    console.log('count', ticketCount)
+    console.log("count", ticketCount);
     let subtotal = 0;
     let discount = 0;
     let total = 0;
@@ -249,9 +249,9 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                     `/success?orderId=${response.razorpay_order_id}&paymentId=${response.razorpay_payment_id}`
                   );
                 })
-                .catch((err) => { });
+                .catch((err) => {});
             })
-            .catch((err) => { });
+            .catch((err) => {});
         },
         modal: {
           ondismiss: function () {
@@ -267,11 +267,13 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
         prefill: {
           name: session?.user.firstName,
           email: session?.user.email,
+          contact: session?.user.mobile,
         },
         theme: {
           color: "#d70000",
         },
       };
+
       const rzp1 = new (window as any).Razorpay(options);
       rzp1.on("payment.failed", function (response: any) {
         failStatus = true;
@@ -282,8 +284,8 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
     }
   };
 
-  console.log('food',members)
-  console.log(isStudent)
+  console.log("food", members);
+  console.log(isStudent);
   return (
     <>
       <div className="px-[5vw] md:py-[5vh] lg:py-[5vh] py-0 flex md:flex-row lg:flex-row flex-col items-start justify-between min-h-[75vh] relative">
@@ -313,10 +315,11 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
           </div>
           <div className="md:w-full lg:w-full w-full flex items-center justify-center gap-8">
             <div
-              className={`text-s md:text-base lg:text-base relative cursor-pointer py-2 px-4 ${activeTab === "individual"
-                ? "text-primary-700"
-                : "text-gray-500"
-                }`}
+              className={`text-s md:text-base lg:text-base relative cursor-pointer py-2 px-4 ${
+                activeTab === "individual"
+                  ? "text-primary-700"
+                  : "text-gray-500"
+              }`}
               onClick={() => setActiveTab("individual")}
             >
               Individual Ticket
@@ -325,8 +328,9 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
               )}
             </div>
             <div
-              className={`relative text-s md:text-base lg:text-base cursor-pointer py-2 px-4 ${activeTab === "group" ? "text-primary-700" : "text-gray-500"
-                }`}
+              className={`relative text-s md:text-base lg:text-base cursor-pointer py-2 px-4 ${
+                activeTab === "group" ? "text-primary-700" : "text-gray-500"
+              }`}
               onClick={() => setActiveTab("group")}
             >
               Group Tickets
@@ -373,8 +377,12 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                       />
                     </div>
                     <div className="flex-1">
-                      <span className="font-light text-sm italic">Food Preference</span>
-                      <span className="text-primary-700 text-2xl mt-[15px] font-semibold">*</span>
+                      <span className="font-light text-sm italic">
+                        Food Preference
+                      </span>
+                      <span className="text-primary-700 text-2xl mt-[15px] font-semibold">
+                        *
+                      </span>
                       <select
                         name="food"
                         value={members[0].food}
@@ -388,7 +396,6 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                         <option value="non-veg">Non-Veg</option>
                       </select>
                     </div>
-
                   </div>
                 </div>
                 <div>
@@ -493,21 +500,25 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                         />
                       </div>
                       <div className="flex-1">
-                      <span className="font-light text-sm italic">Food Preference</span>
-                      <span className="text-primary-700 text-2xl mt-[15px] font-semibold">*</span>
-                      <select
-                        name="food"
-                        value={member.food}
-                        onChange={(e) => handleInputChange(index, e)}
-                        className="w-full p-3 rounded-md bg-black-300 outline-none border-none"
-                      >
-                        <option value="" disabled>
-                          Select Preference
-                        </option>
-                        <option value="veg">Veg</option>
-                        <option value="non-veg">Non-Veg</option>
-                      </select>
-                    </div>
+                        <span className="font-light text-sm italic">
+                          Food Preference
+                        </span>
+                        <span className="text-primary-700 text-2xl mt-[15px] font-semibold">
+                          *
+                        </span>
+                        <select
+                          name="food"
+                          value={member.food}
+                          onChange={(e) => handleInputChange(index, e)}
+                          className="w-full p-3 rounded-md bg-black-300 outline-none border-none"
+                        >
+                          <option value="" disabled>
+                            Select Preference
+                          </option>
+                          <option value="veg">Veg</option>
+                          <option value="non-veg">Non-Veg</option>
+                        </select>
+                      </div>
                     </div>
                     <div>
                       <div className="flex gap-4 flex-col md:flex-row lg:flex-row">
@@ -577,7 +588,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
 
             <div className="mt-6">
               <p className="flex text-lg text-white mb-2 lg:justify-end">
-                Are you {activeTab === "group" && "all"} a school student or a student of Carmel Institutions, Punnapra, Alappuzha?
+                Are you {activeTab == "group" && "all"} a School student?
               </p>
 
               <div className="flex items-center space-x-8 lg:justify-end">
@@ -586,7 +597,7 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
                     type="radio"
                     name="student"
                     checked={isStudent}
-                    onClick={() => {
+                    onChange={() => {
                       setIsStudent(true);
                       setIsStudentChecked(false);
                     }}
