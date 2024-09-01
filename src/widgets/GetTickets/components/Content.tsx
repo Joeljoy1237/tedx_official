@@ -285,8 +285,6 @@ export default function Content({ handlePassLoadStatus }: contentProps) {
     }
   };
 
-  console.log('food',members)
-  console.log(isStudent)
   return (
     <>
       <div className="px-[5vw] md:py-[5vh] lg:py-[5vh] py-0 flex md:flex-row lg:flex-row flex-col items-start justify-between min-h-[75vh] relative">
