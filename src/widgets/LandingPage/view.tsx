@@ -17,6 +17,7 @@ import SpeakerSection from "@widgets/Speakers/components/SpeakerSection";
 import BannerRed from "./components/BannerRed";
 import Tariff from "./components/Tariff";
 import Content from "@widgets/Sponsors/components/Content";
+import LuckyDraw from "./components/LuckyDraw";
 
 // Dynamically import the SmoothScrollCustom component without SSR
 const SmoothScrollCustom = dynamic(() => import("@components/ScrollSmoother"), {
@@ -82,7 +83,8 @@ const LandingPageView: React.FC = () => {
       <TicketView />
       <Tariff/>
       <AboutSection />
-      {/* <Content/> */}
+      <Content/>
+      <LuckyDraw/>
       <FooterView />
       {/* {isDesktop && <SmoothScrollCustom />} */}
     </div>
