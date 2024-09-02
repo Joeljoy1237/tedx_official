@@ -1,66 +1,73 @@
-import TitleBar from '@components/TitleBar'
-import Image from 'next/image'
-import React from 'react'
+import TitleBar from "@components/TitleBar";
+import { sponsors } from "@utils/constants";
+import Image from "next/image";
+import React from "react";
 
 export default function Content() {
   return (
-    <div className="px-[5vw] py-[5vw] w-full flex flex-col items-center justify-center bg-black">
+    <div className="px-4 py-8 md:px-[5vw] md:py-[5vw] w-full flex flex-col items-center justify-center bg-black">
       <TitleBar title="Our" titleSecond="Sponsors" />
-
-      {/* Main Sponsor */}
-      <div className="w-full flex flex-col items-center justify-center rounded-xl p-8 shadow-2xl text-center transform hover:scale-105 transition-all duration-500 ease-in-out mb-12">
-        <span className="text-[#eb0028] text-3xl font-bold uppercase mb-4 tracking-wide drop-shadow-lg">
-          Sponsored by
-        </span>
-        <Image
-          src={'/sponsors/al-muqtadir.png'}
-          width={230}
-          height={230}
-          alt="Al Muqtadir"
-          className="rounded-full"
-        />
-      </div>
-
-      {/* Sponsors Section */}
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center justify-center">
-        
-        {/* Banking Partner */}
-        <div className="flex flex-col items-center justify-center p-8 rounded-xl shadow-2xl text-center transform hover:scale-105 transition-all duration-500 ease-in-out">
-          <span className="text-[#eb0028] text-3xl font-semibold mb-6 tracking-wide drop-shadow-lg">
-            Banking Partner
-          </span>
-          <Image
-            src={'/sponsors/federalbank.png'}
-            width={220}
-            height={150}
-            alt="Federal Bank"
-            className="rounded-lg shadow-md hover:scale-110 transition-transform transform duration-300 ease-in-out"
-          />
+      <div className="w-full flex flex-col items-center mt-8 md:mt-[8vh]">
+        <div className="flex flex-col md:flex-row w-full md:w-[50vw]">
+          {/* Title Sponsor Section */}
+          <div className="flex-1 flex flex-col items-center justify-center gap-5">
+            <div className="w-full flex items-center justify-center">
+              <span className="text-lg md:text-2xl font-semibold">
+                Title Sponsor
+              </span>
+            </div>
+            <div className="h-[65vw] w-[90vw] md:h-[16vw] lg:h-[16vw] md:w-[20vw] lg:w-[20vw] flex items-center justify-center border-[2px] border-red-700 rounded-[8px]">
+              <Image
+                src={sponsors?.titleSponsors[0].imgUrl}
+                alt={sponsors?.titleSponsors[0].name}
+                height={180}
+                width={240}
+                className=""
+              />
+            </div>
+          </div>
+          {/* Banking Partner Section */}
+          <div className="flex-1 flex flex-col items-center justify-center gap-5 mt-8 md:mt-0">
+            <div className="w-full flex items-center justify-center">
+              <span className="text-lg md:text-2xl font-semibold">
+                Banking Partner
+              </span>
+            </div>
+            <div className="h-[65vw] w-[90vw] md:h-[16vw] lg:h-[16vw] md:w-[20vw] lg:w-[20vw] flex items-center justify-center border-[2px] border-red-700 rounded-[8px]">
+              <Image
+                src={sponsors?.titleSponsors[1].imgUrl}
+                alt={sponsors?.titleSponsors[1].name}
+                height={180}
+                width={240}
+              />
+            </div>
+          </div>
         </div>
-
-        {/* Co-Sponsors */}
-        <div className="flex flex-col items-center justify-center p-8 rounded-xl shadow-2xl text-center transform hover:scale-105 transition-all duration-500 ease-in-out">
-          <span className="text-[#eb0028] text-2xl font-semibold mb-6 tracking-wide drop-shadow-lg">
-            Co-Sponsored by
-          </span>
-          <div className="flex flex-wrap gap-5 justify-center">
-            <Image
-              src={'/sponsors/obcydians.png'}
-              width={220}
-              height={150}
-              alt="Obcydians"
-              className="rounded-lg"
-            />
-            <Image
-              src={'/sponsors/lichfl.png'}
-              width={220}
-              height={150}
-              alt="LIC HFL"
-              className="rounded-lg"
-            />
+        {/* Co-Sponsors Section */}
+        <div className="w-full flex flex-col px-4 py-8 md:px-[5vw] md:py-[5vw] gap-8 md:gap-[5vh]">
+          <div className="w-full flex items-center justify-center">
+            <span className="text-lg md:text-2xl font-semibold capitalize">
+              Co-Sponsored by
+            </span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-[4vw] items-center justify-center">
+            {sponsors?.coSponsors.map((data, index) => (
+              <div
+                className="h-[55vw] w-full md:h-[16vw] md:w-[20vw] flex items-center justify-center border-[2px] border-red-700 rounded-[8px]"
+                key={index}
+              >
+                <Image
+                  src={data.imgUrl}
+                  alt={data.name}
+                  height={150}
+                  width={220}
+                  className="px-[1vw] rounded-[8px]"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
