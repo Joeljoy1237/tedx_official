@@ -21,6 +21,10 @@ export const navLinks = [
         url: "/our-speakers"
     },
     {
+        title: "Our Sponsors",
+        url: "/sponsors"
+    },
+    {
         title: "get tickets",
         url: "/get-tickets"
     },

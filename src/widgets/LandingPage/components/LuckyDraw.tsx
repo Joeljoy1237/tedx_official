@@ -3,8 +3,8 @@ import Image from 'next/image'; // Assuming you're using Next.js
 
 export default function LuckyDraw() {
   return (
-    <div className="bg-black text-white  py-[5vh] flex items-center justify-center px-[5vw]">
-      <div className="bg-black text-left w-full p-8 border border-[#eb0028] rounded-lg shadow-xl flex flex-col">
+    <div className="bg-black text-white pb-[10vh] flex items-center justify-center px-[5vw]">
+      <div className="bg-black text-left w-[80vw] p-8 border border-[#eb0028] rounded-lg shadow-xl flex flex-col">
         {/* Left Column - Content */}
         <div className="flex-1 w-full pr-2">
           {/* Title */}

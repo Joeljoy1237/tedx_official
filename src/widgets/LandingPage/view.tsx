@@ -74,6 +74,7 @@ const LandingPageView: React.FC = () => {
       {/* <ScrollTextView /> */}
       <Flicker />
       <Welcome />
+      <AboutSection />
       <Reasons />
       <ThemeSection />
       <BannerRed/>
@@ -82,9 +83,8 @@ const LandingPageView: React.FC = () => {
       </div>
       <TicketView />
       <Tariff/>
-      <AboutSection />
-      <Content/>
       <LuckyDraw/>
+      <Content/>
       <FooterView />
       {/* {isDesktop && <SmoothScrollCustom />} */}
     </div>

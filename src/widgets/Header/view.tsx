@@ -96,13 +96,13 @@ export default function HeaderView() {
               <TLogo />
             </div>
           </Link>
-          <div className="flex-2 md:flex lg:flex hidden items-center justify-center gap-[3vw] w-full">
+          <div className="flex-2 md:flex lg:flex hidden items-center justify-center gap-[2.5vw] w-full">
             {navLinks?.map((navLink, index) => (
               <div className="" key={`${navLink?.title}_${index}`}>
                 <Link
                   href={navLink?.url}
-                  className={`capitalize font-semibold ${
-                    location === navLink?.url && "text-primary-700"
+                  className={`capitalize font-bold ${
+                    location === navLink?.url && "text-primary-700 font-bold"
                   }`}
                 >
                   {navLink?.title}

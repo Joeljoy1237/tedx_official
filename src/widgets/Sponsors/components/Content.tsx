@@ -5,7 +5,7 @@ import React from "react";
 
 export default function Content() {
   return (
-    <div className="px-4 py-8 md:px-[5vw] md:py-[5vw] w-full flex flex-col items-center justify-center bg-black">
+    <div className="px-4 py-8 md:px-[5vw] w-full flex flex-col items-center justify-center bg-black">
       <TitleBar title="Our" titleSecond="Sponsors" />
       <div className="w-full flex flex-col items-center mt-8 md:mt-[8vh]">
         <div className="flex flex-col md:flex-row w-full md:w-[50vw]">
