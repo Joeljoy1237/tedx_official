@@ -30,13 +30,6 @@ export default function DownloadTicket() {
   const { data: session, status } = useSession();
 
   const router = useRouter();
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      // Redirect to home page
-      router.push("/login");
-    }
-  }, [status, session, router]);
-
 
   useEffect(() => {
     const dataFetch = async () => {

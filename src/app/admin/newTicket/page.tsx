@@ -1,5 +1,6 @@
-"use client";
-import React, { useEffect, useState } from "react";
+"use client"
+import showTedxToast from "@components/showTedxToast";
+import React, { useEffect, useState } from "react"; // Import showTedxToast
 
 interface GroupMember {
   firstName: string;
@@ -61,7 +62,48 @@ const TicketComponent: React.FC = () => {
     ]);
   };
 
+  const removeMember = (index: number) => {
+    const newGroup = group.filter((_, i) => i !== index);
+    setGroup(newGroup);
+  };
+
+  const validateData = () => {
+    // Check if amount is valid
+    if (amount <= 0) {
+      showTedxToast({
+        message:"Enter a valid amount",
+        type:"error",
+      });
+      return false;
+    }
+
+    // Check if all group members have valid data
+    for (let i = 0; i < group.length; i++) {
+      const member = group[i];
+      if (
+        !member.firstName ||
+        !member.lastName ||
+        !member.email ||
+        !member.organisation ||
+        !member.designation
+      ) {
+        showTedxToast({
+          message:`Please fill all fields for Member ${i + 1}.`,
+          type:"error",
+        });
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   const handleSubmit = async () => {
+    // Validate before submission
+    if (!validateData()) {
+      return;
+    }
+
     try {
       const response = await fetch("/api/admin/newTicket", {
         method: "POST",
@@ -81,8 +123,16 @@ const TicketComponent: React.FC = () => {
       }
 
       const data = await response.json();
+      showTedxToast({
+        type:"success",
+        message:"Submitted successfully"
+      });
       console.log("Ticket submitted successfully:", data);
     } catch (err) {
+      showTedxToast({
+        type:"error",
+        message: "Error submitting ticket."
+      });
       console.error("Error submitting ticket:", err);
     }
   };
@@ -98,6 +148,7 @@ const TicketComponent: React.FC = () => {
 
       {group.map((member, index) => (
         <div key={index} className="mb-6 p-4 rounded-lg">
+          {/* Group member form fields */}
           <div className="mb-4">
             <label className="block text-sm font-medium mb-1 text-white">
               First Name:
@@ -167,6 +218,13 @@ const TicketComponent: React.FC = () => {
               className="w-full p-2 border text-black-100 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 text-black"
             />
           </div>
+
+          <button
+            onClick={() => removeMember(index)}
+            className="w-full p-2 mt-2 bg-red-500 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+          >
+            Remove Member
+          </button>
         </div>
       ))}
 

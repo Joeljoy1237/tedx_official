@@ -21,6 +21,10 @@ const BookingSchema = new Schema(
       type: Number,
       required: true,
     },
+    confirmationMailSent: {
+      type: Boolean,
+      default: false,
+    },
     amount: {
       type: Number,
       require: true,

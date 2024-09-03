@@ -11,7 +11,7 @@ interface GroupMember {
   firstName: string;
   lastName: string;
   organisation: string;
-  isStudent:boolean | false;
+  isStudent: boolean | false;
   email: string;
   referal_code?: string;
   ticketId?: string;
@@ -100,10 +100,10 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       // Send individual ticket confirmation emails
       for (const data of group) {
         const mailOptions = {
-  from: process.env.EMAIL,
-  to: data?.email,
-  subject: "Your TEDxCCET Ticket Confirmation",
-  html: `
+          from: process.env.EMAIL,
+          to: data?.email,
+          subject: "Your TEDxCCET Ticket Confirmation",
+          html: `
     <html>
     <head>
       <style>
@@ -267,7 +267,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
     </body>
     </html>
   `,
-};
+        };
 
 
         transporter.sendMail(mailOptions, (error, info) => {
@@ -374,7 +374,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
           </html>
         `,
       };
-      
+
 
       transporter.sendMail(summaryMailOptions, (error, info) => {
         if (error) {

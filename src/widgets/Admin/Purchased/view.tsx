@@ -1,7 +1,12 @@
-"use client"
+"use client";
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { IoMdDownload } from 'react-icons/io';
+import { FaEnvelope } from 'react-icons/fa'; // Import mail icon
+import showTedxToast from '@components/showTedxToast';
 
 interface BookingGroup {
+  _id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -37,16 +42,16 @@ const Purchased: React.FC = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Cache-Control': 'no-store'
+            'Cache-Control': 'no-store',
           },
-          cache: "no-store",
+          cache: 'no-store',
         });
         if (response.ok) {
           const data = await response.json();
           setBookings(data);
         } else {
           const result = await response.json();
-          setError(result.message || "Failed to fetch bookings");
+          setError(result.message || 'Failed to fetch bookings');
         }
       } catch (err) {
         setError('An error occurred while fetching the bookings');
@@ -61,12 +66,32 @@ const Purchased: React.FC = () => {
   const totalBookings = bookings.length;
   const totalAmount = bookings.reduce((sum, booking) => sum + booking.amount, 0);
 
-  // Format amount to Indian Rupees with the last 4 digits removed
   const formatAmount = (amount: number) => {
-    // Remove the last 4 digits by dividing by 10,000
     const adjustedAmount = Math.floor(amount / 100);
-    // Format amount as Indian Rupees
     return `₹${adjustedAmount.toLocaleString('en-IN')}`;
+  };
+
+  const sendMail = async (email: string,firstName:string,lastName:string) => {
+    try {
+      const response = await fetch('/api/admin/newTicket/sentMail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email,firstName,lastName }),
+      });
+      if (response.ok) {
+        showTedxToast({
+          type: "success",
+          message: "",
+        });
+      } else {
+        const error = await response.json();
+        alert(`Failed to send mail: ${error.message}`);
+      }
+    } catch (error) {
+      alert('An error occurred while sending the mail');
+    }
   };
 
   if (loading) {
@@ -78,8 +103,8 @@ const Purchased: React.FC = () => {
   }
 
   return (
-    <div className="p-4 bg-black-100">
-      <div className="mb-6 bg-black-200 text-white p-4 rounded-lg shadow-lg">
+    <div className="p-4 bg-black text-white">
+      <div className="mb-6 bg-gray-800 text-white p-4 rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold mb-4">Statistics</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <div className="bg-blue-500 p-4 rounded-lg shadow-md">
@@ -96,23 +121,40 @@ const Purchased: React.FC = () => {
       <h1 className="text-2xl font-bold mb-4">Purchased Bookings</h1>
       {bookings.length > 0 ? (
         <ul>
-          {bookings.map(booking => (
-            <li key={booking._id} className="mb-4 border-b pb-2">
+          {bookings.map((booking) => (
+            <li key={booking._id} className="mb-4 border-b border-gray-600 pb-2">
               <h3 className="text-xl font-semibold">{booking.orderId}</h3>
               <p><strong>User ID:</strong> {booking.userId}</p>
-              <p className='font-sans'><strong>Amount:</strong> {formatAmount(booking.amount)}</p>
+              <p className="font-sans"><strong>Amount:</strong> {formatAmount(booking.amount)}</p>
               <p><strong>Count:</strong> {booking.count}</p>
               <h3 className="text-lg font-semibold mt-2">Group Details:</h3>
               <ul>
-                {booking.group.map((person, index) => (
-                  <li key={index} className="border p-2 mb-2 rounded">
-                    <p><strong>Name:</strong> {person.firstName} {person.lastName}</p>
-                    <p><strong>Email:</strong> {person.email}</p>
-                    <p><strong>Organisation:</strong> {person.organisation}</p>
-                    <p><strong>Designation:</strong> {person.designation}</p>
-                    <p><strong>Checked In:</strong> {person.checkedIn ? "Yes" : "No"}</p>
-                    <p><strong>Student:</strong> {person.isStudent ? "Yes" : "No"}</p>
-                    <p className='font-sans'><strong>Ticket ID:</strong> {person.ticketId}</p>
+                {booking.group.map((person) => (
+                  <li key={person.ticketId} className="border border-gray-700 p-2 mb-2 rounded flex justify-between items-center">
+                    <div>
+                      <p><strong>Name:</strong> {person.firstName} {person.lastName}</p>
+                      <p><strong>Email:</strong> {person.email}</p>
+                      <p><strong>Organisation:</strong> {person.organisation}</p>
+                      <p><strong>Designation:</strong> {person.designation}</p>
+                      <p><strong>Checked In:</strong> {person.checkedIn ? 'Yes' : 'No'}</p>
+                      <p><strong>Student:</strong> {person.isStudent ? 'Yes' : 'No'}</p>
+                      <p className="font-sans"><strong>Ticket ID:</strong> {person.ticketId}</p>
+                    </div>
+                    <div className="flex gap-3">
+                      <Link
+                        className="bg-[#eb0028] font-semibold text-xl text-white w-[10vw] p-3 rounded-[10px] flex flex-row items-center justify-center gap-2"
+                        target="_blank"
+                        href={`/tickets/${booking._id}/${person._id}`}
+                      >
+                        <IoMdDownload className="font-semibold text-xl" /> Download
+                      </Link>
+                      <button
+                        onClick={() => sendMail(person.email,person?.firstName,person?.lastName)}
+                        className="bg-blue-500 font-semibold text-xl text-white w-[10vw] p-3 rounded-[10px] flex flex-row items-center justify-center gap-2"
+                      >
+                        <FaEnvelope className="font-semibold text-xl" /> Send Mail
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>
