@@ -4,8 +4,7 @@ import React, { useEffect, useState } from "react";
 import { IoMdDownload } from "react-icons/io";
 import { FaEnvelope } from "react-icons/fa"; // Import mail icon
 import showTedxToast from "@components/showTedxToast";
-import Button from "@components/Button";
-
+import { ScaleLoader } from 'react-spinners'
 interface BookingGroup {
   _id: string;
   firstName: string;
@@ -156,7 +155,7 @@ const Purchased: React.FC = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="w-full h-full items-center justify-center flex"><ScaleLoader color="#eb0028" /></div>;
   }
 
   if (error) {

@@ -65,11 +65,11 @@ export const aboutDetails = [
 ]
 
 export const speakersList = [
-    // {
-    //     name:"Dr. Divya S Iyer IAS",
-    //     designation:"MD, Vizhinjam International Seaport ",
-    //     image:"/speakers/divya.png",
-    // },
+    {
+        name:"Lt. Col. Rishi Rajalakshmi",
+        designation:"Indian Army",
+        image:"/speakers/Lt.Col. Rishi 1.png",
+    },
     {
         name: "Dr. V P Gangadharan",
         designation: "Oncologist",
@@ -95,11 +95,11 @@ export const speakersList = [
         designation: "Writer",
         image: "/speakers/akhilp.png",
     },
-    {
-        name: "Mr. Nikhil Kilivayil",
-        designation: "CEO, Brototype",
-        image: "/speakers/nikhil.png",
-    },
+    // {
+    //     name: "Mr. Nikhil Kilivayil",
+    //     designation: "CEO, Brototype",
+    //     image: "/speakers/nikhil.png",
+    // },
     {
         name: "Master Raul Aju John",
         designation: "Tech Enthusiast",

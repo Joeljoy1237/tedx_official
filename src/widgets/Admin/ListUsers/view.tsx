@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
+import { ScaleLoader } from 'react-spinners'
 interface User {
   _id?: string;
   firstName?: string | null;
@@ -194,7 +194,7 @@ export default function ListUsers() {
   if (loading) {
     return (
       <div className="flex w-full h-full items-center justify-center">
-        <p>Loading users...</p>
+       <ScaleLoader color="#eb0028" />
       </div>
     );
   }
@@ -213,49 +213,46 @@ export default function ListUsers() {
 
   return (
     <div className="p-6 rounded-lg shadow-lg">
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-2xl font-semibold">User List</h3>
+      <div className="flex justify-between bg-black-100 p-3 rounded-[10px] items-center mb-6">
+        <h3 className="text-2xl font-semibold font-sans">User List ({" "}{totalUsers}{" Users"})</h3>
         <div>
           <input
             type="text"
             placeholder="Search by name or email"
             value={searchQuery}
             onChange={handleSearch}
-            className="border p-2 rounded mr-2 placeholder-white bg-black-200"
+            className="border-black-400 border p-2 rounded mr-2 placeholder-black-300 bg-black-200"
           />
           <input
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="border p-2 rounded mr-2 bg-black-200"
+            className="border-black-400 border placeholder-black-300 p-2 rounded mr-2 bg-black-200"
           />
           <input
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="border p-2 rounded mr-2 bg-black-200"
+            className="border-black-400 border placeholder-black-300 p-2 rounded mr-2 bg-black-200"
           />
           <button
             onClick={fetchUsers}
-            className="bg-gray-500 text-white p-2 rounded mr-2"
+            className="bg-black-100 border border-primary-700 text-white p-2 rounded mr-2"
           >
             Apply Filter
           </button>
           <button
             onClick={handleDownloadCSV}
-            className="bg-blue-500 text-white p-2 rounded"
+            className="bg-primary-700 text-white p-2 rounded"
           >
             Download CSV
           </button>
         </div>
       </div>
-      <div className="mb-6">
+      {/* <div className="mb-6 bg-black-100 p-3 rounded-[10px]">
         <p className="text-lg font-medium">Total Users: {totalUsers}</p>
-        <p className="text-lg font-medium">
-          Users Who Bought Tickets: {boughtUsersCount}
-        </p>
         <p className="text-lg font-medium">Admin Users: {adminUsersCount}</p>
-      </div>
+      </div> */}
       {totalUsers === 0 ? (
         <p>No users found.</p>
       ) : (
@@ -284,24 +281,18 @@ export default function ListUsers() {
                   <span className="font-semibold">Designation:</span>{" "}
                   {user?.designation}
                 </p>
-                <p>
+                <p className="font-sans">
                   <span className="font-semibold">Mobile:</span>{" "}
                   {user?.mobile || "N/A"}
                 </p>
-                <p>
-                  <span className="font-semibold">Bought Ticket:</span>{" "}
-                  {user?.isBought ? "Yes" : "No"}
-                </p>
-                <p>
-                  <span className="font-semibold">Admin:</span>{" "}
-                  {user?.isAdmin ? "Yes" : "No"}
-                </p>
-                <button
-                  onClick={() => handleIssueTicket(user._id!)}
-                  className="bg-primary-500 text-white p-2 mt-4 rounded"
-                >
-                  Issue Ticket
-                </button>
+                {!user?.isBought && (
+                  <button
+                    onClick={() => handleIssueTicket(user._id!)}
+                    className="bg-primary-500 text-white p-2 mt-4 rounded"
+                  >
+                    Issue Ticket
+                  </button>
+                )}
               </div>
             ))}
           </div>
@@ -312,7 +303,7 @@ export default function ListUsers() {
                 <button
                   key={index + 1}
                   onClick={() => paginate(index + 1)}
-                  className={`p-2 mx-1 ${
+                  className={`p-2 px-4 mx-1 ${
                     currentPage === index + 1
                       ? "bg-primary-600 text-white"
                       : "bg-black-300 text-black"
@@ -326,9 +317,9 @@ export default function ListUsers() {
         </div>
       )}
       {modalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded shadow-lg">
-            <h2 className="text-2xl mb-4">Issue Ticket</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md flex justify-center items-center">
+          <div className="bg-black-100 p-6 rounded shadow-lg">
+            <h3 className="text-2xl mb-4">Issue Ticket</h3>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label htmlFor="amount" className="block mb-1 font-medium">
@@ -339,7 +330,7 @@ export default function ListUsers() {
                   id="amount"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
-                  className="border p-2 rounded w-full"
+                  className="border p-2 rounded w-full bg-black-200 border-none outline-none"
                   required
                 />
               </div>
@@ -359,13 +350,13 @@ export default function ListUsers() {
                 <button
                   type="button"
                   onClick={handleModalClose}
-                  className="bg-gray-500 text-white p-2 rounded mr-2"
+                  className="bg-black-100 border border-primary-700 text-white p-2 rounded mr-2"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-primary-500 text-white p-2 rounded"
+                  className="bg-primary-700 text-white p-2 rounded"
                 >
                   Submit
                 </button>

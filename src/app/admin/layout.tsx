@@ -45,7 +45,7 @@ export default function RootLayout({
         </aside>
 
         {/* Main content area */}
-        <main className="flex-grow ml-64 p-6 bg-black-200">
+        <main className="flex-grow ml-64 p-6 bg-black-200 bg-opacity-50">
           {children ? (
             children
           ) : (

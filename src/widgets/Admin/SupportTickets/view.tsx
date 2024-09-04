@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import showTedxToast from '@components/showTedxToast';
 import TitleBar from '@components/TitleBar';
 import SupportTicketModal from './components/SupportTicketModal';
-
+import { ScaleLoader } from 'react-spinners'
 interface SupportTicket {
   _id: string;
   userId: string;
@@ -80,7 +80,7 @@ const SupportTickets: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
+    return <div className="flex justify-center items-center min-h-screen"><ScaleLoader color='#eb0028'/></div>;
   }
 
   if (error) {

@@ -74,6 +74,7 @@ export const POST = async (request: Request) => {
             paymentId: "By Manual",
             referal_code: "NILL",
             count: 1,
+            confirmationMailSent:true,
             amount,
             group: [userGroup],
         });
