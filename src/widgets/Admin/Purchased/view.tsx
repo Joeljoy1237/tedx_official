@@ -168,11 +168,11 @@ const Purchased: React.FC = () => {
       <div className="mb-6 bg-gray-800 text-white p-4 rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold mb-4">Statistics</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <div className="bg-blue-500 p-4 rounded-lg shadow-md">
+          <div className="bg-primary-500 p-4 rounded-lg shadow-md">
             <h3 className="text-xl font-semibold">Total Bookings</h3>
             <p className="text-3xl font-bold">{totalBookings || 0}</p>
           </div>
-          <div className="bg-green-500 p-4 rounded-lg shadow-md">
+          <div className="bg-primary-700 p-4 rounded-lg shadow-md">
             <h3 className="text-xl font-semibold">Total Amount Received</h3>
             <p className="text-3xl font-bold font-sans">
               {formatAmount(totalAmount)}.00
