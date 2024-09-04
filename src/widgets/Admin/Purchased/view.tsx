@@ -165,7 +165,7 @@ const Purchased: React.FC = () => {
 
   return (
     <div className="p-4 bg-black text-white">
-      <div className="mb-6 bg-gray-800 text-white p-4 rounded-lg shadow-lg">
+      <div className="mb-6 bg-black-200 text-white rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold mb-4">Statistics</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <div className="bg-blue-500 p-4 rounded-lg shadow-md">
@@ -188,7 +188,7 @@ const Purchased: React.FC = () => {
           placeholder="Search..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="p-2 bg-gray-700 text-white rounded w-full md:w-1/3"
+          className="p-2 bg-black-300 text-white rounded w-full md:w-1/3 outline-none border-none"
         />
         <div>
           <label htmlFor="sortOrder" className="mr-2">
@@ -198,7 +198,7 @@ const Purchased: React.FC = () => {
             id="sortOrder"
             value={sortOrder}
             onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
-            className="p-2 bg-gray-700 text-white rounded"
+            className="p-2 bg-black-300 text-white rounded outline-none border-none"
           >
             <option value="desc">Descending</option>
             <option value="asc">Ascending</option>

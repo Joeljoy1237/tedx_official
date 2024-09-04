@@ -91,6 +91,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
         referal_code,
         isStudent,
         count,
+        confirmationMailSent:true,
         amount,
         group,
       });
