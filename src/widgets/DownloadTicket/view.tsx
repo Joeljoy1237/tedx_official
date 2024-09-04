@@ -47,6 +47,8 @@ export default function DownloadTicket() {
         setIsLoaded(true);
       } catch (error) {
         console.error("Error fetching data:", error);
+        router.push("/");
+        setIsLoaded(true);
       }
     };
 

@@ -127,6 +127,15 @@ const TicketComponent: React.FC = () => {
         type:"success",
         message:"Submitted successfully"
       });
+      setGroup([
+        {
+          firstName: "",
+          lastName: "",
+          email: "",
+          organisation: "",
+          designation: "",
+        },
+      ])
       console.log("Ticket submitted successfully:", data);
     } catch (err) {
       showTedxToast({

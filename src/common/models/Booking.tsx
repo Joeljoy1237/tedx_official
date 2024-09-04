@@ -21,6 +21,10 @@ const BookingSchema = new Schema(
       type: Number,
       required: true,
     },
+    isSponsor:{
+      type: Boolean,
+      default: false,
+    },
     confirmationMailSent: {
       type: Boolean,
       default: false,
