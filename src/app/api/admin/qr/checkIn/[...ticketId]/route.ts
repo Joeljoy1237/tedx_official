@@ -4,25 +4,24 @@ import { NextRequest } from "next/server";
 import { ObjectId } from 'mongodb';
 
 interface Params {
-  ticketId: string;
+  ticketId: string[];
 }
 
 export const GET = async (
   request: NextRequest,
   { params }: { params: Params }
 ) => {
-  const ticketId = params.ticketId;
+  const ticketIdTemp = params.ticketId;
+  let final = ticketIdTemp.join("/");
+  const ticketId = final.slice(0, final.length);
+  console.log(ticketId);
 
   try {
     await connectToDB();
     // Find the ticket
     const ticket = await Booking.findOne({
-      group: {
-        $elemMatch: {
-          _id: ticketId, // Convert ticketId to ObjectId if necessary
-        },
-      },
-    });
+      group: { $elemMatch: { ticketId } },
+    }).exec();
 
     // Handle case where ticket is not found
     if (!ticket) {

@@ -89,9 +89,6 @@ export async function POST(request: Request): Promise<Response> {
         return (sortOrder === 'desc' ? ticketIdB - ticketIdA : ticketIdA - ticketIdB);
       });
 
-    // Debug: Print sorted bookings
-    console.log("Bookings after sorting:", JSON.stringify(sortedBookings, null, 2));
-
     // Check if any bookings or ticket statuses were found
     if (sortedBookings.length > 0 || ticketStatus.length > 0) {
       return new Response(
