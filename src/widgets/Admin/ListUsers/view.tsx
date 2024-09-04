@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 
 interface User {
@@ -17,6 +17,7 @@ interface User {
 
 export default function ListUsers() {
   const [users, setUsers] = useState<User[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]); // New state for filtered users
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [startDate, setStartDate] = useState<string>("");
@@ -24,7 +25,11 @@ export default function ListUsers() {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [amount, setAmount] = useState<string>("");
-  const [isStudent, setIsStudent] = useState<boolean>(false); // New state for isStudent
+  const [isStudent, setIsStudent] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>(""); // State for search query
+  const [currentPage, setCurrentPage] = useState<number>(1); // State for pagination
+
+  const usersPerPage = 15; // Number of users per page
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -35,7 +40,7 @@ export default function ListUsers() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ startDate, endDate }),
-        cache: "no-store", // Prevent caching
+        cache: "no-store",
       });
 
       if (!response.ok) {
@@ -44,11 +49,24 @@ export default function ListUsers() {
 
       const data = await response.json();
       setUsers(data);
+      setFilteredUsers(data); // Set both users and filteredUsers with the fetched data
     } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+    const filtered = users.filter(
+      (user) =>
+        `${user.firstName} ${user.lastName}`.toLowerCase().includes(query) ||
+        (user.email && user.email.toLowerCase().includes(query))
+    );
+    setFilteredUsers(filtered);
+    setCurrentPage(1); // Reset to the first page after searching
   };
 
   const handleIssueTicket = (userId: string) => {
@@ -60,14 +78,14 @@ export default function ListUsers() {
     setModalOpen(false);
     setSelectedUserId(null);
     setAmount("");
-    setIsStudent(false); // Reset isStudent state
+    setIsStudent(false);
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     if (!selectedUserId || !amount) {
-      return; // Handle invalid form data
+      return;
     }
 
     try {
@@ -76,16 +94,15 @@ export default function ListUsers() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userId: selectedUserId, amount, isStudent }), // Include isStudent
+        body: JSON.stringify({ userId: selectedUserId, amount, isStudent }),
       });
 
       if (!response.ok) {
         throw new Error("Failed to create booking");
       }
 
-      // Close modal and reset state
       handleModalClose();
-      fetchUsers(); // Refresh the user list
+      fetchUsers();
     } catch (err: any) {
       setError(err.message);
     }
@@ -104,25 +121,23 @@ export default function ListUsers() {
       "Mobile",
       "Organisation",
       "Designation",
-      "Has Bought Ticket", // Added "isBought" field to the headers
+      "Has Bought Ticket",
     ];
 
-    // Define minimum widths for each column
     const minWidths: { [key: string]: number } = {
-      "_id": 20,
+      _id: 20,
       "First Name": 20,
       "Last Name": 20,
-      "Email": 30,
-      "Mobile": 15,
-      "Organisation": 25,
-      "Designation": 25,
-      "Has Bought Ticket": 15, // Define width for "isBought"
+      Email: 30,
+      Mobile: 15,
+      Organisation: 25,
+      Designation: 25,
+      "Has Bought Ticket": 15,
     };
 
-    // Calculate maximum width for each column, ensuring minimum width
     const columnWidths = headers.map((header) =>
       Math.max(
-        minWidths[header] || 10, // Default to 10 if min width is not defined
+        minWidths[header] || 10,
         ...users.map((user) => {
           return [
             user._id || "",
@@ -132,15 +147,16 @@ export default function ListUsers() {
             user.mobile || "N/A",
             user.organisation || "N/A",
             user.designation || "N/A",
-            user.isBought ? "Yes" : "No", // Include the "isBought" value in the row
+            user.isBought ? "Yes" : "No",
           ][headers.indexOf(header)].length;
         })
       )
     );
 
-    // Create CSV rows
     const csvRows = [];
-    csvRows.push(headers.map((header, i) => header.padEnd(columnWidths[i])).join(","));
+    csvRows.push(
+      headers.map((header, i) => header.padEnd(columnWidths[i])).join(",")
+    );
 
     for (const user of users) {
       const row = [
@@ -151,10 +167,12 @@ export default function ListUsers() {
         user.mobile || "N/A",
         user.organisation || "N/A",
         user.designation || "N/A",
-        user.isBought ? "Yes" : "No", // Add the "isBought" value here
-      ].map((field) => String(field)); // Convert to string
+        user.isBought ? "Yes" : "No",
+      ].map((field) => String(field));
 
-      csvRows.push(row.map((field, i) => field.padEnd(columnWidths[i])).join(","));
+      csvRows.push(
+        row.map((field, i) => field.padEnd(columnWidths[i])).join(",")
+      );
     }
 
     const csvString = csvRows.join("\n");
@@ -166,6 +184,12 @@ export default function ListUsers() {
     a.click();
     URL.revokeObjectURL(url);
   };
+
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   if (loading) {
     return (
@@ -183,7 +207,7 @@ export default function ListUsers() {
     );
   }
 
-  const totalUsers = users.length;
+  const totalUsers = filteredUsers.length;
   const boughtUsersCount = users.filter((user) => user.isBought).length;
   const adminUsersCount = users.filter((user) => user.isAdmin).length;
 
@@ -192,6 +216,13 @@ export default function ListUsers() {
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-2xl font-semibold">User List</h3>
         <div>
+          <input
+            type="text"
+            placeholder="Search by name or email"
+            value={searchQuery}
+            onChange={handleSearch}
+            className="border p-2 rounded mr-2 placeholder-white bg-black-200"
+          />
           <input
             type="date"
             value={startDate}
@@ -228,94 +259,115 @@ export default function ListUsers() {
       {totalUsers === 0 ? (
         <p>No users found.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {users.map((user) => (
-            <div
-              key={user._id}
-              className="bg-black-100 text-white p-4 rounded-lg shadow-md"
-            >
-              <h4 className="text-xl font-bold mb-2">
-                {user?.firstName} {user?.lastName}
-              </h4>
-              <p className="mb-1">
-                <strong>Email:</strong> {user?.email}
-              </p>
-              <p className="mb-1">
-                <strong>Mobile:</strong> {user?.mobile || "N/A"}
-              </p>
-              <p className="mb-1">
-                <strong>Organisation:</strong> {user?.organisation || "N/A"}
-              </p>
-              <p className="mb-1">
-                <strong>Designation:</strong> {user?.designation || "N/A"}
-              </p>
-              <p className="mb-1">
-                <strong>Referral Code:</strong> {user?.referal_code || "N/A"}
-              </p>
-              <p className="mb-1">
-                <strong>Has Bought Ticket:</strong>{" "}
-                {user?.isBought ? "Yes" : "No"}
-              </p>
-              <p className="mb-1">
-                <strong>Admin:</strong> {user?.isAdmin ? "Yes" : "No"}
-              </p>
-              <p className="mb-1">
-                <strong>Created Date:</strong>{" "}
-                {user?.createdAt
-                  ? new Date(user.createdAt).toLocaleDateString()
-                  : "N/A"}
-              </p>
-              {!user.isBought && (
+        <div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {currentUsers.map((user) => (
+              <div
+                key={user._id}
+                className="bg-black-100 text-white p-4 rounded-lg shadow-md"
+              >
+                <h4 className="text-xl font-bold mb-2">
+                  {user?.firstName} {user?.lastName}
+                </h4>
+                <p>
+                  <span className="font-semibold">Email:</span> {user?.email}
+                </p>
+                <p>
+                  <span className="font-semibold">Referal Code:</span>{" "}
+                  {user?.referal_code}
+                </p>
+                <p>
+                  <span className="font-semibold">Organisation:</span>{" "}
+                  {user?.organisation}
+                </p>
+                <p>
+                  <span className="font-semibold">Designation:</span>{" "}
+                  {user?.designation}
+                </p>
+                <p>
+                  <span className="font-semibold">Mobile:</span>{" "}
+                  {user?.mobile || "N/A"}
+                </p>
+                <p>
+                  <span className="font-semibold">Bought Ticket:</span>{" "}
+                  {user?.isBought ? "Yes" : "No"}
+                </p>
+                <p>
+                  <span className="font-semibold">Admin:</span>{" "}
+                  {user?.isAdmin ? "Yes" : "No"}
+                </p>
                 <button
                   onClick={() => handleIssueTicket(user._id!)}
-                  className="bg-red-500 text-white p-2 rounded mt-4"
+                  className="bg-primary-500 text-white p-2 mt-4 rounded"
                 >
                   Issue Ticket
                 </button>
-              )}
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-center mt-6">
+            {Array.from(
+              { length: Math.ceil(filteredUsers.length / usersPerPage) },
+              (_, index) => (
+                <button
+                  key={index + 1}
+                  onClick={() => paginate(index + 1)}
+                  className={`p-2 mx-1 ${
+                    currentPage === index + 1
+                      ? "bg-primary-600 text-white"
+                      : "bg-black-300 text-black"
+                  } rounded`}
+                >
+                  {index + 1}
+                </button>
+              )
+            )}
+          </div>
         </div>
       )}
-
-      {/* Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-black-200 p-6 rounded-lg shadow-lg max-w-sm w-full">
-            <h3 className="text-xl font-semibold mb-4">Issue Ticket</h3>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-6 rounded shadow-lg">
+            <h2 className="text-2xl mb-4">Issue Ticket</h2>
             <form onSubmit={handleSubmit}>
-              <label className="block mb-2">
-                Amount:
+              <div className="mb-4">
+                <label htmlFor="amount" className="block mb-1 font-medium">
+                  Amount:
+                </label>
                 <input
                   type="number"
+                  id="amount"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
-                  className="border p-2 rounded w-full mt-1 bg-black-300"
+                  className="border p-2 rounded w-full"
                   required
                 />
-              </label>
-              <label className="block mb-2">
+              </div>
+              <div className="mb-4">
                 <input
                   type="checkbox"
+                  id="isStudent"
                   checked={isStudent}
                   onChange={(e) => setIsStudent(e.target.checked)}
                   className="mr-2"
                 />
-                Is Student
-              </label>
+                <label htmlFor="isStudent" className="font-medium">
+                  Is Student?
+                </label>
+              </div>
               <div className="flex justify-end">
-                <button
-                  type="submit"
-                  className="bg-blue-500 text-white p-2 rounded mr-2"
-                >
-                  Submit
-                </button>
                 <button
                   type="button"
                   onClick={handleModalClose}
-                  className="bg-gray-500 text-white p-2 rounded"
+                  className="bg-gray-500 text-white p-2 rounded mr-2"
                 >
                   Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="bg-primary-500 text-white p-2 rounded"
+                >
+                  Submit
                 </button>
               </div>
             </form>
