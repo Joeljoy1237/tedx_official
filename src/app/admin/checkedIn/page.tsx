@@ -85,11 +85,11 @@ const Page = () => {
       {/* Header with stats */}
       <div className="flex justify-between items-center mb-8">
         <div className="bg-red-600 p-4 rounded text-center w-1/3">
-          <h3 className="text-2xl font-bold">Total Bookings</h3>
+          <h3 className="text-2xl font-bold">Total Check In</h3>
           <p className="text-4xl font-bold">{totalBookings}</p>
         </div>
         <div className="bg-red-600 p-4 rounded text-center w-1/3">
-          <h3 className="text-2xl font-bold">Total Amount Received</h3>
+          <h3 className="text-2xl font-bold">Total Amount</h3>
           <p className="text-4xl font-bold">₹{totalAmount.toFixed(2)}</p>
         </div>
       </div>
