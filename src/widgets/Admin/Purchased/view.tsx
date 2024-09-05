@@ -5,6 +5,7 @@ import { IoMdDownload } from "react-icons/io";
 import { FaEnvelope } from "react-icons/fa"; // Import mail icon
 import showTedxToast from "@components/showTedxToast";
 import { ScaleLoader } from "react-spinners";
+import { useRouter } from "next/navigation";
 interface BookingGroup {
   _id: string;
   firstName: string;
@@ -40,10 +41,10 @@ const Purchased: React.FC = () => {
   const [ticketStatus, setTicketStatus] = useState<{ ticketSold?: number }[]>(
     []
   );
-  console.log(bookings)
+  console.log(bookings);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc"); // Default sort order
   const [searchQuery, setSearchQuery] = useState<string>(""); // State for search query
-
+  const router = useRouter();
   const fetchBookings = async () => {
     try {
       const response = await fetch("/api/admin/purchased-list", {
@@ -193,7 +194,7 @@ const Purchased: React.FC = () => {
           placeholder="Search..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="p-2 bg-black-300 text-white rounded w-full md:w-1/3 outline-none border-none"
+          className="p-2 bg-black-300 placeholder-white text-white rounded w-full md:w-1/3 outline-none border-none"
         />
         <div>
           <label htmlFor="sortOrder" className="mr-2">
@@ -291,6 +292,14 @@ const Purchased: React.FC = () => {
                           Mail
                         </button>
                       )}
+                      <button
+                        onClick={() =>
+                          router.push(`/admin/check-qr/${person.ticketId}`)
+                        }
+                        className="bg-blue-500 font-semibold text-xl text-white w-[10vw] p-3 rounded-[10px] flex flex-row items-center justify-center gap-2"
+                      >
+                        Check In
+                      </button>
                     </div>
                   </li>
                 ))}

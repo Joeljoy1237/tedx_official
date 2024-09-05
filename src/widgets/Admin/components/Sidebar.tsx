@@ -35,6 +35,11 @@ const router  = useRouter();
       link: "/admin/newTicket",
       icon: <MdOutlineAddBox />,
     },
+    {
+      title: "Checked In",
+      link: "/admin/checkedIn",
+      icon: <MdOutlineAddBox />,
+    },
   ];
 
   const handleLogout = () => {
@@ -71,17 +76,13 @@ const router  = useRouter();
             icon={<TiHomeOutline />}
             className="flex items-center gap-2 justify-center bg-primary-700 py-2 w-[12rem] rounded-[10px] text-xl"
           />
-        </Link>{" "}
-        <Button
-          onClick={()=>{
-            signOut();
-            router.push('/')
-          }}
-          title="Logout"
-          position="left"
-          icon={<MdLogout />}
-          className="flex items-center gap-2 justify-center border border-primary-700 text-primary-700 py-2 w-[12rem] rounded-[10px] text-xl"
-        />
+          </Link>{" "}
+          <Button
+            title="Logout"
+            position="left"
+            icon={<MdLogout />}
+            className="flex items-center gap-2 justify-center border border-primary-700 text-primary-700 py-2 w-[12rem] rounded-[10px] text-xl"
+          />
       </div>
     </div>
   );
