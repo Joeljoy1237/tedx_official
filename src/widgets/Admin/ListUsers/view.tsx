@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { ScaleLoader } from 'react-spinners'
+import { ScaleLoader } from "react-spinners";
 interface User {
   _id?: string;
   firstName?: string | null;
@@ -194,7 +194,7 @@ export default function ListUsers() {
   if (loading) {
     return (
       <div className="flex w-full h-full items-center justify-center">
-       <ScaleLoader color="#eb0028" />
+        <ScaleLoader color="#eb0028" />
       </div>
     );
   }
@@ -214,14 +214,17 @@ export default function ListUsers() {
   return (
     <div className="p-6 rounded-lg shadow-lg">
       <div className="flex justify-between bg-black-100 p-3 rounded-[10px] items-center mb-6">
-        <h3 className="text-2xl font-semibold font-sans">User List ({" "}{totalUsers}{" Users"})</h3>
+        <h3 className="text-2xl font-semibold font-sans">
+          User List ( {totalUsers}
+          {" Users"})
+        </h3>
         <div>
           <input
             type="text"
             placeholder="Search by name or email"
             value={searchQuery}
             onChange={handleSearch}
-            className="border-black-400 border p-2 rounded mr-2 placeholder-black-300 bg-black-200"
+            className="border-black-400 border p-2 rounded mr-2 placeholder-white bg-black-200"
           />
           <input
             type="date"

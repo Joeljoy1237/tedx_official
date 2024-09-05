@@ -34,6 +34,11 @@ export default function Sidebar() {
       link: "/admin/newTicket",
       icon: <MdOutlineAddBox />,
     },
+    {
+      title: "Checked In",
+      link: "/admin/checkedIn",
+      icon: <MdOutlineAddBox />,
+    },
   ];
 
   const handleLogout = () => {
@@ -64,19 +69,19 @@ export default function Sidebar() {
       </div>
       <div className="absolute bottom-[8rem] w-full flex flex-col gap-2">
         <Link href={"/"} className="w-full">
-        <Button
-          title="Go to home"
-          position="left"
-          icon={<TiHomeOutline />}
-          className="flex items-center gap-2 justify-center bg-primary-700 py-2 w-[12rem] rounded-[10px] text-xl"
-          />
-          </Link>{" "}
           <Button
-            title="Logout"
+            title="Go to home"
             position="left"
-            icon={<MdLogout />}
-            className="flex items-center gap-2 justify-center border border-primary-700 text-primary-700 py-2 w-[12rem] rounded-[10px] text-xl"
+            icon={<TiHomeOutline />}
+            className="flex items-center gap-2 justify-center bg-primary-700 py-2 w-[12rem] rounded-[10px] text-xl"
           />
+        </Link>{" "}
+        <Button
+          title="Logout"
+          position="left"
+          icon={<MdLogout />}
+          className="flex items-center gap-2 justify-center border border-primary-700 text-primary-700 py-2 w-[12rem] rounded-[10px] text-xl"
+        />
       </div>
     </div>
   );
