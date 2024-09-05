@@ -26,7 +26,7 @@ export const navLinks = [
     },
     {
         title: "get tickets",
-        url: "/get-tickets"
+        url: "/"
     },
     {
         title: "getting there",
@@ -66,9 +66,9 @@ export const aboutDetails = [
 
 export const speakersList = [
     {
-        name:"Lt. Col. Rishi Rajalakshmi",
-        designation:"Indian Army",
-        image:"/speakers/Lt.Col. Rishi 1.png",
+        name: "Lt. Col. Rishi Rajalakshmi",
+        designation: "Indian Army",
+        image: "/speakers/Lt.Col. Rishi 1.png",
     },
     {
         name: "Dr. V P Gangadharan",

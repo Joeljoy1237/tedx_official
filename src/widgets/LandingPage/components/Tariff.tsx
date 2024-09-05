@@ -58,13 +58,12 @@ export default function Tariff() {
           </div>
         </div>
       </div>
+
+      {/* Registration Closed Message */}
       <div className="w-full flex items-center justify-center">
-        <Link href={"/get-tickets"}>
-          <Button
-            title="Get your tickets now"
-            className="bg-primary-700 p-4 w-full md:w-full lg:w-full rounded-[8px] outline-none border-none font-semibold"
-          />
-        </Link>
+        <p className="text-lg text-center font-semibold text-red-500 bg-black-200 p-4 rounded-lg border border-red-400 shadow-md w-full md:w-3/4 lg:w-2/3">
+          Sorry, Registration for this event is now closed
+        </p>
       </div>
     </div>
   );
