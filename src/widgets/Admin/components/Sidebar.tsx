@@ -1,7 +1,7 @@
 "use client";
 import Button from "@components/Button";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { FaRegRectangleList } from "react-icons/fa6";
 import { TiTicket } from "react-icons/ti";
@@ -9,10 +9,11 @@ import { MdOutlineAddBox } from "react-icons/md";
 import { MdOutlineContactSupport } from "react-icons/md";
 import { MdLogout } from "react-icons/md";
 import { TiHomeOutline } from "react-icons/ti";
+import { signOut } from "next-auth/react";
 
 export default function Sidebar() {
   const pathname = usePathname(); // Get the current path
-
+const router  = useRouter();
   const menu = [
     {
       title: "List Users",
@@ -64,19 +65,23 @@ export default function Sidebar() {
       </div>
       <div className="absolute bottom-[8rem] w-full flex flex-col gap-2">
         <Link href={"/"} className="w-full">
-        <Button
-          title="Go to home"
-          position="left"
-          icon={<TiHomeOutline />}
-          className="flex items-center gap-2 justify-center bg-primary-700 py-2 w-[12rem] rounded-[10px] text-xl"
-          />
-          </Link>{" "}
           <Button
-            title="Logout"
+            title="Go to home"
             position="left"
-            icon={<MdLogout />}
-            className="flex items-center gap-2 justify-center border border-primary-700 text-primary-700 py-2 w-[12rem] rounded-[10px] text-xl"
+            icon={<TiHomeOutline />}
+            className="flex items-center gap-2 justify-center bg-primary-700 py-2 w-[12rem] rounded-[10px] text-xl"
           />
+        </Link>{" "}
+        <Button
+          onClick={()=>{
+            signOut();
+            router.push('/')
+          }}
+          title="Logout"
+          position="left"
+          icon={<MdLogout />}
+          className="flex items-center gap-2 justify-center border border-primary-700 text-primary-700 py-2 w-[12rem] rounded-[10px] text-xl"
+        />
       </div>
     </div>
   );

@@ -80,7 +80,11 @@ const SupportTickets: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="flex justify-center items-center min-h-screen"><ScaleLoader color='#eb0028'/></div>;
+    return (
+      <div className="w-full h-full items-center justify-center flex">
+        <ScaleLoader color="#eb0028" />
+      </div>
+    );
   }
 
   if (error) {
@@ -88,7 +92,7 @@ const SupportTickets: React.FC = () => {
   }
 
   return (
-    <div className="pt-[100px] px-[5vw] min-h-screen bg-[#000000] text-white flex flex-col gap-12">
+    <div className="py-10 rounded-[8px] px-[5vw] bg-[#000000] text-white flex flex-col gap-12">
       <TitleBar title="All Support" titleSecond="Tickets" />
       <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {tickets.length > 0 ? (
