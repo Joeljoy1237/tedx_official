@@ -19,8 +19,8 @@ export const POST = async (request: Request) => {
       };
     }
 
-    // Fetch users from the User collection based on the filter
-    const users = await User.find(filter).exec();
+    // Fetch users from the User collection based on the filter and sort by createdAt in descending order
+    const users = await User.find(filter).sort({ createdAt: -1 }).exec();
 
     // If no users are found, return a 404 status
     if (!users || users.length === 0) {
@@ -28,7 +28,6 @@ export const POST = async (request: Request) => {
     }
 
     // Return the user data in JSON format
-
     return new Response(JSON.stringify(users), { status: 200 });
   } catch (err) {
     // Log any errors to the console

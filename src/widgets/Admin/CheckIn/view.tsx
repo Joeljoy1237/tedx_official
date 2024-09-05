@@ -23,7 +23,7 @@ export default function CheckIn() {
       }
     }, [status, session, router]);
   return (
-    <main>
+    <main className='w-full h-full flex items-center justify-center'>
         {!isLoaded && <PreLoader/>}
         <Content/>
     </main>
