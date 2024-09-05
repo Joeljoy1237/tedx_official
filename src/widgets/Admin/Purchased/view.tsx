@@ -40,7 +40,7 @@ const Purchased: React.FC = () => {
   const [ticketStatus, setTicketStatus] = useState<{ ticketSold?: number }[]>(
     []
   );
-  console.log(bookings)
+  console.log(bookings);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc"); // Default sort order
   const [searchQuery, setSearchQuery] = useState<string>(""); // State for search query
 
@@ -193,7 +193,7 @@ const Purchased: React.FC = () => {
           placeholder="Search..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="p-2 bg-black-300 text-white rounded w-full md:w-1/3 outline-none border-none"
+          className="p-2 bg-black-300 placeholder-white text-white rounded w-full md:w-1/3 outline-none border-none"
         />
         <div>
           <label htmlFor="sortOrder" className="mr-2">
