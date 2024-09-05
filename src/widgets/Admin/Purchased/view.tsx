@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { IoMdDownload } from "react-icons/io";
 import { FaEnvelope } from "react-icons/fa"; // Import mail icon
 import showTedxToast from "@components/showTedxToast";
-import { ScaleLoader } from 'react-spinners'
+import { ScaleLoader } from "react-spinners";
 interface BookingGroup {
   _id: string;
   firstName: string;
@@ -12,6 +12,7 @@ interface BookingGroup {
   email: string;
   organisation: string;
   designation: string;
+  food: "veg" | "non-veg";
   checkedIn: boolean;
   isStudent: boolean;
   ticketId: string;
@@ -39,6 +40,7 @@ const Purchased: React.FC = () => {
   const [ticketStatus, setTicketStatus] = useState<{ ticketSold?: number }[]>(
     []
   );
+  console.log(bookings)
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc"); // Default sort order
   const [searchQuery, setSearchQuery] = useState<string>(""); // State for search query
 
@@ -155,7 +157,11 @@ const Purchased: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="w-full h-full items-center justify-center flex"><ScaleLoader color="#eb0028" /></div>;
+    return (
+      <div className="w-full h-full items-center justify-center flex">
+        <ScaleLoader color="#eb0028" />
+      </div>
+    );
   }
 
   if (error) {
@@ -243,6 +249,9 @@ const Purchased: React.FC = () => {
                       </p>
                       <p>
                         <strong>Designation:</strong> {person.designation}
+                      </p>
+                      <p>
+                        <strong>Food preference:</strong> {person.food}
                       </p>
                       <p>
                         <strong>Checked In:</strong>{" "}

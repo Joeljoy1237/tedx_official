@@ -270,6 +270,9 @@ export default function ListUsers() {
                   <span className="font-semibold">Email:</span> {user?.email}
                 </p>
                 <p>
+                  <span className="font-semibold">User Id:</span> {user?._id}
+                </p>
+                <p>
                   <span className="font-semibold">Referal Code:</span>{" "}
                   {user?.referal_code}
                 </p>
