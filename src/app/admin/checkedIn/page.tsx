@@ -120,8 +120,8 @@ const Page = () => {
       {/* Bookings List */}
       <div>
         <h3 className="text-2xl font-bold mb-4">Purchased Bookings</h3>
-        {filteredUsers.map((booking) => (
-          <div key={booking.userId} className="p-4 rounded mb-4">
+        {filteredUsers.map((booking, index) => (
+          <div key={index} className="p-4 rounded mb-4">
             <h3 className="font-bold">By Manual</h3>
             <p>
               <strong>User ID:</strong> {booking.userId}
