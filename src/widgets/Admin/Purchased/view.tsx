@@ -41,7 +41,7 @@ const Purchased: React.FC = () => {
   const [ticketStatus, setTicketStatus] = useState<{ ticketSold?: number }[]>(
     []
   );
-  console.log(bookings)
+  console.log(bookings);
   console.log(bookings);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc"); // Default sort order
   const [searchQuery, setSearchQuery] = useState<string>(""); // State for search query
@@ -293,14 +293,22 @@ const Purchased: React.FC = () => {
                           Mail
                         </button>
                       )}
-                      <button
+                      {person?.checkedIn ? (
+                        <button
+                          className="bg-green-500 font-semibold text-xl text-white w-[10vw] p-3 rounded-[10px] flex flex-row items-center justify-center gap-2"
+                        >
+                          CheckedIn
+                        </button>
+                      ) : (
+                        <button
                         onClick={() =>
                           router.push(`/admin/check-qr/${person.ticketId}`)
                         }
-                        className="bg-blue-500 font-semibold text-xl text-white w-[10vw] p-3 rounded-[10px] flex flex-row items-center justify-center gap-2"
-                      >
-                        Check In
-                      </button>
+                          className="bg-blue-500 font-semibold text-xl text-white w-[10vw] p-3 rounded-[10px] flex flex-row items-center justify-center gap-2"
+                        >
+                          Check In
+                        </button>
+                      )}
                     </div>
                   </li>
                 ))}

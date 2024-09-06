@@ -104,6 +104,11 @@ export const speakersList = [
         name: "Master Raul Aju John",
         designation: "Tech Enthusiast",
         image: "/speakers/rault.png",
+    },
+    {
+        name: "Mr. Elamuhil S",
+        designation: "Development Professional, DHAN Foundation",
+        image: "/speakers/ngo.png",
     }
 ]
 
