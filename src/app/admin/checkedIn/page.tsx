@@ -30,6 +30,22 @@ const Page = () => {
     "Descending"
   );
 
+  const fetchCheckedIn = async () => {
+    const response = await fetch("/api/admin/purchased-list/checkIn/fetch");
+    const data: Booking[] = await response.json();
+
+    setCheckedInUsers(data);
+    setFilteredUsers(data);
+
+    // Calculate total count and amount
+    setTotalBookings(data.length);
+    const totalAmountInPaise = data.reduce(
+      (acc, booking) => acc + booking.amount,
+      0
+    );
+    setTotalAmount(totalAmountInPaise / 100); // Convert to rupees
+  };
+
   useEffect(() => {
     fetchCheckedIn();
   }, []);
@@ -55,22 +71,6 @@ const Page = () => {
 
     setFilteredUsers(sorted);
   }, [searchTerm, sortOrder, checkedInUsers]);
-
-  const fetchCheckedIn = async () => {
-    const response = await fetch("/api/admin/purchased-list/checkIn/fetch");
-    const data: Booking[] = await response.json();
-
-    setCheckedInUsers(data);
-    setFilteredUsers(data);
-
-    // Calculate total count and amount
-    setTotalBookings(data.length);
-    const totalAmountInPaise = data.reduce(
-      (acc, booking) => acc + booking.amount,
-      0
-    );
-    setTotalAmount(totalAmountInPaise / 100); // Convert to rupees
-  };
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
