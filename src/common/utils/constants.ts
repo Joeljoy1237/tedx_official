@@ -26,7 +26,7 @@ export const navLinks = [
     },
     {
         title: "get tickets",
-        url: "/get-tickets"
+        url: "/"
     },
     {
         title: "getting there",
