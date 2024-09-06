@@ -41,6 +41,7 @@ const Purchased: React.FC = () => {
   const [ticketStatus, setTicketStatus] = useState<{ ticketSold?: number }[]>(
     []
   );
+  console.log(bookings)
   console.log(bookings);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc"); // Default sort order
   const [searchQuery, setSearchQuery] = useState<string>(""); // State for search query

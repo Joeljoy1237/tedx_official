@@ -66,7 +66,7 @@ export const aboutDetails = [
 
 export const speakersList = [
     {
-        name:"Lt. Col. Rishi Rajalakshmi",
+        name:"Lt Col Rishi Rajalakshmi,sm",
         designation:"Indian Army",
         image:"/speakers/Lt.Col. Rishi 1.png",
     },
