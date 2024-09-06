@@ -20,11 +20,8 @@ export default function GetTickets() {
   useEffect(() => {
     // Use the double-bang operator to ensure 'visible' is always a boolean
     setVisible(!!session?.user?.isBought);
-
-    if (status === "unauthenticated") {
       // Redirect to login page
-      router.push("/login");
-    }
+      router.push("/");
 
     const timer = setTimeout(() => {
       setIsLoaded(true);

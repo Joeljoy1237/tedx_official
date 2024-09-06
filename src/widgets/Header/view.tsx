@@ -101,7 +101,7 @@ export default function HeaderView() {
               <div className="" key={`${navLink?.title}_${index}`}>
                 <Link
                   href={navLink?.url}
-                  className={`capitalize font-bold ${
+                  className={`capitalize font-semibold ${
                     location === navLink?.url && "text-primary-700 font-bold"
                   }`}
                 >
