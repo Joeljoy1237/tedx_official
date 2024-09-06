@@ -41,8 +41,6 @@ const Purchased: React.FC = () => {
   const [ticketStatus, setTicketStatus] = useState<{ ticketSold?: number }[]>(
     []
   );
-  console.log(bookings)
-  console.log(bookings);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc"); // Default sort order
   const [searchQuery, setSearchQuery] = useState<string>(""); // State for search query
   const router = useRouter();
@@ -59,7 +57,7 @@ const Purchased: React.FC = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data?.bookings);
+
         setBookings(data.bookings || []);
         setFilteredBookings(data.bookings || []); // Initialize filtered bookings
         setTicketStatus(data.ticketStatus || []);
@@ -216,11 +214,8 @@ const Purchased: React.FC = () => {
       <h1 className="text-2xl font-bold mb-4">Purchased Bookings</h1>
       {filteredBookings.length > 0 ? (
         <ul>
-          {filteredBookings.map((booking) => (
-            <li
-              key={booking._id}
-              className="mb-4 border-b border-gray-600 pb-2"
-            >
+          {filteredBookings.map((booking, index) => (
+            <li key={index} className="mb-4 border-b border-gray-600 pb-2">
               <h3 className="text-xl font-semibold">{booking.orderId}</h3>
               <p>
                 <strong>User ID:</strong> {booking.userId}
