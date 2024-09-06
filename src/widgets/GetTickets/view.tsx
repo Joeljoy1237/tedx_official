@@ -16,6 +16,7 @@ export default function GetTickets() {
   const [visible, setVisible] = useState(true);
 
   const router = useRouter();
+  router.push("/");
   useEffect(() => {
     // Use the double-bang operator to ensure 'visible' is always a boolean
     setVisible(!!session?.user?.isBought);
@@ -35,7 +36,6 @@ export default function GetTickets() {
   const handlePassLoadStatus = () => {
     setIsLoaded(false);
   };
-
 
   return (
     <main>
