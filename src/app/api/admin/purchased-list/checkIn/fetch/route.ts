@@ -1,43 +1,41 @@
-import { connectToDB } from "@utils/database";
-import Booking from "@models/Booking";
-import { NextRequest, NextResponse } from "next/server"; // Import Next.js types
+import { NextResponse } from 'next/server';
+import { connectToDB } from '@utils/database';
+import Booking from '@models/Booking';
 
-export const GET = async (req: NextRequest): Promise<NextResponse> => {
-  try {
-    await connectToDB();
-  } catch (err) {
-    return new NextResponse(
-      JSON.stringify({ message: "Error connecting to database" }),
-      { status: 500 }
-    );
-  }
+export async function GET() {
+  // Set cache control headers to prevent caching
+  const headers = new Headers({
+    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0',
+    'Surrogate-Control': 'no-store',
+  });
+
+  await connectToDB();
 
   try {
     const tickets = await Booking.aggregate([
       {
         $match: {
-          "group.checkedIn": true, // Filter documents where at least one group member is checked in
+          'group.checkedIn': true, // Filter documents where at least one group member is checked in
         },
       },
       {
         $addFields: {
           group: {
             $filter: {
-              input: "$group",
-              as: "member",
-              cond: { $eq: ["$$member.checkedIn", true] }, // Filter only checked-in group members
+              input: '$group',
+              as: 'member',
+              cond: { $eq: ['$$member.checkedIn', true] }, // Filter only checked-in group members
             },
           },
         },
       },
     ]);
 
-    return new NextResponse(JSON.stringify(tickets), { status: 200 });
+    return NextResponse.json(tickets, { headers, status: 200 });
   } catch (err) {
     console.error(err);
-    return new NextResponse(
-      JSON.stringify({ message: "Error finding users" }),
-      { status: 400 }
-    );
+    return NextResponse.json({ message: 'Error finding users' }, { headers, status: 400 });
   }
-};
+}
