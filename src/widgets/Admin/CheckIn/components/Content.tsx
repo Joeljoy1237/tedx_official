@@ -2,7 +2,7 @@
 import showTedxToast from "@components/showTedxToast";
 import TedxToast from "@components/TedxToast";
 import TitleBar from "@components/TitleBar";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ScaleLoader } from "react-spinners";
 
@@ -22,10 +22,11 @@ interface TicketData {
 export default function Content() {
   const pathname = usePathname();
   const ticketId = pathname.slice(16);
+  const [checked, setChecked] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [data, setData] = useState<TicketData | null>(null); // Define state with a type
   const [loading, setLoading] = useState<boolean>(true); // Loader state
-
+const router = useRouter();
   useEffect(() => {
     fetchData();
   }, []);
@@ -48,6 +49,7 @@ export default function Content() {
     try {
       const response = await fetch(`/api/admin/qr/checkIn/${ticketId}`);
       if (response.ok) {
+        setChecked(true);
         setData((prevData) => {
           if (!prevData) return null; // Handle case where prevData is null
 
@@ -64,6 +66,9 @@ export default function Content() {
           type: "success",
           message: "Successfully checked in",
         });
+        setTimeout(() => {
+          router.push('/admin/checkedIn')
+        }, 500);
       } else {
         showTedxToast({
           type: "error",
@@ -87,7 +92,7 @@ export default function Content() {
 
   return (
     <div className="w-full h-full items-center justify-center flex">
-      { data ? (
+      {data ? (
         <div className="flex flex-col items-center justify-center bg-black-100 p-5 bg-black rounded-[10px]">
           <div className="w-full max-w-xl p-6 bg-black rounded-lg shadow-md">
             <TitleBar title="User" titleSecond="Check-In" />
@@ -117,21 +122,31 @@ export default function Content() {
             </p>
             <p className="text-lg text-white mb-4">
               <span className="font-semibold">Ticket Id: </span>
-             <span className="font-sans"> {data.groupMember.ticketId}</span>
+              <span className="font-sans"> {data.groupMember.ticketId}</span>
             </p>
             <p className="text-lg text-white mb-4">
-              <span className="font-semibold">Check In: </span>
+              <span className="font-semibold">CheckedIn: </span>
               {data.groupMember.checkedIn ? "Yes" : "No"}
             </p>
-            <button
-              onClick={handleCheckIn}
-              disabled={isSubmitting}
-              className={`w-full py-2 px-4 ${
-                isSubmitting ? "bg-gray-600" : "bg-[#eb0028]"
-              } text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-[#eb0028] focus:ring-offset-2`}
-            >
-              {isSubmitting ? "Submitting..." : "Check In"}
-            </button>
+            {!checked ? (
+              <button
+                onClick={handleCheckIn}
+                disabled={isSubmitting}
+                className={`w-full py-2 px-4 ${
+                  isSubmitting ? "bg-gray-600" : "bg-[#eb0028]"
+                } text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-[#eb0028] focus:ring-offset-2`}
+              >
+                {isSubmitting ? "Submitting..." : "Check In"}
+              </button>
+            ) : (
+              <button
+                onClick={handleCheckIn}
+                disabled={isSubmitting}
+                className={`w-full py-2 px-4 bg-green-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2`}
+              >
+                Checked In
+              </button>
+            )}
           </div>
         </div>
       ) : (
