@@ -31,7 +31,10 @@ const Page = () => {
   );
 
   const fetchCheckedIn = async () => {
-    const response = await fetch("/api/admin/purchased-list/checkIn/fetch");
+    const response = await fetch("/api/admin/purchased-list/checkIn/fetch", {
+      method: "GET",
+      cache: "no-store", // Ensures the response is not cached
+    });
     const data: Booking[] = await response.json();
 
     setCheckedInUsers(data);
