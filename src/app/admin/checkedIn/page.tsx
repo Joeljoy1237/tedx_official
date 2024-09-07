@@ -32,10 +32,13 @@ const Page = () => {
 
   useEffect(() => {
     const fetchCheckedIn = async () => {
-      const response = await fetch("/api/admin/purchased-list/checkIn/fetch", {
-        method: "GET",
-        cache: "no-store", // Ensures the response is not cached
-      });
+      const response = await fetch(
+        `/api/admin/purchased-list/checkIn/fetch?timestamp=${new Date().getTime()}`,
+        {
+          method: "GET",
+          cache: "no-store", // Ensures the response is not cached
+        }
+      );
       const data: Booking[] = await response.json();
 
       setCheckedInUsers(data);
@@ -49,6 +52,7 @@ const Page = () => {
       );
       setTotalAmount(totalAmountInPaise / 100); // Convert to rupees
     };
+
     fetchCheckedIn();
   }, [totalBookings]);
 
@@ -61,9 +65,9 @@ const Page = () => {
           member.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
           member.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
           member.ticketId
-          .slice(14, member.ticketId.length)
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
+            .slice(14, member.ticketId.length)
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
       )
     );
 
