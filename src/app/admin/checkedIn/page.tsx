@@ -30,26 +30,25 @@ const Page = () => {
     "Descending"
   );
 
-  const fetchCheckedIn = async () => {
-    const response = await fetch("/api/admin/purchased-list/checkIn/fetch", {
-      method: "GET",
-      cache: "no-store", // Ensures the response is not cached
-    });
-    const data: Booking[] = await response.json();
-
-    setCheckedInUsers(data);
-    setFilteredUsers(data);
-
-    // Calculate total count and amount
-    setTotalBookings(data.length);
-    const totalAmountInPaise = data.reduce(
-      (acc, booking) => acc + booking.amount,
-      0
-    );
-    setTotalAmount(totalAmountInPaise / 100); // Convert to rupees
-  };
-
   useEffect(() => {
+    const fetchCheckedIn = async () => {
+      const response = await fetch("/api/admin/purchased-list/checkIn/fetch", {
+        method: "GET",
+        cache: "no-store", // Ensures the response is not cached
+      });
+      const data: Booking[] = await response.json();
+
+      setCheckedInUsers(data);
+      setFilteredUsers(data);
+
+      // Calculate total count and amount
+      setTotalBookings(data.length);
+      const totalAmountInPaise = data.reduce(
+        (acc, booking) => acc + booking.amount,
+        0
+      );
+      setTotalAmount(totalAmountInPaise / 100); // Convert to rupees
+    };
     fetchCheckedIn();
   }, []);
 
