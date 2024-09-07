@@ -59,7 +59,11 @@ const Page = () => {
         (member) =>
           member.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
           member.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          member.email.toLowerCase().includes(searchTerm.toLowerCase())
+          member.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          member.ticketId
+          .slice(14, member.ticketId.length)
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
       )
     );
 
