@@ -1,41 +1,43 @@
-import { NextResponse } from 'next/server';
-import { connectToDB } from '@utils/database';
-import Booking from '@models/Booking';
+import { connectToDB } from "@utils/database";
+import Booking from "@models/Booking";
+import { NextRequest, NextResponse } from "next/server"; // Import Next.js types
 
-export async function GET() {
-  // Set cache control headers to prevent caching
-  const headers = new Headers({
-    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-    'Pragma': 'no-cache',
-    'Expires': '0',
-    'Surrogate-Control': 'no-store',
-  });
-
-  await connectToDB();
+export const POST = async (req: NextRequest): Promise<NextResponse> => {
+  try {
+    await connectToDB();
+  } catch (err) {
+    return new NextResponse(
+      JSON.stringify({ message: "Error connecting to database" }),
+      { status: 500 }
+    );
+  }
 
   try {
     const tickets = await Booking.aggregate([
       {
         $match: {
-          'group.checkedIn': true, // Filter documents where at least one group member is checked in
+          "group.checkedIn": true, // Filter documents where at least one group member is checked in
         },
       },
       {
         $addFields: {
           group: {
             $filter: {
-              input: '$group',
-              as: 'member',
-              cond: { $eq: ['$$member.checkedIn', true] }, // Filter only checked-in group members
+              input: "$group",
+              as: "member",
+              cond: { $eq: ["$$member.checkedIn", true] }, // Filter only checked-in group members
             },
           },
         },
       },
     ]);
 
-    return NextResponse.json(tickets, { status: 200, headers: { 'Cache-Control': 'public, max-age=60' } });
+    return new NextResponse(JSON.stringify(tickets), { status: 200 });
   } catch (err) {
     console.error(err);
-    return NextResponse.json({ message: 'Error finding users' }, { headers, status: 400 });
+    return new NextResponse(
+      JSON.stringify({ message: "Error finding users" }),
+      { status: 400 }
+    );
   }
-}
+};

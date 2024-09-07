@@ -1,4 +1,5 @@
 "use client";
+import { METHODS } from "http";
 import { useEffect, useState, ChangeEvent } from "react";
 
 interface Member {
@@ -31,30 +32,8 @@ const Page = () => {
   );
 
   useEffect(() => {
-    const fetchCheckedIn = async () => {
-      const response = await fetch(
-        `/api/admin/purchased-list/checkIn/fetch?timestamp=${new Date().getTime()}`,
-        {
-          method: "GET",
-          cache: "no-store", // Ensures the response is not cached
-        }
-      );
-      const data: Booking[] = await response.json();
-
-      setCheckedInUsers(data);
-      setFilteredUsers(data);
-
-      // Calculate total count and amount
-      setTotalBookings(data.length);
-      const totalAmountInPaise = data.reduce(
-        (acc, booking) => acc + booking.amount,
-        0
-      );
-      setTotalAmount(totalAmountInPaise / 100); // Convert to rupees
-    };
-
     fetchCheckedIn();
-  }, [totalBookings]);
+  }, []);
 
   useEffect(() => {
     // Filter and sort the users based on the search term and sort order
@@ -63,11 +42,7 @@ const Page = () => {
         (member) =>
           member.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
           member.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          member.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          member.ticketId
-            .slice(14, member.ticketId.length)
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())
+          member.email.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
 
@@ -81,6 +56,24 @@ const Page = () => {
 
     setFilteredUsers(sorted);
   }, [searchTerm, sortOrder, checkedInUsers]);
+
+  const fetchCheckedIn = async () => {
+    const response = await fetch("/api/admin/purchased-list/checkIn/fetch", {
+      method: "post",
+    });
+    const data: Booking[] = await response.json();
+
+    setCheckedInUsers(data);
+    setFilteredUsers(data);
+
+    // Calculate total count and amount
+    setTotalBookings(data.length);
+    const totalAmountInPaise = data.reduce(
+      (acc, booking) => acc + booking.amount,
+      0
+    );
+    setTotalAmount(totalAmountInPaise / 100); // Convert to rupees
+  };
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
