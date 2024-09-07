@@ -50,7 +50,7 @@ const Page = () => {
       setTotalAmount(totalAmountInPaise / 100); // Convert to rupees
     };
     fetchCheckedIn();
-  }, []);
+  }, [totalBookings]);
 
   useEffect(() => {
     // Filter and sort the users based on the search term and sort order
