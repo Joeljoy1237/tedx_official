@@ -33,7 +33,7 @@ export async function GET() {
       },
     ]);
 
-    return NextResponse.json(tickets, { headers, status: 200 });
+    return NextResponse.json(tickets, { status: 200, headers: { 'Cache-Control': 'public, max-age=60' } });
   } catch (err) {
     console.error(err);
     return NextResponse.json({ message: 'Error finding users' }, { headers, status: 400 });
